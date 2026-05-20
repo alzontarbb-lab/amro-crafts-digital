@@ -23,8 +23,8 @@ export function About() {
           <div className="space-y-6 text-lg leading-relaxed text-pretty">
             <Reveal>
               <p>
-                I'm a CS graduate from Beirut who builds full-stack systems, automates the boring
-                stuff, and occasionally ships a mobile app.
+                I'm a CS graduate from Beirut who builds full-stack web systems and automates the
+                boring stuff that businesses pretend isn't a problem.
               </p>
             </Reveal>
             <Reveal delay={0.1}>
@@ -41,7 +41,7 @@ export function About() {
                   <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-75 animate-ping" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
                 </span>
-                Currently building a cross-platform mobile app (Flutter · NDA client)
+                Currently shipping internal systems & taking on freelance web work
               </div>
             </Reveal>
           </div>
