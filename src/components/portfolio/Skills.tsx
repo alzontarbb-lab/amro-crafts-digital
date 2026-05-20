@@ -2,11 +2,11 @@ import { Reveal, SectionHeader } from "./Reveal";
 import { motion } from "motion/react";
 
 const groups = [
-  { label: "Mobile", items: ["Flutter", "Dart"] },
   { label: "Web", items: ["React", "Vite", "Tailwind", "TypeScript"] },
   { label: "Backend", items: ["PHP", "Laravel", "MySQL", "Supabase", "REST APIs"] },
   { label: "Automation & AI", items: ["Python", "LLM Integration", "Scripting"] },
   { label: "Tools", items: ["Vercel", "Git", "Figma"] },
+  { label: "Mobile (familiar)", items: ["Flutter", "Dart"] },
 ];
 
 export function Skills() {
