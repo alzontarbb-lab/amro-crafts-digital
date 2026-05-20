@@ -43,14 +43,6 @@ const projects: Project[] = [
     year: "2025",
   },
   {
-    title: "Cross-Platform Mobile Business App",
-    blurb:
-      "Shipping a production mobile application for a freelance client under NDA. Full-stack — mobile, API, database.",
-    tech: ["Flutter", "Dart", "PHP", "MySQL"],
-    tag: "Freelance / In Progress",
-    year: "2026",
-  },
-  {
     title: "This Website",
     blurb:
       "A meta addition to the portfolio — the very page you're scrolling right now. Built to be fast, responsive, and just a little self-aware.",
@@ -64,12 +56,12 @@ export function Projects() {
   return (
     <section id="work" className="relative py-32 md:py-40">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader index="04" label="Selected Work" title="Things I built, mostly unprompted." />
+        <SectionHeader index="04" label="Selected Work" title="Built because something needed building." />
 
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((p, i) => (
             <Reveal key={p.title} delay={(i % 2) * 0.08}>
-              <ProjectCard project={p} index={i} />
+              <ProjectCard project={p} />
             </Reveal>
           ))}
         </div>
@@ -78,13 +70,13 @@ export function Projects() {
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project }: { project: Project }) {
   const isFreelance = project.tag === "Freelance / In Progress";
   const isMeta = project.tag === "Meta / This One";
   return (
     <article
       className={`group relative overflow-hidden rounded-2xl glass p-8 md:p-10 transition-all duration-500 hover:-translate-y-1 hover:ring-teal-glow ${
-        index === 5 ? "md:col-span-2" : ""
+        isMeta ? "md:col-span-2" : ""
       }`}
     >
       <div

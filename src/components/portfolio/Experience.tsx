@@ -3,9 +3,9 @@ import { Reveal, SectionHeader } from "./Reveal";
 const items = [
   {
     period: "2026 — Present",
-    role: "Freelance Software Developer",
-    org: "NDA Client",
-    note: "Shipping a cross-platform mobile business app, full-stack.",
+    role: "Freelance Web Developer",
+    org: "Independent",
+    note: "Taking on full-stack web projects for businesses that need real tools, not templates.",
   },
   {
     period: "2025 — 2026",
