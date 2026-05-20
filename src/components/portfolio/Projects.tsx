@@ -61,7 +61,7 @@ export function Projects() {
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((p, i) => (
             <Reveal key={p.title} delay={(i % 2) * 0.08}>
-              <ProjectCard project={p} index={i} />
+              <ProjectCard project={p} />
             </Reveal>
           ))}
         </div>
@@ -70,7 +70,7 @@ export function Projects() {
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project }: { project: Project }) {
   const isFreelance = project.tag === "Freelance / In Progress";
   const isMeta = project.tag === "Meta / This One";
   return (
