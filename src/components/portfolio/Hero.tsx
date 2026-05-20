@@ -61,8 +61,9 @@ export function Hero() {
             className="text-lg md:text-xl text-muted-foreground max-w-md text-pretty"
           >
             Software Developer & Automation Engineer based in{" "}
-            <span className="text-foreground">Beirut, Lebanon</span>. Building production systems
-            for real businesses.
+            <span className="text-foreground">Beirut, Lebanon</span>. Bridging
+            operations and software — building the systems that make business
+            actually run.
           </motion.p>
 
           <motion.div
