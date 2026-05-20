@@ -97,7 +97,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             className={`text-[10px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border ${
               isFreelance
                 ? "border-success/40 text-success"
-                : "border-teal/40 text-teal"
+                : isMeta
+                  ? "border-foreground/20 text-foreground"
+                  : "border-teal/40 text-teal"
             }`}
           >
             {project.tag}
