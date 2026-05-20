@@ -5,7 +5,7 @@ type Project = {
   title: string;
   blurb: string;
   tech: string[];
-  tag: "Internal / Production" | "Freelance / In Progress";
+  tag: "Internal / Production" | "Freelance / In Progress" | "Meta / This One";
   year: string;
 };
 
