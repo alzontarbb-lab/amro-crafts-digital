@@ -43,14 +43,6 @@ const projects: Project[] = [
     year: "2025",
   },
   {
-    title: "Cross-Platform Mobile Business App",
-    blurb:
-      "Shipping a production mobile application for a freelance client under NDA. Full-stack — mobile, API, database.",
-    tech: ["Flutter", "Dart", "PHP", "MySQL"],
-    tag: "Freelance / In Progress",
-    year: "2026",
-  },
-  {
     title: "This Website",
     blurb:
       "A meta addition to the portfolio — the very page you're scrolling right now. Built to be fast, responsive, and just a little self-aware.",
@@ -64,7 +56,7 @@ export function Projects() {
   return (
     <section id="work" className="relative py-32 md:py-40">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader index="04" label="Selected Work" title="Things I built, mostly unprompted." />
+        <SectionHeader index="04" label="Selected Work" title="Built because something needed building." />
 
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((p, i) => (
