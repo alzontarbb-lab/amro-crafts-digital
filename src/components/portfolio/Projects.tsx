@@ -5,7 +5,7 @@ type Project = {
   title: string;
   blurb: string;
   tech: string[];
-  tag: "Internal / Production" | "Freelance / In Progress";
+  tag: "Internal / Production" | "Freelance / In Progress" | "Meta / This One";
   year: string;
 };
 
@@ -50,6 +50,14 @@ const projects: Project[] = [
     tag: "Freelance / In Progress",
     year: "2026",
   },
+  {
+    title: "This Website",
+    blurb:
+      "A meta addition to the portfolio — the very page you're scrolling right now. Built to be fast, responsive, and just a little self-aware.",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    tag: "Meta / This One",
+    year: "2026",
+  },
 ];
 
 export function Projects() {
@@ -72,10 +80,11 @@ export function Projects() {
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const isFreelance = project.tag === "Freelance / In Progress";
+  const isMeta = project.tag === "Meta / This One";
   return (
     <article
       className={`group relative overflow-hidden rounded-2xl glass p-8 md:p-10 transition-all duration-500 hover:-translate-y-1 hover:ring-teal-glow ${
-        index === 4 ? "md:col-span-2" : ""
+        index === 5 ? "md:col-span-2" : ""
       }`}
     >
       <div
@@ -88,7 +97,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             className={`text-[10px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border ${
               isFreelance
                 ? "border-success/40 text-success"
-                : "border-teal/40 text-teal"
+                : isMeta
+                  ? "border-foreground/20 text-foreground"
+                  : "border-teal/40 text-teal"
             }`}
           >
             {project.tag}
