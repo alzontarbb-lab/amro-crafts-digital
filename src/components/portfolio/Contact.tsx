@@ -41,7 +41,7 @@ export function Contact() {
                   <span className="w-9 h-9 rounded-full glass flex items-center justify-center group-hover:border-teal">
                     <Mail className="w-4 h-4" />
                   </span>
-                  hello@amro.dev
+                  amrokfarajallah@gmail.com
                 </a>
                 <a
                   href="#"

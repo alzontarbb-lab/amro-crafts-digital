@@ -16,13 +16,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Portfolio of Amro, a software developer based in Beirut building production full-stack systems, automation, and cross-platform mobile apps.",
+          "Portfolio of Amro, a software developer based in Beirut bridging operations and software. Building production full-stack systems, automation, and internal tools.",
       },
       { property: "og:title", content: "Amro — Software Developer & Automation Engineer" },
       {
         property: "og:description",
         content:
-          "Full-stack developer building production systems for real businesses. Flutter, React, PHP, Python, AI automation.",
+          "Full-stack developer bridging operations and software. React, PHP, Python, AI automation.",
       },
     ],
   }),
