@@ -4,7 +4,7 @@ const snippet = `// currently.ts
 const amro = {
   role: "Software Developer",
   city: "Beirut, LB",
-  building: "cross-platform mobile app",
+  building: "internal tools that outlive the brief",
   shipping: "production systems since '23",
 };
 
