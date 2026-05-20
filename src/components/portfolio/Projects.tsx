@@ -50,6 +50,14 @@ const projects: Project[] = [
     tag: "Freelance / In Progress",
     year: "2026",
   },
+  {
+    title: "This Website",
+    blurb:
+      "A meta addition to the portfolio — the very page you're scrolling right now. Built to be fast, responsive, and just a little self-aware.",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    tag: "Meta / This One",
+    year: "2026",
+  },
 ];
 
 export function Projects() {
