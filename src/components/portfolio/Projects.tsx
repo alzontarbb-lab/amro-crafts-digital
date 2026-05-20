@@ -80,10 +80,11 @@ export function Projects() {
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const isFreelance = project.tag === "Freelance / In Progress";
+  const isMeta = project.tag === "Meta / This One";
   return (
     <article
       className={`group relative overflow-hidden rounded-2xl glass p-8 md:p-10 transition-all duration-500 hover:-translate-y-1 hover:ring-teal-glow ${
-        index === 4 ? "md:col-span-2" : ""
+        index === 5 ? "md:col-span-2" : ""
       }`}
     >
       <div
