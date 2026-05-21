@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
 import { useTheme } from "@/lib/theme";
 import { Sun, Moon } from "lucide-react";
+import { Logo } from "./Logo";
 
 const links = [
   { href: "#about", label: "About" },
@@ -15,7 +16,6 @@ export function Nav() {
   const { theme, toggle } = useTheme();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 22 });
-  const [hovered, setHovered] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -24,8 +24,6 @@ export function Nav() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const display = hovered ? "أمرو" : "Amro";
 
   return (
     <>
@@ -41,18 +39,9 @@ export function Nav() {
         <div className="mx-auto max-w-7xl px-6 flex items-center justify-between">
           <a
             href="#top"
-            className="font-display text-lg font-semibold tracking-tight relative"
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
+            className="font-display text-lg font-semibold tracking-tight relative inline-flex items-center"
           >
-            <motion.span
-              key={display}
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-block"
-            >
-              {display}
-            </motion.span>
+            <Logo variant="wordmark" />
             <span className="text-teal">.</span>
           </a>
 
