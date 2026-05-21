@@ -13,32 +13,32 @@ const projects: Project[] = [
   {
     title: "Scheduling & Dispatch Web App",
     blurb:
-      "Replaced manual scheduling chaos with a web platform for job assignments and technician dispatch — built independently for an aftersales operation.",
-    tech: ["React", "Vite", "PHP", "MySQL"],
+      "Replaced manual scheduling chaos with a web platform for job assignments and technician dispatch — built independently for an aftersales operation. Google OAuth for sign-in, Postgres RLS for per-role access.",
+    tech: ["React", "Vite", "Supabase", "Postgres (RLS)", "OAuth"],
     tag: "Internal / Production",
     year: "2025",
   },
   {
     title: "Spare Parts Digital Intake",
     blurb:
-      "A parts request and tracking portal built from scratch. Replaced paper-based intake with a digital workflow — still running in production today.",
-    tech: ["PHP", "MySQL"],
+      "A parts request and tracking portal built from scratch. Replaced paper-based intake with a digital workflow, with Google OAuth sign-in and automated email notifications on every submission — still running in production today.",
+    tech: ["React", "Vite", "OAuth", "EmailJS"],
     tag: "Internal / Production",
     year: "2025",
   },
   {
     title: "Maintenance Contract Portal",
     blurb:
-      "End-to-end portal to manage service contracts, renewals, and customer records — entirely self-initiated to solve a real business gap.",
-    tech: ["PHP", "MySQL"],
+      "End-to-end portal to manage service contracts, renewals, and customer records — entirely self-initiated to solve a real business gap. React frontend backed by a Python service layer.",
+    tech: ["React", "Python"],
     tag: "Internal / Production",
     year: "2025",
   },
   {
     title: "Python Automation Suite",
     blurb:
-      "Internal scripts for repetitive operational tasks. Quietly saves hours of manual work every week.",
-    tech: ["Python", "Automation"],
+      "Internal scripts for repetitive operational work plus reporting jobs that pull from raw data sources, analyze them, and return clean reports — KPIs, anomalies, summaries — on a schedule. Quietly saves hours of manual work every week.",
+    tech: ["Python", "Pandas", "Automation", "Reporting"],
     tag: "Internal / Production",
     year: "2025",
   },
