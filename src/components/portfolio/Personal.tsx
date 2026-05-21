@@ -27,7 +27,7 @@ export function Personal() {
             alt="Amro — on the pitch"
             className="absolute top-0 bottom-0 left-0"
             style={{
-              width: "55%",
+              width: "62%",
               height: "100%",
               objectFit: "cover",
               objectPosition: "center top",
@@ -39,7 +39,7 @@ export function Personal() {
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(to right, transparent 25%, var(--background) 65%)",
+                "linear-gradient(to right, transparent 0%, transparent 28%, color-mix(in oklab, var(--background) 40%, transparent) 50%, color-mix(in oklab, var(--background) 80%, transparent) 65%, var(--background) 78%)",
             }}
           />
           <div
@@ -110,10 +110,10 @@ export function Personal() {
             alt="Amro — street football"
             className="absolute top-0 bottom-0 right-0"
             style={{
-              width: "55%",
+              width: "62%",
               height: "100%",
               objectFit: "cover",
-              objectPosition: "center top",
+              objectPosition: "center 55%",
               filter: "grayscale(15%) contrast(1.08)",
               backgroundColor: "var(--surface-hi)",
             }}
@@ -122,7 +122,7 @@ export function Personal() {
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(to left, transparent 25%, var(--background) 65%)",
+                "linear-gradient(to left, transparent 0%, transparent 28%, color-mix(in oklab, var(--background) 40%, transparent) 50%, color-mix(in oklab, var(--background) 80%, transparent) 65%, var(--background) 78%)",
             }}
           />
           <div
