@@ -71,7 +71,7 @@ export function Personal() {
               alt="Amro — on the pitch"
               className="w-full h-full object-cover"
               style={{
-                objectPosition: "center 70%",
+                objectPosition: "center top",
                 filter: "grayscale(15%) contrast(1.08)",
                 backgroundColor: "var(--surface-hi)",
               }}
@@ -155,7 +155,7 @@ export function Personal() {
               alt="Amro — street football"
               className="w-full h-full object-cover"
               style={{
-                objectPosition: "center top",
+                objectPosition: "center 70%",
                 filter: "grayscale(15%) contrast(1.08)",
                 backgroundColor: "var(--surface-hi)",
               }}
