@@ -8,68 +8,187 @@ export function Personal() {
     <section
       id="personal"
       className="relative py-24 md:py-32"
-      style={{ background: "var(--surface)" }}
+      style={{ background: "var(--background)" }}
     >
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-6 mb-16">
         <Reveal>
-          <div className="font-mono text-xs text-muted-foreground uppercase tracking-[0.25em] mb-16">
+          <span className="font-mono text-xs text-muted-foreground uppercase tracking-[0.25em]">
             — Beyond the screen
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-            {/* LEFT — stacked photos */}
-            <div className="relative">
-              <img
-                src={pitchImg}
-                alt="Amro on the pitch"
-                className="w-full h-auto block object-cover"
-                style={{
-                  background: "var(--surface-hi)",
-                  filter: "grayscale(20%) contrast(1.05)",
-                  aspectRatio: "4 / 3",
-                }}
-              />
-              <img
-                src={trophyImg}
-                alt="Amro — street football"
-                className="block object-cover"
-                style={{
-                  background: "var(--surface-hi)",
-                  filter: "grayscale(20%) contrast(1.05)",
-                  width: "75%",
-                  marginLeft: "24px",
-                  marginTop: "-20px",
-                  aspectRatio: "1 / 1",
-                  position: "relative",
-                }}
-              />
-            </div>
-
-            {/* RIGHT — text */}
-            <div className="flex flex-col gap-6">
-              <h3 className="font-display text-3xl md:text-4xl font-semibold tracking-tighter">
-                Footballer first.
-              </h3>
-              <p className="text-muted-foreground text-lg max-w-sm text-pretty">
-                Played my whole life — organized, professional, street. Football taught me how to
-                read systems, find the gaps, and make decisions under pressure. The same instincts
-                that built these tools.
-              </p>
-              <div className="font-mono text-sm text-muted-foreground space-y-1 pt-2">
-                <div>Lifelong player &nbsp;·&nbsp; Beirut, Lebanon</div>
-                <div>Midfielder &nbsp;·&nbsp; Street to professional</div>
-              </div>
-
-              <div
-                className="mt-8"
-                style={{ transform: "scale(0.45)", transformOrigin: "bottom left" }}
-              >
-                <Logo variant="stamp" />
-              </div>
-            </div>
-          </div>
+          </span>
         </Reveal>
       </div>
+
+      {/* ROW 1 */}
+      <Reveal>
+        <div className="relative w-full overflow-hidden hidden md:block" style={{ minHeight: "70vh" }}>
+          <img
+            id="personal-photo-1"
+            src={pitchImg}
+            alt="Amro — on the pitch"
+            className="absolute top-0 bottom-0 left-0"
+            style={{
+              width: "55%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center top",
+              filter: "grayscale(15%) contrast(1.08)",
+              backgroundColor: "var(--surface-hi)",
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to right, transparent 25%, var(--background) 65%)",
+            }}
+          />
+          <div
+            className="absolute"
+            style={{
+              top: "50%",
+              right: 0,
+              transform: "translateY(-50%)",
+              maxWidth: 420,
+              padding: "0 48px",
+            }}
+          >
+            <p className="font-mono text-xs text-muted-foreground uppercase tracking-[0.25em] mb-4">
+              The game
+            </p>
+            <h2 className="font-display text-5xl font-bold tracking-tight leading-none mb-6">
+              Reading systems.
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Organized football. Professional structures. Tactical patterns that repeat, break,
+              and evolve. The same instincts that shape how I build software.
+            </p>
+          </div>
+        </div>
+
+        {/* ROW 1 — mobile */}
+        <div className="md:hidden relative w-full overflow-hidden">
+          <div className="relative w-full" style={{ height: 280 }}>
+            <img
+              src={pitchImg}
+              alt="Amro — on the pitch"
+              className="w-full h-full object-cover"
+              style={{
+                objectPosition: "center top",
+                filter: "grayscale(15%) contrast(1.08)",
+                backgroundColor: "var(--surface-hi)",
+              }}
+            />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(to bottom, transparent 40%, var(--background) 100%)",
+              }}
+            />
+          </div>
+          <div style={{ padding: "2rem 1.5rem" }}>
+            <p className="font-mono text-xs text-muted-foreground uppercase tracking-[0.25em] mb-4">
+              The game
+            </p>
+            <h2 className="font-display text-5xl font-bold tracking-tight leading-none mb-6">
+              Reading systems.
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Organized football. Professional structures. Tactical patterns that repeat, break,
+              and evolve. The same instincts that shape how I build software.
+            </p>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* ROW 2 */}
+      <Reveal>
+        <div className="relative w-full overflow-hidden hidden md:block" style={{ minHeight: "70vh" }}>
+          <img
+            id="personal-photo-2"
+            src={trophyImg}
+            alt="Amro — street football"
+            className="absolute top-0 bottom-0 right-0"
+            style={{
+              width: "55%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center top",
+              filter: "grayscale(15%) contrast(1.08)",
+              backgroundColor: "var(--surface-hi)",
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to left, transparent 25%, var(--background) 65%)",
+            }}
+          />
+          <div
+            className="absolute"
+            style={{
+              top: "50%",
+              left: 0,
+              transform: "translateY(-50%)",
+              maxWidth: 420,
+              padding: "0 48px",
+            }}
+          >
+            <p className="font-mono text-xs text-muted-foreground uppercase tracking-[0.25em] mb-4">
+              The roots
+            </p>
+            <h2 className="font-display text-5xl font-bold tracking-tight leading-none mb-6">
+              Earned on the street.
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Before any structure, football was a daily language — street, casual, unorganized,
+              real. That foundation never leaves.
+            </p>
+            <div style={{ transform: "scale(0.4)", transformOrigin: "bottom left", marginTop: "2rem" }}>
+              <Logo variant="stamp" />
+            </div>
+          </div>
+        </div>
+
+        {/* ROW 2 — mobile */}
+        <div className="md:hidden relative w-full overflow-hidden">
+          <div className="relative w-full" style={{ height: 280 }}>
+            <img
+              src={trophyImg}
+              alt="Amro — street football"
+              className="w-full h-full object-cover"
+              style={{
+                objectPosition: "center top",
+                filter: "grayscale(15%) contrast(1.08)",
+                backgroundColor: "var(--surface-hi)",
+              }}
+            />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(to bottom, transparent 40%, var(--background) 100%)",
+              }}
+            />
+          </div>
+          <div style={{ padding: "2rem 1.5rem" }}>
+            <p className="font-mono text-xs text-muted-foreground uppercase tracking-[0.25em] mb-4">
+              The roots
+            </p>
+            <h2 className="font-display text-5xl font-bold tracking-tight leading-none mb-6">
+              Earned on the street.
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Before any structure, football was a daily language — street, casual, unorganized,
+              real. That foundation never leaves.
+            </p>
+            <div style={{ transform: "scale(0.4)", transformOrigin: "bottom left", marginTop: "2rem" }}>
+              <Logo variant="stamp" />
+            </div>
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }
