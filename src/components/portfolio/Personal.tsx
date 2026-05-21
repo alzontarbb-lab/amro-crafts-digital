@@ -33,15 +33,13 @@ export function Personal() {
               objectPosition: "center top",
               filter: "grayscale(15%) contrast(1.08)",
               backgroundColor: "var(--surface-hi)",
+              WebkitMaskImage:
+                "linear-gradient(to right, black 0%, black 45%, transparent 100%)",
+              maskImage:
+                "linear-gradient(to right, black 0%, black 45%, transparent 100%)",
             }}
           />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(to right, transparent 0%, transparent 28%, color-mix(in oklab, var(--background) 40%, transparent) 50%, color-mix(in oklab, var(--background) 80%, transparent) 65%, var(--background) 78%)",
-            }}
-          />
+
           <div
             className="absolute"
             style={{
@@ -116,15 +114,13 @@ export function Personal() {
               objectPosition: "center 55%",
               filter: "grayscale(15%) contrast(1.08)",
               backgroundColor: "var(--surface-hi)",
+              WebkitMaskImage:
+                "linear-gradient(to left, black 0%, black 45%, transparent 100%)",
+              maskImage:
+                "linear-gradient(to left, black 0%, black 45%, transparent 100%)",
             }}
           />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(to left, transparent 0%, transparent 28%, color-mix(in oklab, var(--background) 40%, transparent) 50%, color-mix(in oklab, var(--background) 80%, transparent) 65%, var(--background) 78%)",
-            }}
-          />
+
           <div
             className="absolute"
             style={{
