@@ -1,5 +1,4 @@
 import { Reveal } from "./Reveal";
-import { Logo } from "./Logo";
 import pitchImg from "@/assets/amro-pitch.jpg";
 import trophyImg from "@/assets/amro-trophy.jpg";
 
