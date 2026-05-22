@@ -6,7 +6,7 @@ export function Personal() {
   return (
     <section
       id="personal"
-      className="relative py-24 md:py-32"
+      className="relative pt-8 pb-16 md:pt-12 md:pb-20"
       style={{ background: "var(--background)" }}
     >
       <div className="mx-auto max-w-7xl px-6 mb-16">
