@@ -75,7 +75,7 @@ function ProjectCard({ project }: { project: Project }) {
   const isMeta = project.tag === "Meta / This One";
   return (
     <article
-      className={`group relative overflow-hidden rounded-2xl glass p-8 md:p-10 transition-all duration-500 hover:-translate-y-1 hover:ring-teal-glow ${
+      className={`group relative overflow-hidden rounded-2xl glass p-8 md:p-10 transition-all duration-500 hover:-translate-y-1 hover:bg-surface-hi dark:hover:bg-accent hover:ring-teal-glow ${
         isMeta ? "md:col-span-2" : ""
       }`}
     >
