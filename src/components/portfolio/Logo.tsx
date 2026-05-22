@@ -30,9 +30,8 @@ export function Logo({ variant = "wordmark" }: { variant?: Variant }) {
         fontWeight: 700,
         direction: "rtl",
         unicodeBidi: "isolate",
-        lineHeight: 1.4,
+        lineHeight: 1,
         display: "inline-block",
-        paddingBottom: "2px",
       }}
     >
       عمرو
