@@ -39,7 +39,7 @@ export function Nav() {
         <div className="mx-auto max-w-7xl px-6 flex items-center justify-between">
           <a
             href="#top"
-            className="font-display text-lg font-semibold tracking-tight relative inline-flex items-center"
+            className="font-display text-lg font-semibold tracking-tight relative inline-flex items-center overflow-visible min-w-fit"
           >
             <Logo variant="wordmark" />
             <span className="text-teal">.</span>
