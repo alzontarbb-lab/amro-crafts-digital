@@ -1,5 +1,4 @@
 import { Reveal } from "./Reveal";
-import { Logo } from "./Logo";
 import pitchImg from "@/assets/amro-pitch.jpg";
 import trophyImg from "@/assets/amro-trophy.jpg";
 
@@ -141,9 +140,6 @@ export function Personal() {
               Before any structure, football was a daily language — street, casual, unorganized,
               real. That foundation never leaves.
             </p>
-            <div style={{ transform: "scale(0.4)", transformOrigin: "bottom left", marginTop: "2rem" }}>
-              <Logo variant="stamp" />
-            </div>
           </div>
         </div>
 
@@ -179,9 +175,6 @@ export function Personal() {
               Before any structure, football was a daily language — street, casual, unorganized,
               real. That foundation never leaves.
             </p>
-            <div style={{ transform: "scale(0.4)", transformOrigin: "bottom left", marginTop: "2rem" }}>
-              <Logo variant="stamp" />
-            </div>
           </div>
         </div>
       </Reveal>
