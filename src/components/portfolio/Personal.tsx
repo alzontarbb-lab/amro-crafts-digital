@@ -111,7 +111,7 @@ export function Personal() {
               width: "62%",
               height: "100%",
               objectFit: "cover",
-              objectPosition: "center 55%",
+              objectPosition: "center 40%",
               filter: "grayscale(15%) contrast(1.08)",
               backgroundColor: "var(--surface-hi)",
               WebkitMaskImage:
@@ -155,7 +155,7 @@ export function Personal() {
               alt="Amro — street football"
               className="w-full h-full object-cover"
               style={{
-                objectPosition: "center 70%",
+                objectPosition: "center 50%",
                 filter: "grayscale(15%) contrast(1.08)",
                 backgroundColor: "var(--surface-hi)",
               }}
