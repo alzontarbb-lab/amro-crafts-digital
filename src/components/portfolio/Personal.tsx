@@ -80,7 +80,7 @@ export function Personal() {
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(to bottom, transparent 40%, var(--background) 100%)",
+                  "linear-gradient(to bottom, transparent 0%, transparent 35%, color-mix(in oklab, var(--background) 25%, transparent) 55%, color-mix(in oklab, var(--background) 60%, transparent) 75%, color-mix(in oklab, var(--background) 90%, transparent) 90%, var(--background) 100%)",
               }}
             />
           </div>
@@ -164,7 +164,7 @@ export function Personal() {
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(to bottom, transparent 40%, var(--background) 100%)",
+                  "linear-gradient(to bottom, transparent 0%, transparent 35%, color-mix(in oklab, var(--background) 25%, transparent) 55%, color-mix(in oklab, var(--background) 60%, transparent) 75%, color-mix(in oklab, var(--background) 90%, transparent) 90%, var(--background) 100%)",
               }}
             />
           </div>
