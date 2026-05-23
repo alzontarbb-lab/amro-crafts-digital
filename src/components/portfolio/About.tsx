@@ -23,7 +23,7 @@ export function About() {
           <div className="space-y-6 text-lg leading-relaxed text-pretty">
             <Reveal>
               <p>
-                I'm a CS graduate from Beirut who bridges operations and software — building
+                I'm a CS graduate who bridges operations and software — building
                 full-stack web systems and automating the boring stuff that businesses pretend
                 isn't a problem.
               </p>
