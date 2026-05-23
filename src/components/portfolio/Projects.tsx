@@ -81,7 +81,7 @@ function ProjectCard({ project }: { project: Project }) {
     >
       <div
         aria-hidden
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mesh-bg"
+        className="absolute inset-0 opacity-0 dark:group-hover:opacity-100 transition-opacity duration-700 mesh-bg"
       />
       <div className="relative">
         <div className="flex items-start justify-between gap-4 mb-6">
