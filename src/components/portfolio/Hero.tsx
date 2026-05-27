@@ -25,14 +25,22 @@ export function Hero() {
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
-        {/* wavy 'cloth' grid — single large SVG with strong turbulence displacement */}
+        {/* wavy 'cloth' grid — light mode (dark strokes) */}
         <div
-          className="absolute inset-0 opacity-[0.13] dark:opacity-[0.18]"
+          className="absolute inset-0 opacity-[0.18] dark:hidden"
           style={{
-            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' preserveAspectRatio='none'><defs><filter id='w' x='-10%25' y='-10%25' width='120%25' height='120%25'><feTurbulence type='fractalNoise' baseFrequency='0.006 0.008' numOctaves='2' seed='7'/><feDisplacementMap in='SourceGraphic' scale='90'/></filter></defs><g filter='url(%23w)' fill='none' stroke='currentColor' stroke-width='1.1'>${Array.from({length:33},(_,i)=>`<path d='M0 ${i*28}H1600'/>`).join('')}${Array.from({length:58},(_,i)=>`<path d='M${i*28} 0V900'/>`).join('')}</g></svg>")`,
+            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' preserveAspectRatio='none'><defs><filter id='w' x='-10%25' y='-10%25' width='120%25' height='120%25'><feTurbulence type='fractalNoise' baseFrequency='0.006 0.008' numOctaves='2' seed='7'/><feDisplacementMap in='SourceGraphic' scale='90'/></filter></defs><g filter='url(%23w)' fill='none' stroke='%23000' stroke-width='1.1'>${Array.from({length:33},(_,i)=>`<path d='M0 ${i*28}H1600'/>`).join('')}${Array.from({length:58},(_,i)=>`<path d='M${i*28} 0V900'/>`).join('')}</g></svg>")`,
             backgroundSize: "100% 100%",
             backgroundRepeat: "no-repeat",
-            color: "var(--foreground)",
+          }}
+        />
+        {/* wavy 'cloth' grid — dark mode (light strokes) */}
+        <div
+          className="absolute inset-0 opacity-[0.22] hidden dark:block"
+          style={{
+            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' preserveAspectRatio='none'><defs><filter id='w' x='-10%25' y='-10%25' width='120%25' height='120%25'><feTurbulence type='fractalNoise' baseFrequency='0.006 0.008' numOctaves='2' seed='7'/><feDisplacementMap in='SourceGraphic' scale='90'/></filter></defs><g filter='url(%23w)' fill='none' stroke='%23fff' stroke-width='1.1'>${Array.from({length:33},(_,i)=>`<path d='M0 ${i*28}H1600'/>`).join('')}${Array.from({length:58},(_,i)=>`<path d='M${i*28} 0V900'/>`).join('')}</g></svg>")`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
           }}
         />
       </div>
