@@ -1,54 +1,90 @@
 import { motion } from "motion/react";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 const words = ["Code.", "Automate.", "Ship."];
 
 export function Hero() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const draw = () => {
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+      const isDark = document.documentElement.classList.contains("dark");
+      const lineColor = isDark ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.06)";
+      ctx.strokeStyle = lineColor;
+      ctx.lineWidth = 0.8;
+      const colSpacing = 28;
+      const rowSpacing = 28;
+      const amp = 6;
+      const freq = 0.018;
+      const cols = Math.ceil(W / colSpacing) + 1;
+      const rows = Math.ceil(H / rowSpacing) + 1;
+
+      for (let r = 0; r < rows; r++) {
+        const y = r * rowSpacing;
+        ctx.beginPath();
+        for (let x = 0; x <= W; x += 2) {
+          const waveY = y + Math.sin(x * freq + r * 0.4) * amp;
+          x === 0 ? ctx.moveTo(x, waveY) : ctx.lineTo(x, waveY);
+        }
+        ctx.stroke();
+      }
+
+      for (let c = 0; c < cols; c++) {
+        const x = c * colSpacing;
+        ctx.beginPath();
+        for (let y = 0; y <= H; y += 2) {
+          const waveX = x + Math.sin(y * freq + c * 0.4) * amp;
+          y === 0 ? ctx.moveTo(waveX, y) : ctx.lineTo(waveX, y);
+        }
+        ctx.stroke();
+      }
+
+      const fade = ctx.createLinearGradient(0, H * 0.55, 0, H);
+      fade.addColorStop(0, "rgba(0,0,0,0)");
+      fade.addColorStop(1, isDark ? "rgba(10,10,15,1)" : "rgba(251,250,247,1)");
+      ctx.fillStyle = fade;
+      ctx.fillRect(0, H * 0.55, W, H);
+    };
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      draw();
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    const observer = new MutationObserver(draw);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <section id="top" className="relative min-h-screen flex items-center overflow-hidden grain">
-      {/* Animated mesh gradient */}
-      {/* background layers — masked to fade cleanly into the section below */}
-      <div
+      <canvas
+        ref={canvasRef}
         aria-hidden
-        className="absolute inset-0"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
-        }}
-      >
-        <motion.div
-          className="absolute inset-0 mesh-bg opacity-60"
-          animate={{
-            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        />
-        {/* wavy cloth grid — dark mode (screen blend reveals white lines) */}
-        <div
-          className="absolute inset-0 opacity-60 hidden dark:block"
-          style={{
-            backgroundImage: "url('/wavy-grid.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            mixBlendMode: "screen",
-          }}
-        />
-        {/* wavy cloth grid — light mode (inverted + multiply for dark lines on ivory) */}
-        <div
-          className="absolute inset-0 opacity-40 dark:hidden"
-          style={{
-            backgroundImage: "url('/wavy-grid.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            filter: "invert(1)",
-            mixBlendMode: "multiply",
-          }}
-        />
-      </div>
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        style={{ zIndex: 0 }}
+      />
+
 
       <div className="relative mx-auto max-w-7xl px-6 w-full pt-32 pb-24">
         <motion.div
