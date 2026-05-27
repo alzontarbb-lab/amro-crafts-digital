@@ -48,9 +48,13 @@ export function Hero() {
         ctx.stroke();
       }
 
+      const bg = getComputedStyle(canvas.parentElement || document.body).backgroundColor || (isDark ? "rgb(10,10,15)" : "rgb(251,250,247)");
+      const bgTransparent = bg.startsWith("rgb(")
+        ? bg.replace("rgb(", "rgba(").replace(")", ", 0)")
+        : "rgba(0,0,0,0)";
       const fade = ctx.createLinearGradient(0, H * 0.55, 0, H);
-      fade.addColorStop(0, "rgba(0,0,0,0)");
-      fade.addColorStop(1, isDark ? "rgba(10,10,15,1)" : "rgba(251,250,247,1)");
+      fade.addColorStop(0, bgTransparent);
+      fade.addColorStop(1, bg);
       ctx.fillStyle = fade;
       ctx.fillRect(0, H * 0.55, W, H);
     };
