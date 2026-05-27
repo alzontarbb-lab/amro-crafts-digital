@@ -48,13 +48,18 @@ export function Hero() {
         ctx.stroke();
       }
 
-      const bg = getComputedStyle(canvas.parentElement || document.body).backgroundColor || (isDark ? "rgb(10,10,15)" : "rgb(251,250,247)");
-      const bgTransparent = bg.startsWith("rgb(")
-        ? bg.replace("rgb(", "rgba(").replace(")", ", 0)")
-        : "rgba(0,0,0,0)";
+      // Resolve actual page bg by reading --background token via a probe element
+      const probe = document.createElement("div");
+      probe.style.cssText = "background:var(--background);position:absolute;visibility:hidden;";
+      document.body.appendChild(probe);
+      const bg = getComputedStyle(probe).backgroundColor;
+      document.body.removeChild(probe);
+      const m = bg.match(/rgba?\(([^)]+)\)/);
+      const parts = m ? m[1].split(",").map((s) => s.trim()) : ["0", "0", "0"];
+      const rgb = `${parts[0]}, ${parts[1]}, ${parts[2]}`;
       const fade = ctx.createLinearGradient(0, H * 0.55, 0, H);
-      fade.addColorStop(0, bgTransparent);
-      fade.addColorStop(1, bg);
+      fade.addColorStop(0, `rgba(${rgb}, 0)`);
+      fade.addColorStop(1, `rgba(${rgb}, 1)`);
       ctx.fillStyle = fade;
       ctx.fillRect(0, H * 0.55, W, H);
     };
