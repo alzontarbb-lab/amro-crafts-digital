@@ -25,22 +25,27 @@ export function Hero() {
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
-        {/* wavy 'cloth' grid — light mode (dark strokes) */}
+        {/* wavy cloth grid — dark mode (screen blend reveals white lines) */}
         <div
-          className="absolute inset-0 opacity-[0.18] dark:hidden"
+          className="absolute inset-0 opacity-60 hidden dark:block"
           style={{
-            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' preserveAspectRatio='none'><defs><filter id='w' x='-10%25' y='-10%25' width='120%25' height='120%25'><feTurbulence type='fractalNoise' baseFrequency='0.006 0.008' numOctaves='2' seed='7'/><feDisplacementMap in='SourceGraphic' scale='90'/></filter></defs><g filter='url(%23w)' fill='none' stroke='%23000' stroke-width='1.1'>${Array.from({length:33},(_,i)=>`<path d='M0 ${i*28}H1600'/>`).join('')}${Array.from({length:58},(_,i)=>`<path d='M${i*28} 0V900'/>`).join('')}</g></svg>")`,
-            backgroundSize: "100% 100%",
+            backgroundImage: "url('/wavy-grid.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
+            mixBlendMode: "screen",
           }}
         />
-        {/* wavy 'cloth' grid — dark mode (light strokes) */}
+        {/* wavy cloth grid — light mode (inverted + multiply for dark lines on ivory) */}
         <div
-          className="absolute inset-0 opacity-[0.22] hidden dark:block"
+          className="absolute inset-0 opacity-40 dark:hidden"
           style={{
-            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' preserveAspectRatio='none'><defs><filter id='w' x='-10%25' y='-10%25' width='120%25' height='120%25'><feTurbulence type='fractalNoise' baseFrequency='0.006 0.008' numOctaves='2' seed='7'/><feDisplacementMap in='SourceGraphic' scale='90'/></filter></defs><g filter='url(%23w)' fill='none' stroke='%23fff' stroke-width='1.1'>${Array.from({length:33},(_,i)=>`<path d='M0 ${i*28}H1600'/>`).join('')}${Array.from({length:58},(_,i)=>`<path d='M${i*28} 0V900'/>`).join('')}</g></svg>")`,
-            backgroundSize: "100% 100%",
+            backgroundImage: "url('/wavy-grid.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
+            filter: "invert(1)",
+            mixBlendMode: "multiply",
           }}
         />
       </div>
