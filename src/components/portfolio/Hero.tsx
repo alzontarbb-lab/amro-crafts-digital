@@ -7,27 +7,35 @@ export function Hero() {
   return (
     <section id="top" className="relative min-h-screen flex items-center overflow-hidden grain">
       {/* Animated mesh gradient */}
-      <motion.div
-        aria-hidden
-        className="absolute inset-0 mesh-bg opacity-60"
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      />
-      {/* wavy grid with disintegrating fade */}
+      {/* background layers — masked to fade cleanly into the section below */}
       <div
         aria-hidden
-        className="absolute inset-0 opacity-[0.09]"
+        className="absolute inset-0"
         style={{
-          backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><defs><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' seed='4'/><feDisplacementMap in='SourceGraphic' scale='14'/></filter></defs><g filter='url(%23w)' fill='none' stroke='black' stroke-width='1'><path d='M0 0H160M0 40H160M0 80H160M0 120H160M0 160H160'/><path d='M0 0V160M40 0V160M80 0V160M120 0V160M160 0V160'/></g></svg>")`,
-          backgroundSize: "160px 160px",
           maskImage:
-            "radial-gradient(ellipse 80% 70% at 50% 35%, black 30%, transparent 85%)",
+            "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
           WebkitMaskImage:
-            "radial-gradient(ellipse 80% 70% at 50% 35%, black 30%, transparent 85%)",
+            "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
         }}
-      />
+      >
+        <motion.div
+          className="absolute inset-0 mesh-bg opacity-60"
+          animate={{
+            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* wavy 'cloth' grid — single large SVG with strong turbulence displacement */}
+        <div
+          className="absolute inset-0 opacity-[0.13] dark:opacity-[0.18]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' preserveAspectRatio='none'><defs><filter id='w' x='-10%25' y='-10%25' width='120%25' height='120%25'><feTurbulence type='fractalNoise' baseFrequency='0.006 0.008' numOctaves='2' seed='7'/><feDisplacementMap in='SourceGraphic' scale='90'/></filter></defs><g filter='url(%23w)' fill='none' stroke='currentColor' stroke-width='1.1'>${Array.from({length:33},(_,i)=>`<path d='M0 ${i*28}H1600'/>`).join('')}${Array.from({length:58},(_,i)=>`<path d='M${i*28} 0V900'/>`).join('')}</g></svg>")`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+            color: "var(--foreground)",
+          }}
+        />
+      </div>
 
       <div className="relative mx-auto max-w-7xl px-6 w-full pt-32 pb-24">
         <motion.div
