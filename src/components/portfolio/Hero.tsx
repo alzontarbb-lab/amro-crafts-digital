@@ -15,14 +15,17 @@ export function Hero() {
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* subtle grid */}
+      {/* wavy grid with disintegrating fade */}
       <div
         aria-hidden
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.09]"
         style={{
-          backgroundImage:
-            "linear-gradient(var(--foreground) 1px, transparent 1px), linear-gradient(90deg, var(--foreground) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
+          backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><defs><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' seed='4'/><feDisplacementMap in='SourceGraphic' scale='14'/></filter></defs><g filter='url(%23w)' fill='none' stroke='black' stroke-width='1'><path d='M0 0H160M0 40H160M0 80H160M0 120H160M0 160H160'/><path d='M0 0V160M40 0V160M80 0V160M120 0V160M160 0V160'/></g></svg>")`,
+          backgroundSize: "160px 160px",
+          maskImage:
+            "radial-gradient(ellipse 80% 70% at 50% 35%, black 30%, transparent 85%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 80% 70% at 50% 35%, black 30%, transparent 85%)",
         }}
       />
 

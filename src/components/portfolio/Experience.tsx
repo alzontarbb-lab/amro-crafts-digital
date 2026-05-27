@@ -9,9 +9,9 @@ const items = [
   },
   {
     period: "2025 — 2026",
-    role: "Aftersales Administrator + Internal Systems Builder",
+    role: "Aftersales Administrator",
     org: "Khonaysser Group",
-    note: "Built production web tools that replaced manual workflows across the operation.",
+    note: "Ran the aftersales operation end-to-end, then built internal tools on the side that replaced manual workflows and got adopted across the team.",
   },
   {
     period: "2020 — 2024",
