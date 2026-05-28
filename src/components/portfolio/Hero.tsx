@@ -48,8 +48,8 @@ export function Hero() {
         ctx.stroke();
       }
 
-      const rgb = isDark ? "0, 0, 0" : "255, 255, 255";
-      const fade = ctx.createLinearGradient(0, H * 0.5, 0, H);
+      const rgb = isDark ? "13, 13, 18" : "249, 247, 243";
+      const fade = ctx.createLinearGradient(0, H * 0.35, 0, H);
       fade.addColorStop(0, `rgba(${rgb}, 0)`);
       fade.addColorStop(1, `rgba(${rgb}, 1)`);
       ctx.fillStyle = fade;
