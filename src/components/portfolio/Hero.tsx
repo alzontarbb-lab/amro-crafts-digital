@@ -78,11 +78,15 @@ export function Hero() {
       }
 
       const rgb = isDark ? "13,13,18" : "249,247,243";
-      const fade = ctx.createLinearGradient(0, H * 0.35, 0, H);
+      const fade = ctx.createLinearGradient(0, H * 0.2, 0, H);
       fade.addColorStop(0, `rgba(${rgb},0)`);
+      fade.addColorStop(0.25, `rgba(${rgb},0.05)`);
+      fade.addColorStop(0.5, `rgba(${rgb},0.२)`.replace("२","2"));
+      fade.addColorStop(0.7, `rgba(${rgb},0.5)`);
+      fade.addColorStop(0.85, `rgba(${rgb},0.8)`);
       fade.addColorStop(1, `rgba(${rgb},1)`);
       ctx.fillStyle = fade;
-      ctx.fillRect(0, H * 0.35, W, H);
+      ctx.fillRect(0, H * 0.2, W, H);
 
       rafRef.current = requestAnimationFrame(draw);
     };
