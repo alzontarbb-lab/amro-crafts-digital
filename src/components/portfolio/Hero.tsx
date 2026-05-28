@@ -6,6 +6,8 @@ const words = ["Code.", "Automate.", "Ship."];
 
 export function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -13,78 +15,115 @@ export function Hero() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const draw = () => {
-      const W = canvas.width;
-      const H = canvas.height;
-      ctx.clearRect(0, 0, W, H);
-      const isDark = document.documentElement.classList.contains("dark");
-      const lineColor = isDark ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.06)";
-      ctx.strokeStyle = lineColor;
-      ctx.lineWidth = 0.8;
-      const colSpacing = 28;
-      const rowSpacing = 28;
-      const amp = 6;
-      const freq = 0.018;
-      const cols = Math.ceil(W / colSpacing) + 1;
-      const rows = Math.ceil(H / rowSpacing) + 1;
-
-      for (let r = 0; r < rows; r++) {
-        const y = r * rowSpacing;
-        ctx.beginPath();
-        for (let x = 0; x <= W; x += 2) {
-          const waveY = y + Math.sin(x * freq + r * 0.4) * amp;
-          x === 0 ? ctx.moveTo(x, waveY) : ctx.lineTo(x, waveY);
-        }
-        ctx.stroke();
-      }
-
-      for (let c = 0; c < cols; c++) {
-        const x = c * colSpacing;
-        ctx.beginPath();
-        for (let y = 0; y <= H; y += 2) {
-          const waveX = x + Math.sin(y * freq + c * 0.4) * amp;
-          y === 0 ? ctx.moveTo(waveX, y) : ctx.lineTo(waveX, y);
-        }
-        ctx.stroke();
-      }
-
-      const rgb = isDark ? "13, 13, 18" : "249, 247, 243";
-      const fade = ctx.createLinearGradient(0, H * 0.35, 0, H);
-      fade.addColorStop(0, `rgba(${rgb}, 0)`);
-      fade.addColorStop(1, `rgba(${rgb}, 1)`);
-      ctx.fillStyle = fade;
-      ctx.fillRect(0, H * 0.5, W, H);
-    };
+    let pts: { x: number; y: number; vx: number; vy: number; r: number }[] = [];
 
     const resize = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
-      draw();
     };
 
-    window.addEventListener("resize", resize);
     resize();
+    pts = Array.from({ length: 65 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.45,
+      vy: (Math.random() - 0.5) * 0.45,
+      r: Math.random() * 1.4 + 0.4,
+    }));
 
-    const observer = new MutationObserver(draw);
+    const draw = () => {
+      const W = canvas.width, H = canvas.height;
+      const isDark = document.documentElement.classList.contains("dark");
+      ctx.clearRect(0, 0, W, H);
+      const mouse = mouseRef.current;
+      const dotColor = isDark ? "255,255,255" : "0,0,0";
+      const scaleY = canvas.height / canvas.offsetHeight;
+
+      pts.forEach(p => {
+        const mx = mouse.x;
+        const my = mouse.y * scaleY;
+        const dx = p.x - mx, dy = p.y - my;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120 && dist > 0) {
+          const f = ((120 - dist) / 120) * 2;
+          p.vx += (dx / dist) * f * 0.09;
+          p.vy += (dy / dist) * f * 0.09;
+        }
+        p.vx *= 0.974; p.vy *= 0.974;
+        p.vx += (Math.random() - 0.5) * 0.015;
+        p.vy += (Math.random() - 0.5) * 0.015;
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${dotColor},${isDark ? 0.55 : 0.35})`;
+        ctx.fill();
+      });
+
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+          const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 110) {
+            const a = (1 - dist / 110) * (isDark ? 0.15 : 0.1);
+            ctx.strokeStyle = `rgba(${dotColor},${a})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(pts[i].x, pts[i].y);
+            ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      const rgb = isDark ? "13,13,18" : "249,247,243";
+      const fade = ctx.createLinearGradient(0, H * 0.35, 0, H);
+      fade.addColorStop(0, `rgba(${rgb},0)`);
+      fade.addColorStop(1, `rgba(${rgb},1)`);
+      ctx.fillStyle = fade;
+      ctx.fillRect(0, H * 0.35, W, H);
+
+      rafRef.current = requestAnimationFrame(draw);
+    };
+
+    const onResize = () => {
+      resize();
+    };
+    window.addEventListener("resize", onResize);
+
+    rafRef.current = requestAnimationFrame(draw);
+
+    const observer = new MutationObserver(() => {});
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"],
     });
 
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", onResize);
       observer.disconnect();
+      cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
   return (
-    <section id="top" className="relative min-h-screen flex items-center overflow-hidden grain">
+    <section
+      id="top"
+      className="relative min-h-screen flex items-center overflow-hidden grain"
+      onMouseMove={e => {
+        const r = e.currentTarget.getBoundingClientRect();
+        mouseRef.current = { x: e.clientX - r.left, y: e.clientY - r.top };
+      }}
+      onMouseLeave={() => { mouseRef.current = { x: -9999, y: -9999 }; }}
+    >
       <canvas
         ref={canvasRef}
         aria-hidden
         className="absolute inset-0 w-full h-full pointer-events-none"
         style={{ zIndex: 0 }}
       />
+
 
 
       <div className="relative mx-auto max-w-7xl px-6 w-full pt-32 pb-24">
