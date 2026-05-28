@@ -81,7 +81,7 @@ export function Hero() {
       const fade = ctx.createLinearGradient(0, H * 0.2, 0, H);
       fade.addColorStop(0, `rgba(${rgb},0)`);
       fade.addColorStop(0.25, `rgba(${rgb},0.05)`);
-      fade.addColorStop(0.5, `rgba(${rgb},0.२)`.replace("२","2"));
+      fade.addColorStop(0.5, `rgba(${rgb},0.2)`);
       fade.addColorStop(0.7, `rgba(${rgb},0.5)`);
       fade.addColorStop(0.85, `rgba(${rgb},0.8)`);
       fade.addColorStop(1, `rgba(${rgb},1)`);
