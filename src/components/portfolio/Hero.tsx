@@ -48,9 +48,7 @@ export function Hero() {
         ctx.stroke();
       }
 
-      const bodyBg = getComputedStyle(document.body).backgroundColor;
-      const m = bodyBg.match(/\d+(\.\d+)?/g);
-      const rgb = m ? `${m[0]}, ${m[1]}, ${m[2]}` : (isDark ? "0, 0, 0" : "255, 255, 255");
+      const rgb = isDark ? "0, 0, 0" : "255, 255, 255";
       const fade = ctx.createLinearGradient(0, H * 0.5, 0, H);
       fade.addColorStop(0, `rgba(${rgb}, 0)`);
       fade.addColorStop(1, `rgba(${rgb}, 1)`);
