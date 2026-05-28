@@ -78,11 +78,15 @@ export function Hero() {
       }
 
       const rgb = isDark ? "13,13,18" : "249,247,243";
-      const fade = ctx.createLinearGradient(0, H * 0.35, 0, H);
+      const fade = ctx.createLinearGradient(0, H * 0.2, 0, H);
       fade.addColorStop(0, `rgba(${rgb},0)`);
+      fade.addColorStop(0.25, `rgba(${rgb},0.05)`);
+      fade.addColorStop(0.5, `rgba(${rgb},0.2)`);
+      fade.addColorStop(0.7, `rgba(${rgb},0.5)`);
+      fade.addColorStop(0.85, `rgba(${rgb},0.8)`);
       fade.addColorStop(1, `rgba(${rgb},1)`);
       ctx.fillStyle = fade;
-      ctx.fillRect(0, H * 0.35, W, H);
+      ctx.fillRect(0, H * 0.2, W, H);
 
       rafRef.current = requestAnimationFrame(draw);
     };
@@ -122,6 +126,27 @@ export function Hero() {
         aria-hidden
         className="absolute inset-0 w-full h-full pointer-events-none"
         style={{ zIndex: 0 }}
+      />
+
+      {/* Atmospheric blend layer — feathers hero into the next section */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] z-[1]"
+        style={{
+          background:
+            "linear-gradient(to bottom, color-mix(in oklab, var(--background) 0%, transparent) 0%, color-mix(in oklab, var(--background) 15%, transparent) 30%, color-mix(in oklab, var(--background) 45%, transparent) 55%, color-mix(in oklab, var(--background) 80%, transparent) 80%, var(--background) 100%)",
+        }}
+      />
+
+      {/* Soft ambient glow that bleeds across the seam */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -bottom-32 h-64 z-[1] opacity-60 dark:opacity-40"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 100% at 50% 0%, color-mix(in oklab, var(--teal) 18%, transparent), transparent 70%)",
+          filter: "blur(40px)",
+        }}
       />
 
 
