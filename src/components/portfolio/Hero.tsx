@@ -128,6 +128,31 @@ export function Hero() {
         style={{ zIndex: 0 }}
       />
 
+      {/* Atmospheric blend layer — feathers hero into the next section */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] z-[1]"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(var(--background-rgb),0) 0%, rgba(var(--background-rgb),0.15) 30%, rgba(var(--background-rgb),0.45) 55%, rgba(var(--background-rgb),0.8) 80%, rgba(var(--background-rgb),1) 100%)",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, black 40%, black 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, black 40%, black 100%)",
+        }}
+      />
+
+      {/* Soft ambient glow that bleeds across the seam */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -bottom-32 h-64 z-[1] opacity-60 dark:opacity-40"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 100% at 50% 0%, color-mix(in oklab, var(--teal) 18%, transparent), transparent 70%)",
+          filter: "blur(40px)",
+        }}
+      />
+
 
 
       <div className="relative mx-auto max-w-7xl px-6 w-full pt-32 pb-24">
