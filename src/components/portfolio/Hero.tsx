@@ -48,12 +48,14 @@ export function Hero() {
         ctx.stroke();
       }
 
-      const rgb = isDark ? "15, 15, 22" : "250, 248, 240";
-      const fade = ctx.createLinearGradient(0, H * 0.55, 0, H);
+      const bodyBg = getComputedStyle(document.body).backgroundColor;
+      const m = bodyBg.match(/\d+(\.\d+)?/g);
+      const rgb = m ? `${m[0]}, ${m[1]}, ${m[2]}` : (isDark ? "0, 0, 0" : "255, 255, 255");
+      const fade = ctx.createLinearGradient(0, H * 0.5, 0, H);
       fade.addColorStop(0, `rgba(${rgb}, 0)`);
       fade.addColorStop(1, `rgba(${rgb}, 1)`);
       ctx.fillStyle = fade;
-      ctx.fillRect(0, H * 0.55, W, H);
+      ctx.fillRect(0, H * 0.5, W, H);
     };
 
     const resize = () => {
