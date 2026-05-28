@@ -134,11 +134,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] z-[1]"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(var(--background-rgb),0) 0%, rgba(var(--background-rgb),0.15) 30%, rgba(var(--background-rgb),0.45) 55%, rgba(var(--background-rgb),0.8) 80%, rgba(var(--background-rgb),1) 100%)",
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, black 40%, black 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, black 40%, black 100%)",
+            "linear-gradient(to bottom, color-mix(in oklab, var(--background) 0%, transparent) 0%, color-mix(in oklab, var(--background) 15%, transparent) 30%, color-mix(in oklab, var(--background) 45%, transparent) 55%, color-mix(in oklab, var(--background) 80%, transparent) 80%, var(--background) 100%)",
         }}
       />
 
