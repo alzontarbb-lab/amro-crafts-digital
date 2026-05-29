@@ -77,16 +77,19 @@ export function Hero() {
         }
       }
 
-      const rgb = isDark ? "13,13,18" : "249,247,243";
-      const fade = ctx.createLinearGradient(0, H * 0.55, 0, H);
-      fade.addColorStop(0, `rgba(${rgb},0)`);
-      fade.addColorStop(0.3, `rgba(${rgb},0.04)`);
-      fade.addColorStop(0.55, `rgba(${rgb},0.18)`);
-      fade.addColorStop(0.75, `rgba(${rgb},0.45)`);
-      fade.addColorStop(0.9, `rgba(${rgb},0.78)`);
-      fade.addColorStop(1, `rgba(${rgb},1)`);
+      // Feather particles out using destination-out so the canvas itself
+      // becomes transparent toward the bottom — the page background shows
+      // through seamlessly, no double-fade against the overlay.
+      ctx.globalCompositeOperation = "destination-out";
+      const fade = ctx.createLinearGradient(0, H * 0.4, 0, H);
+      fade.addColorStop(0, "rgba(0,0,0,0)");
+      fade.addColorStop(0.35, "rgba(0,0,0,0.15)");
+      fade.addColorStop(0.6, "rgba(0,0,0,0.45)");
+      fade.addColorStop(0.8, "rgba(0,0,0,0.8)");
+      fade.addColorStop(1, "rgba(0,0,0,1)");
       ctx.fillStyle = fade;
-      ctx.fillRect(0, H * 0.55, W, H);
+      ctx.fillRect(0, H * 0.4, W, H);
+      ctx.globalCompositeOperation = "source-over";
 
       rafRef.current = requestAnimationFrame(draw);
     };
