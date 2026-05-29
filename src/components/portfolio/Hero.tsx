@@ -77,16 +77,19 @@ export function Hero() {
         }
       }
 
-      const rgb = isDark ? "13,13,18" : "249,247,243";
-      const fade = ctx.createLinearGradient(0, H * 0.55, 0, H);
-      fade.addColorStop(0, `rgba(${rgb},0)`);
-      fade.addColorStop(0.3, `rgba(${rgb},0.04)`);
-      fade.addColorStop(0.55, `rgba(${rgb},0.18)`);
-      fade.addColorStop(0.75, `rgba(${rgb},0.45)`);
-      fade.addColorStop(0.9, `rgba(${rgb},0.78)`);
-      fade.addColorStop(1, `rgba(${rgb},1)`);
+      // Feather particles out using destination-out so the canvas itself
+      // becomes transparent toward the bottom — the page background shows
+      // through seamlessly, no double-fade against the overlay.
+      ctx.globalCompositeOperation = "destination-out";
+      const fade = ctx.createLinearGradient(0, H * 0.4, 0, H);
+      fade.addColorStop(0, "rgba(0,0,0,0)");
+      fade.addColorStop(0.35, "rgba(0,0,0,0.15)");
+      fade.addColorStop(0.6, "rgba(0,0,0,0.45)");
+      fade.addColorStop(0.8, "rgba(0,0,0,0.8)");
+      fade.addColorStop(1, "rgba(0,0,0,1)");
       ctx.fillStyle = fade;
-      ctx.fillRect(0, H * 0.55, W, H);
+      ctx.fillRect(0, H * 0.4, W, H);
+      ctx.globalCompositeOperation = "source-over";
 
       rafRef.current = requestAnimationFrame(draw);
     };
@@ -128,26 +131,27 @@ export function Hero() {
         style={{ zIndex: 0 }}
       />
 
-      {/* Atmospheric blend layer — feathers the background into the next section.
-          Sits above the canvas (z-[1]) but BELOW foreground content (z-10),
-          so text and buttons stay fully crisp. */}
+      {/* Atmospheric blend — long, feathered fade to background. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] z-[1]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] z-[1]"
         style={{
-          background:
-            "linear-gradient(to bottom, color-mix(in oklab, var(--background) 0%, transparent) 0%, color-mix(in oklab, var(--background) 8%, transparent) 35%, color-mix(in oklab, var(--background) 25%, transparent) 60%, color-mix(in oklab, var(--background) 60%, transparent) 82%, var(--background) 100%)",
+          background: "var(--background)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.04) 25%, rgba(0,0,0,0.16) 45%, rgba(0,0,0,0.4) 65%, rgba(0,0,0,0.72) 82%, rgba(0,0,0,0.92) 92%, #000 100%)",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.04) 25%, rgba(0,0,0,0.16) 45%, rgba(0,0,0,0.4) 65%, rgba(0,0,0,0.72) 82%, rgba(0,0,0,0.92) 92%, #000 100%)",
         }}
       />
 
-      {/* Soft ambient glow that bleeds across the seam (background only) */}
+      {/* Soft ambient glow across the seam */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 -bottom-40 h-80 z-[1] opacity-50 dark:opacity-35"
+        className="pointer-events-none absolute inset-x-0 -bottom-32 h-80 z-[1] opacity-40 dark:opacity-25"
         style={{
           background:
-            "radial-gradient(ellipse 60% 100% at 50% 0%, color-mix(in oklab, var(--teal) 16%, transparent), transparent 72%)",
-          filter: "blur(48px)",
+            "radial-gradient(ellipse 70% 100% at 50% 0%, color-mix(in oklab, var(--teal) 14%, transparent), transparent 75%)",
+          filter: "blur(56px)",
         }}
       />
 
