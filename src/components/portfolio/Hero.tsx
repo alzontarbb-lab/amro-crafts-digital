@@ -194,7 +194,7 @@ export function Hero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 w-full pt-32 pb-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 w-full pt-28 pb-16 md:pt-32 md:pb-24">
         <motion.div
           initial={false}
           animate={{ opacity: 1, y: 0 }}
@@ -221,7 +221,7 @@ export function Hero() {
           ))}
         </h1>
 
-        <div className="mt-12 grid md:grid-cols-2 gap-8 items-end">
+        <div className="mt-10 md:mt-12 grid md:grid-cols-2 gap-8 items-end">
           <motion.p
             initial={false}
             animate={{ opacity: 1, y: 0 }}
@@ -261,7 +261,7 @@ export function Hero() {
           initial={false}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
         >
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
             Scroll
