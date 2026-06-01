@@ -221,7 +221,7 @@ export function Hero() {
           ))}
         </h1>
 
-        <div className="mt-12 grid md:grid-cols-2 gap-8 items-end">
+        <div className="mt-10 md:mt-12 grid md:grid-cols-2 gap-8 items-end">
           <motion.p
             initial={false}
             animate={{ opacity: 1, y: 0 }}
