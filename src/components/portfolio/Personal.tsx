@@ -1,4 +1,4 @@
-import { Reveal } from "./Reveal";
+import { Reveal, SectionHeader } from "./Reveal";
 import pitchImg from "@/assets/amro-pitch.jpg";
 import trophyImg from "@/assets/amro-trophy.jpg";
 
