@@ -114,11 +114,23 @@ export function Personal() {
               filter: "grayscale(15%) contrast(1.08)",
               backgroundColor: "var(--surface-hi)",
               WebkitMaskImage:
-                "linear-gradient(to left, black 0%, black 45%, transparent 100%)",
+                "linear-gradient(to left, black 0%, black 45%, transparent 100%), linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
+              WebkitMaskComposite: "source-in",
               maskImage:
-                "linear-gradient(to left, black 0%, black 45%, transparent 100%)",
+                "linear-gradient(to left, black 0%, black 45%, transparent 100%), linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
+              maskComposite: "intersect",
             }}
           />
+          {/* Bottom fade into next section background */}
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent 0%, color-mix(in oklab, var(--background) 40%, transparent) 40%, color-mix(in oklab, var(--background) 80%, transparent) 70%, var(--background) 100%)",
+            }}
+          />
+
 
           <div
             className="absolute"
