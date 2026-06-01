@@ -15,14 +15,11 @@ export function Hero() {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    // Lightweight galaxy: logarithmic spiral arms + sparse stars.
-    type P = { r: number; a: number; arm: number; size: number; hue: number; tw: number };
-    type S = { x: number; y: number; r: number; tw: number };
+    // Constellation network: drifting nodes connected by faint lines.
+    type N = { x: number; y: number; vx: number; vy: number; r: number; tw: number };
 
-    let particles: P[] = [];
-    let stars: S[] = [];
+    let nodes: N[] = [];
     let W = 0, H = 0, DPR = 1;
-    const ARMS = 4;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -36,22 +33,14 @@ export function Hero() {
     };
 
     const init = () => {
-      particles = Array.from({ length: 1400 }, () => {
-        const arm = Math.floor(Math.random() * ARMS);
-        const r = Math.pow(Math.random(), 0.5);
-        return {
-          r,
-          a: Math.random() * Math.PI * 2,
-          arm,
-          size: Math.random() * 1.3 + 0.25,
-          hue: Math.random(),
-          tw: Math.random() * Math.PI * 2,
-        };
-      });
-      stars = Array.from({ length: 180 }, () => ({
-        x: Math.random(),
-        y: Math.random(),
-        r: Math.random() * 1.1 + 0.2,
+      const area = W * H;
+      const count = Math.min(180, Math.max(80, Math.floor(area / 14000)));
+      nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.08,
+        vy: (Math.random() - 0.5) * 0.08,
+        r: Math.random() * 1.4 + 0.6,
         tw: Math.random() * Math.PI * 2,
       }));
     };
@@ -79,107 +68,85 @@ export function Hero() {
       const accent = readAccent();
       const mouse = mouseRef.current;
       const hasMouse = mouse.x > -9000;
-      const paraX = hasMouse ? (mouse.x - W / 2) * 0.01 : 0;
-      const paraY = hasMouse ? (mouse.y - H / 2) * 0.01 : 0;
 
       ctx.fillStyle = isDark ? "#08070f" : "#f5f1e8";
       ctx.fillRect(0, 0, W, H);
 
-      const cx = W * 0.5 + paraX * 3;
-      const cy = H * 0.5 + paraY * 3;
-      // Bigger galaxy spilling across the viewport.
-      const galaxyR = Math.max(W, H) * 0.7;
-
-      const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, galaxyR * 1.1);
-      if (isDark) {
-        glow.addColorStop(0, `color-mix(in oklab, ${accent} 70%, transparent)`);
-        glow.addColorStop(0.25, `color-mix(in oklab, ${accent} 28%, transparent)`);
-        glow.addColorStop(0.6, `color-mix(in oklab, ${accent} 8%, transparent)`);
-        glow.addColorStop(1, "rgba(0,0,0,0)");
-      } else {
-        glow.addColorStop(0, `color-mix(in oklab, ${accent} 50%, transparent)`);
-        glow.addColorStop(0.3, `color-mix(in oklab, ${accent} 20%, transparent)`);
-        glow.addColorStop(0.65, `color-mix(in oklab, ${accent} 5%, transparent)`);
-        glow.addColorStop(1, "rgba(0,0,0,0)");
-      }
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, W, H);
-
-      for (let i = 0; i < stars.length; i++) {
-        const s = stars[i];
-        const tw = (Math.sin(t * 0.002 + s.tw) + 1) * 0.5;
-        const a = (isDark ? 0.25 : 0.2) + tw * (isDark ? 0.5 : 0.3);
-        ctx.fillStyle = isDark ? `rgba(255,250,235,${a})` : `rgba(20,30,50,${a})`;
-        const sx = s.x * W + paraX * 4;
-        const sy = s.y * H + paraY * 4;
-        ctx.fillRect(sx, sy, s.r, s.r);
+      // Update node positions
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        n.x += n.vx * dt;
+        n.y += n.vy * dt;
+        if (n.x < -20) n.x = W + 20;
+        else if (n.x > W + 20) n.x = -20;
+        if (n.y < -20) n.y = H + 20;
+        else if (n.y > H + 20) n.y = -20;
       }
 
-      // Spiral arms — angled POV like a galaxy seen from the side.
-      const rot = t * 0.00007;
-      const twist = 3.6;
-      // Disk tilt: strong flatten on Y + slight diagonal roll.
-      const tiltY = 0.22;       // ~77° tilt (near edge-on)
-      const rollDeg = -14;      // diagonal orientation
-      const rollCos = Math.cos((rollDeg * Math.PI) / 180);
-      const rollSin = Math.sin((rollDeg * Math.PI) / 180);
+      const LINK = 140;
+      const LINK2 = LINK * LINK;
+      const MOUSE_LINK = 180;
+      const MOUSE_LINK2 = MOUSE_LINK * MOUSE_LINK;
 
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        const speed = 0.00011 / (p.r + 0.15);
-        p.a += speed * dt;
-        const armOffset = (p.arm / ARMS) * Math.PI * 2;
-        const armJitter = (p.hue - 0.5) * 0.35;
-        const angle = p.a + rot + armOffset + p.r * twist + armJitter;
-        const radius = p.r * galaxyR;
-
-        // Disk-plane coords.
-        let dx = Math.cos(angle) * radius;
-        let dy = Math.sin(angle) * radius;
-        // Vertical disk thickness — small bulge at core.
-        const thickness = (p.hue - 0.5) * (galaxyR * 0.04 + (1 - p.r) * galaxyR * 0.08);
-
-        // Apply tilt (flatten Y, lift by thickness for depth).
-        dy = dy * tiltY - thickness;
-        // Apply roll (diagonal rotation).
-        const rx = dx * rollCos - dy * rollSin;
-        const ry = dx * rollSin + dy * rollCos;
-        const x = cx + rx;
-        const y = cy + ry;
-        const tw = (Math.sin(t * 0.003 + p.tw) + 1) * 0.5;
-
-        let color: string;
-        if (p.r < 0.18) {
-          const a = (0.6 + tw * 0.4) * (isDark ? 1 : 0.8);
-          color = isDark ? `rgba(255,245,220,${a})` : `rgba(15,25,45,${a})`;
-        } else {
-          const mix = Math.min(95, 40 + p.r * 60);
-          const baseA = (0.5 + tw * 0.45) * (1 - p.r * 0.4) * (isDark ? 1 : 0.9);
-          const fill = isDark
-            ? `rgba(255,255,255,${baseA})`
-            : `rgba(10,15,30,${baseA})`;
-          color = `color-mix(in oklab, ${accent} ${mix}%, ${fill})`;
+      // Draw lines between nearby nodes
+      ctx.lineWidth = 1;
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 > LINK2) continue;
+          const alpha = (1 - d2 / LINK2) * (isDark ? 0.32 : 0.28);
+          ctx.strokeStyle = `color-mix(in oklab, ${accent} ${Math.round(alpha * 100)}%, transparent)`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
         }
-        const size = p.size * (1.4 - p.r * 0.6);
-        ctx.fillStyle = color;
-        ctx.fillRect(x - size / 2, y - size / 2, size, size);
+
+        // Lines to mouse
+        if (hasMouse) {
+          const dx = a.x - mouse.x;
+          const dy = a.y - mouse.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < MOUSE_LINK2) {
+            const alpha = (1 - d2 / MOUSE_LINK2) * (isDark ? 0.55 : 0.45);
+            ctx.strokeStyle = `color-mix(in oklab, ${accent} ${Math.round(alpha * 100)}%, transparent)`;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
+        }
       }
 
+      // Draw nodes with gentle twinkle
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        const tw = (Math.sin(t * 0.002 + n.tw) + 1) * 0.5;
+        const alpha = (isDark ? 0.55 : 0.6) + tw * 0.35;
+        ctx.fillStyle = `color-mix(in oklab, ${accent} ${Math.round(alpha * 100)}%, transparent)`;
+        const size = n.r * (1 + tw * 0.3);
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
 
+      // Soft bottom fade into page background
       ctx.globalCompositeOperation = "destination-out";
-      const fade = ctx.createLinearGradient(0, H * 0.5, 0, H);
+      const fade = ctx.createLinearGradient(0, H * 0.55, 0, H);
       fade.addColorStop(0, "rgba(0,0,0,0)");
-      fade.addColorStop(0.5, "rgba(0,0,0,0.4)");
-      fade.addColorStop(0.85, "rgba(0,0,0,0.9)");
+      fade.addColorStop(0.6, "rgba(0,0,0,0.5)");
       fade.addColorStop(1, "rgba(0,0,0,1)");
       ctx.fillStyle = fade;
-      ctx.fillRect(0, H * 0.5, W, H * 0.5);
+      ctx.fillRect(0, H * 0.55, W, H * 0.45);
       ctx.globalCompositeOperation = "source-over";
     };
 
-    const onResize = () => { resize(); };
+    const onResize = () => { resize(); init(); };
     window.addEventListener("resize", onResize);
-    // Catches layout shifts that don't trigger window resize (the "reset" bug).
     const ro = new ResizeObserver(onResize);
     ro.observe(canvas);
 
@@ -191,6 +158,7 @@ export function Hero() {
       cancelAnimationFrame(rafRef.current);
     };
   }, []);
+
 
   return (
     <section
