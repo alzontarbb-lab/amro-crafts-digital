@@ -115,9 +115,15 @@ export function Hero() {
         ctx.fillRect(sx, sy, s.r, s.r);
       }
 
-      // Spiral arms — tighter twist for Milky Way feel.
+      // Spiral arms — angled POV like a galaxy seen from the side.
       const rot = t * 0.00007;
-      const twist = 3.4;
+      const twist = 3.6;
+      // Disk tilt: strong flatten on Y + slight diagonal roll.
+      const tiltY = 0.22;       // ~77° tilt (near edge-on)
+      const rollDeg = -14;      // diagonal orientation
+      const rollCos = Math.cos((rollDeg * Math.PI) / 180);
+      const rollSin = Math.sin((rollDeg * Math.PI) / 180);
+
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         const speed = 0.00011 / (p.r + 0.15);
@@ -126,17 +132,29 @@ export function Hero() {
         const armJitter = (p.hue - 0.5) * 0.35;
         const angle = p.a + rot + armOffset + p.r * twist + armJitter;
         const radius = p.r * galaxyR;
-        const x = cx + Math.cos(angle) * radius;
-        const y = cy + Math.sin(angle) * radius * 0.45;
+
+        // Disk-plane coords.
+        let dx = Math.cos(angle) * radius;
+        let dy = Math.sin(angle) * radius;
+        // Vertical disk thickness — small bulge at core.
+        const thickness = (p.hue - 0.5) * (galaxyR * 0.04 + (1 - p.r) * galaxyR * 0.08);
+
+        // Apply tilt (flatten Y, lift by thickness for depth).
+        dy = dy * tiltY - thickness;
+        // Apply roll (diagonal rotation).
+        const rx = dx * rollCos - dy * rollSin;
+        const ry = dx * rollSin + dy * rollCos;
+        const x = cx + rx;
+        const y = cy + ry;
         const tw = (Math.sin(t * 0.003 + p.tw) + 1) * 0.5;
 
         let color: string;
         if (p.r < 0.18) {
-          const a = (0.55 + tw * 0.4) * (isDark ? 1 : 0.8);
+          const a = (0.6 + tw * 0.4) * (isDark ? 1 : 0.8);
           color = isDark ? `rgba(255,245,220,${a})` : `rgba(15,25,45,${a})`;
         } else {
           const mix = Math.min(95, 40 + p.r * 60);
-          const baseA = (0.45 + tw * 0.45) * (1 - p.r * 0.45) * (isDark ? 1 : 0.9);
+          const baseA = (0.5 + tw * 0.45) * (1 - p.r * 0.4) * (isDark ? 1 : 0.9);
           const fill = isDark
             ? `rgba(255,255,255,${baseA})`
             : `rgba(10,15,30,${baseA})`;
@@ -146,6 +164,7 @@ export function Hero() {
         ctx.fillStyle = color;
         ctx.fillRect(x - size / 2, y - size / 2, size, size);
       }
+
 
       ctx.globalCompositeOperation = "destination-out";
       const fade = ctx.createLinearGradient(0, H * 0.5, 0, H);
