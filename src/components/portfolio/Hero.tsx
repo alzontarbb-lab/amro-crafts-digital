@@ -12,59 +12,47 @@ export function Hero() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    type Star = { x: number; y: number; z: number; r: number; tw: number };
-    type Orbit = {
-      // spherical coords on a unit sphere
-      theta: number; // azimuth
-      phi: number;   // polar
-      speed: number; // angular speed around y-axis
-      r: number;     // dot size
-      hue: number;   // 0..1 along palette
-    };
-    type Dust = { a: number; r: number; speed: number; size: number; alpha: number };
+    // Lightweight galaxy: logarithmic spiral arms + sparse stars.
+    type P = { r: number; a: number; arm: number; size: number; hue: number; tw: number };
+    type S = { x: number; y: number; r: number; tw: number };
 
-    let stars: Star[] = [];
-    let orbits: Orbit[] = [];
-    let dust: Dust[] = [];
+    let particles: P[] = [];
+    let stars: S[] = [];
+    let W = 0, H = 0, DPR = 1;
+    const ARMS = 4;
 
     const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width < 2 || rect.height < 2) return;
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      W = Math.floor(rect.width);
+      H = Math.floor(rect.height);
+      canvas.width = Math.floor(W * DPR);
+      canvas.height = Math.floor(H * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     };
 
     const init = () => {
-      const W = canvas.width, H = canvas.height;
-      // Starfield with parallax depth
-      stars = Array.from({ length: 220 }, () => ({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        z: Math.random() * 0.9 + 0.1,
-        r: Math.random() * 1.2 + 0.2,
-        tw: Math.random() * Math.PI * 2,
-      }));
-      // Planet: particles distributed on a sphere
-      orbits = Array.from({ length: 900 }, () => {
-        // Uniform spherical distribution
-        const u = Math.random();
-        const v = Math.random();
+      particles = Array.from({ length: 650 }, () => {
+        const arm = Math.floor(Math.random() * ARMS);
+        const r = Math.pow(Math.random(), 0.55); // denser core
         return {
-          theta: u * Math.PI * 2,
-          phi: Math.acos(2 * v - 1),
-          speed: 0.0009 + Math.random() * 0.0006,
-          r: Math.random() * 1.1 + 0.25,
+          r,
+          a: Math.random() * Math.PI * 2,
+          arm,
+          size: Math.random() * 1.2 + 0.3,
           hue: Math.random(),
+          tw: Math.random() * Math.PI * 2,
         };
       });
-      // Orbital dust ring
-      dust = Array.from({ length: 140 }, () => ({
-        a: Math.random() * Math.PI * 2,
-        r: 1 + Math.random() * 0.35, // relative to planet radius
-        speed: 0.0006 + Math.random() * 0.0009,
-        size: Math.random() * 1 + 0.3,
-        alpha: Math.random() * 0.6 + 0.2,
+      stars = Array.from({ length: 120 }, () => ({
+        x: Math.random(),
+        y: Math.random(),
+        r: Math.random() * 1.1 + 0.2,
+        tw: Math.random() * Math.PI * 2,
       }));
     };
 
@@ -72,218 +60,108 @@ export function Hero() {
     init();
 
     let t = 0;
+    let last = performance.now();
 
-    const draw = () => {
-      const W = canvas.width, H = canvas.height;
+    const draw = (now: number) => {
+      const dt = Math.min(64, now - last);
+      last = now;
+      t += dt;
+      rafRef.current = requestAnimationFrame(draw);
+
+      if (W < 2 || H < 2) return;
       const isDark = document.documentElement.classList.contains("dark");
       const mouse = mouseRef.current;
-      const scaleY = canvas.height / canvas.offsetHeight;
-      const mx = mouse.x * (canvas.width / canvas.offsetWidth);
-      const my = mouse.y * scaleY;
+      const hasMouse = mouse.x > -9000;
+      const paraX = hasMouse ? (mouse.x - W / 2) * 0.01 : 0;
+      const paraY = hasMouse ? (mouse.y - H / 2) * 0.01 : 0;
 
-      // --- Space background gradient ---
-      const bg = ctx.createRadialGradient(W * 0.5, H * 0.45, 0, W * 0.5, H * 0.45, Math.max(W, H) * 0.8);
-      if (isDark) {
-        bg.addColorStop(0, "rgba(22,20,40,1)");
-        bg.addColorStop(0.45, "rgba(13,12,24,1)");
-        bg.addColorStop(1, "rgba(6,6,12,1)");
-      } else {
-        bg.addColorStop(0, "rgba(247,244,236,1)");
-        bg.addColorStop(0.55, "rgba(238,232,220,1)");
-        bg.addColorStop(1, "rgba(222,214,198,1)");
-      }
-      ctx.fillStyle = bg;
+      // Solid base — clears previous frame.
+      ctx.fillStyle = isDark ? "#08070f" : "#f5f1e8";
       ctx.fillRect(0, 0, W, H);
 
-      // --- Nebula clouds (soft drifting blobs) ---
-      const nebulae = [
-        { x: W * 0.18, y: H * 0.3, r: Math.min(W, H) * 0.55, c: isDark ? "120,90,220" : "200,160,120", a: isDark ? 0.12 : 0.08 },
-        { x: W * 0.82, y: H * 0.25, r: Math.min(W, H) * 0.5, c: isDark ? "60,180,210" : "150,180,200", a: isDark ? 0.1 : 0.07 },
-        { x: W * 0.6, y: H * 0.8, r: Math.min(W, H) * 0.6, c: isDark ? "210,80,140" : "210,170,150", a: isDark ? 0.08 : 0.05 },
-      ];
-      nebulae.forEach((n, i) => {
-        const drift = Math.sin(t * 0.0003 + i) * 20;
-        const g = ctx.createRadialGradient(n.x + drift, n.y, 0, n.x + drift, n.y, n.r);
-        g.addColorStop(0, `rgba(${n.c},${n.a})`);
-        g.addColorStop(1, `rgba(${n.c},0)`);
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, W, H);
-      });
+      const cx = W * 0.5 + paraX * 3;
+      const cy = H * 0.5 + paraY * 3;
+      const galaxyR = Math.min(W, H) * 0.42;
 
-      // --- Starfield with parallax + twinkle ---
-      const paraX = (mx - W / 2) * 0.01;
-      const paraY = (my - H / 2) * 0.01;
-      stars.forEach(s => {
-        const tw = (Math.sin(t * 0.003 + s.tw) + 1) * 0.5;
-        const alpha = (isDark ? 0.35 : 0.25) + tw * (isDark ? 0.55 : 0.3);
-        ctx.beginPath();
-        ctx.arc(s.x + paraX * s.z * 2, s.y + paraY * s.z * 2, s.r * s.z, 0, Math.PI * 2);
-        ctx.fillStyle = isDark
-          ? `rgba(255,250,235,${alpha * s.z})`
-          : `rgba(40,38,55,${alpha * s.z})`;
-        ctx.fill();
-        // slow drift
-        s.x += 0.02 * s.z;
-        if (s.x > W) s.x = 0;
-      });
-
-      // --- The planet: spherical particle field ---
-      const cx = W * 0.5 + paraX * 4;
-      const cy = H * 0.5 + paraY * 4;
-      const radius = Math.min(W, H) * 0.28;
-      // Auto rotation + subtle mouse-driven tilt
-      const yaw = t * 0.00035 + paraX * 0.0008;
-      const tilt = -0.35 + paraY * 0.0006; // slight axial tilt
-
-      // Atmospheric halo behind planet
-      const halo = ctx.createRadialGradient(cx, cy, radius * 0.85, cx, cy, radius * 1.6);
-      const haloColor = isDark ? "120,200,230" : "140,170,200";
-      halo.addColorStop(0, `rgba(${haloColor},${isDark ? 0.35 : 0.22})`);
-      halo.addColorStop(0.5, `rgba(${haloColor},${isDark ? 0.1 : 0.07})`);
-      halo.addColorStop(1, `rgba(${haloColor},0)`);
-      ctx.fillStyle = halo;
-      ctx.fillRect(cx - radius * 2, cy - radius * 2, radius * 4, radius * 4);
-
-      // Project each orbital point
-      const cosT = Math.cos(tilt), sinT = Math.sin(tilt);
-      // Build sortable projected array
-      type Proj = { x: number; y: number; depth: number; r: number; hue: number };
-      const projected: Proj[] = [];
-      for (let i = 0; i < orbits.length; i++) {
-        const o = orbits[i];
-        o.theta += o.speed + 0.0004; // slow spin
-        // sphere -> cartesian
-        const sx = Math.sin(o.phi) * Math.cos(o.theta + yaw);
-        const sy = Math.cos(o.phi);
-        const sz = Math.sin(o.phi) * Math.sin(o.theta + yaw);
-        // tilt around X
-        const ty = sy * cosT - sz * sinT;
-        const tz = sy * sinT + sz * cosT;
-        projected.push({
-          x: cx + sx * radius,
-          y: cy + ty * radius,
-          depth: tz, // -1..1
-          r: o.r,
-          hue: o.hue,
-        });
+      // Core glow (one gradient per frame).
+      const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, galaxyR * 1.3);
+      if (isDark) {
+        glow.addColorStop(0, "rgba(190,160,255,0.4)");
+        glow.addColorStop(0.2, "rgba(120,100,210,0.2)");
+        glow.addColorStop(0.55, "rgba(40,60,130,0.08)");
+        glow.addColorStop(1, "rgba(0,0,0,0)");
+      } else {
+        glow.addColorStop(0, "rgba(190,140,90,0.28)");
+        glow.addColorStop(0.4, "rgba(140,120,160,0.1)");
+        glow.addColorStop(1, "rgba(0,0,0,0)");
       }
-      // Painter's algorithm: back to front
-      projected.sort((a, b) => a.depth - b.depth);
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, W, H);
 
-      for (let i = 0; i < projected.length; i++) {
-        const p = projected[i];
-        // Lighting: front-facing brighter, back-facing dim
-        const light = (p.depth + 1) * 0.5; // 0..1
-        // Palette: teal -> violet -> warm
+      // Background stars (fillRect is cheaper than arc).
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        const tw = (Math.sin(t * 0.002 + s.tw) + 1) * 0.5;
+        const a = (isDark ? 0.25 : 0.18) + tw * (isDark ? 0.5 : 0.25);
+        ctx.fillStyle = isDark ? `rgba(255,250,235,${a})` : `rgba(40,40,60,${a})`;
+        const sx = s.x * W + paraX * 4;
+        const sy = s.y * H + paraY * 4;
+        ctx.fillRect(sx, sy, s.r, s.r);
+      }
+
+      // Spiral particles — differential rotation.
+      const rot = t * 0.00006;
+      const twist = 2.6;
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        const speed = 0.00009 / (p.r + 0.15);
+        p.a += speed * dt;
+        const armOffset = (p.arm / ARMS) * Math.PI * 2;
+        const angle = p.a + rot + armOffset + p.r * twist;
+        const radius = p.r * galaxyR;
+        const x = cx + Math.cos(angle) * radius;
+        const y = cy + Math.sin(angle) * radius * 0.45; // flattened disk
+        const tw = (Math.sin(t * 0.003 + p.tw) + 1) * 0.5;
+
         let r1: number, g1: number, b1: number;
         if (isDark) {
-          // cool space palette
-          if (p.hue < 0.5) {
-            // teal/cyan
-            r1 = 90 + light * 80;
-            g1 = 200 + light * 40;
-            b1 = 220 + light * 20;
-          } else {
-            // violet/magenta
-            r1 = 180 + light * 60;
-            g1 = 130 + light * 50;
-            b1 = 230 + light * 20;
-          }
+          if (p.r < 0.22) { r1 = 255; g1 = 235 - p.r * 200; b1 = 190 - p.r * 200; }
+          else if (p.hue < 0.5) { r1 = 140; g1 = 180; b1 = 255; }
+          else { r1 = 210; g1 = 150; b1 = 255; }
         } else {
-          // warm muted on ivory
-          if (p.hue < 0.5) {
-            r1 = 60 + light * 80;
-            g1 = 110 + light * 60;
-            b1 = 150 + light * 50;
-          } else {
-            r1 = 140 + light * 60;
-            g1 = 80 + light * 60;
-            b1 = 110 + light * 40;
-          }
+          if (p.r < 0.22) { r1 = 210; g1 = 140; b1 = 80; }
+          else if (p.hue < 0.5) { r1 = 80; g1 = 110; b1 = 160; }
+          else { r1 = 140; g1 = 90; b1 = 130; }
         }
-        const alpha = 0.15 + light * (isDark ? 0.85 : 0.55);
-        const size = p.r * (0.5 + light * 0.8);
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r1 | 0},${g1 | 0},${b1 | 0},${alpha})`;
-        ctx.fill();
+        const alpha = (0.4 + tw * 0.5) * (1 - p.r * 0.5) * (isDark ? 1 : 0.6);
+        const size = p.size * (1.3 - p.r * 0.6);
+        ctx.fillStyle = `rgba(${r1},${g1},${b1},${alpha})`;
+        ctx.fillRect(x - size / 2, y - size / 2, size, size);
       }
 
-      // Specular highlight on front of planet
-      const spec = ctx.createRadialGradient(
-        cx - radius * 0.25,
-        cy - radius * 0.3,
-        0,
-        cx - radius * 0.25,
-        cy - radius * 0.3,
-        radius * 0.9
-      );
-      const specColor = isDark ? "255,255,255" : "255,250,240";
-      spec.addColorStop(0, `rgba(${specColor},${isDark ? 0.18 : 0.25})`);
-      spec.addColorStop(0.6, `rgba(${specColor},0)`);
-      ctx.fillStyle = spec;
-      ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
-
-      // --- Orbital dust ring (in front when ring.y > cy after tilt) ---
-      // We draw a single tilted elliptical ring; particles already at z>0 appear in front naturally
-      dust.forEach(d => {
-        d.a += d.speed;
-        const rr = radius * (1.35 + d.r * 0.15);
-        const sx = Math.cos(d.a);
-        const sz = Math.sin(d.a);
-        // tilt — ring lies on planet's equatorial plane
-        const ty = -sz * sinT;
-        const tz = sz * cosT;
-        const px = cx + sx * rr;
-        const py = cy + ty * rr;
-        const light = (tz + 1) * 0.5;
-        const a = d.alpha * (0.35 + light * 0.65) * (isDark ? 1 : 0.7);
-        const col = isDark ? "200,220,255" : "120,100,80";
-        ctx.beginPath();
-        ctx.arc(px, py, d.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${col},${a})`;
-        ctx.fill();
-      });
-
-      // Mouse gravity: pull nearest stars slightly (subtle interaction)
-      if (mouse.x > -9000) {
-        for (let i = 0; i < 30; i++) {
-          const s = stars[i];
-          const dx = s.x - mx, dy = s.y - my;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 140 && dist > 0) {
-            const f = (140 - dist) / 140;
-            s.x -= (dx / dist) * f * 0.4;
-            s.y -= (dy / dist) * f * 0.4;
-          }
-        }
-      }
-
-      // --- Bottom fade (seamless blend into next section) ---
+      // Seamless bottom fade.
       ctx.globalCompositeOperation = "destination-out";
-      const fade = ctx.createLinearGradient(0, H * 0.45, 0, H);
+      const fade = ctx.createLinearGradient(0, H * 0.5, 0, H);
       fade.addColorStop(0, "rgba(0,0,0,0)");
-      fade.addColorStop(0.4, "rgba(0,0,0,0.18)");
-      fade.addColorStop(0.65, "rgba(0,0,0,0.5)");
-      fade.addColorStop(0.85, "rgba(0,0,0,0.85)");
+      fade.addColorStop(0.5, "rgba(0,0,0,0.4)");
+      fade.addColorStop(0.85, "rgba(0,0,0,0.9)");
       fade.addColorStop(1, "rgba(0,0,0,1)");
       ctx.fillStyle = fade;
-      ctx.fillRect(0, H * 0.45, W, H);
+      ctx.fillRect(0, H * 0.5, W, H * 0.5);
       ctx.globalCompositeOperation = "source-over";
-
-      t += 16;
-      rafRef.current = requestAnimationFrame(draw);
     };
 
-    const onResize = () => {
-      resize();
-      init();
-    };
+    const onResize = () => { resize(); };
     window.addEventListener("resize", onResize);
-    rafRef.current = requestAnimationFrame(draw);
+    // Catches layout shifts that don't trigger window resize (the "reset" bug).
+    const ro = new ResizeObserver(onResize);
+    ro.observe(canvas);
+
+    rafRef.current = requestAnimationFrame((n) => { last = n; draw(n); });
 
     return () => {
       window.removeEventListener("resize", onResize);
+      ro.disconnect();
       cancelAnimationFrame(rafRef.current);
     };
   }, []);
