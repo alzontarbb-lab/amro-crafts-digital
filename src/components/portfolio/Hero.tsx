@@ -69,8 +69,8 @@ export function Hero() {
       const mouse = mouseRef.current;
       const hasMouse = mouse.x > -9000;
 
-      ctx.fillStyle = isDark ? "#08070f" : "#f5f1e8";
-      ctx.fillRect(0, 0, W, H);
+      ctx.clearRect(0, 0, W, H);
+
 
       // Update node positions
       for (let i = 0; i < nodes.length; i++) {
