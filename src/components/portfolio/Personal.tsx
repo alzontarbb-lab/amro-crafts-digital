@@ -119,15 +119,6 @@ export function Personal() {
                 "linear-gradient(to left, black 0%, black 45%, transparent 100%)",
             }}
           />
-          {/* Bottom fade into next section background */}
-          <div
-            aria-hidden
-            className="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(to bottom, transparent 0%, color-mix(in oklab, var(--background) 40%, transparent) 40%, color-mix(in oklab, var(--background) 80%, transparent) 70%, var(--background) 100%)",
-            }}
-          />
 
 
           <div
