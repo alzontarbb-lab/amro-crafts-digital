@@ -179,6 +179,15 @@ export function Personal() {
           </div>
         </div>
       </Reveal>
+
+      {/* Section terminator */}
+      <div className="flex items-center justify-center gap-4 pt-16 md:pt-20">
+        <div className="h-px w-12 bg-border" />
+        <span className="font-mono text-xs text-muted-foreground uppercase tracking-[0.25em]">
+          End
+        </span>
+        <div className="h-px w-12 bg-border" />
+      </div>
     </section>
   );
 }
