@@ -194,7 +194,7 @@ export function Hero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 w-full pt-32 pb-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 w-full pt-28 pb-16 md:pt-32 md:pb-24">
         <motion.div
           initial={false}
           animate={{ opacity: 1, y: 0 }}
