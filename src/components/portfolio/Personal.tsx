@@ -6,7 +6,7 @@ export function Personal() {
   return (
     <section
       id="personal"
-      className="relative pt-8 pb-0 md:pt-12 md:pb-0"
+      className="relative py-24 md:py-32"
       style={{ background: "var(--background)" }}
     >
       <div className="mx-auto max-w-7xl px-6 mb-16">
@@ -180,14 +180,6 @@ export function Personal() {
         </div>
       </Reveal>
 
-      {/* Section terminator */}
-      <div className="flex items-center justify-center gap-4 pt-16 md:pt-20">
-        <div className="h-px w-12 bg-border" />
-        <span className="font-mono text-xs text-muted-foreground uppercase tracking-[0.25em]">
-          End
-        </span>
-        <div className="h-px w-12 bg-border" />
-      </div>
     </section>
   );
 }
