@@ -134,15 +134,18 @@ export function Hero() {
         ctx.fill();
       }
 
-      // Soft bottom fade into page background
+      // Soft top + bottom fade so nodes vanish into the page background.
       ctx.globalCompositeOperation = "destination-out";
-      const fade = ctx.createLinearGradient(0, H * 0.55, 0, H);
+      const fade = ctx.createLinearGradient(0, 0, 0, H);
       fade.addColorStop(0, "rgba(0,0,0,0)");
-      fade.addColorStop(0.6, "rgba(0,0,0,0.5)");
+      fade.addColorStop(0.5, "rgba(0,0,0,0)");
+      fade.addColorStop(0.75, "rgba(0,0,0,0.35)");
+      fade.addColorStop(0.92, "rgba(0,0,0,0.85)");
       fade.addColorStop(1, "rgba(0,0,0,1)");
       ctx.fillStyle = fade;
-      ctx.fillRect(0, H * 0.55, W, H * 0.45);
+      ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = "source-over";
+
     };
 
     const onResize = () => { resize(); init(); };
