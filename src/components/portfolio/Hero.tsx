@@ -166,7 +166,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-screen flex items-center overflow-hidden grain"
+      className="relative min-h-screen flex items-center overflow-hidden"
       onMouseMove={e => {
         const r = e.currentTarget.getBoundingClientRect();
         mouseRef.current = { x: e.clientX - r.left, y: e.clientY - r.top };
@@ -180,19 +180,6 @@ export function Hero() {
         style={{ zIndex: 0 }}
       />
 
-
-
-
-      {/* Soft ambient glow across the seam */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 -bottom-32 h-80 z-[1] opacity-40 dark:opacity-25"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 100% at 50% 0%, color-mix(in oklab, var(--teal) 14%, transparent), transparent 75%)",
-          filter: "blur(56px)",
-        }}
-      />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 w-full pt-28 pb-16 md:pt-32 md:pb-24">
         <motion.div
