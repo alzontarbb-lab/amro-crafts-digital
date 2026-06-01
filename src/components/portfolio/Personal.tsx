@@ -114,11 +114,9 @@ export function Personal() {
               filter: "grayscale(15%) contrast(1.08)",
               backgroundColor: "var(--surface-hi)",
               WebkitMaskImage:
-                "linear-gradient(to left, black 0%, black 45%, transparent 100%), linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
-              WebkitMaskComposite: "source-in",
+                "linear-gradient(to left, black 0%, black 45%, transparent 100%)",
               maskImage:
-                "linear-gradient(to left, black 0%, black 45%, transparent 100%), linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
-              maskComposite: "intersect",
+                "linear-gradient(to left, black 0%, black 45%, transparent 100%)",
             }}
           />
           {/* Bottom fade into next section background */}
