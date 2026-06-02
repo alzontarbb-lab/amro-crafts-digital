@@ -5,7 +5,7 @@ const groups = [
   { label: "Web", items: ["React", "Vite", "Tailwind", "TypeScript"] },
   { label: "Backend", items: ["PHP", "Laravel", "MySQL", "Supabase", "REST APIs"] },
   { label: "Automation & AI", items: ["Python", "LLM Integration", "Scripting"] },
-  { label: "Tools", items: ["Vercel", "Git", "Figma"] },
+  { label: "Tools", items: ["Vercel", "Git"] },
   { label: "Mobile (familiar)", items: ["Flutter", "Dart"] },
 ];
 
