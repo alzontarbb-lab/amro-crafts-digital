@@ -148,10 +148,19 @@ export function Hero() {
 
     };
 
-    const onResize = () => { resize(); init(); };
+    const onResize = () => {
+      const prevW = W;
+      resize();
+      // Only re-seed nodes when width changes meaningfully. This prevents
+      // mobile URL bar show/hide (height-only viewport changes during scroll)
+      // from reshuffling the entire field.
+      if (Math.abs(W - prevW) > 24) init();
+    };
     window.addEventListener("resize", onResize);
+    // Observe the parent section, not the canvas — the canvas itself is
+    // sized by the observer's own resize callback, which can feedback loop.
     const ro = new ResizeObserver(onResize);
-    ro.observe(canvas);
+    if (canvas.parentElement) ro.observe(canvas.parentElement);
 
     rafRef.current = requestAnimationFrame((n) => { last = n; draw(n); });
 
