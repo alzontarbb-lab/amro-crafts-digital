@@ -34,7 +34,10 @@ export function Hero() {
 
     const init = () => {
       const area = W * H;
-      const count = Math.min(180, Math.max(80, Math.floor(area / 14000)));
+      const isDesktop = W >= 1024;
+      const count = isDesktop
+        ? Math.min(280, Math.max(120, Math.floor(area / 9000)))
+        : Math.min(180, Math.max(80, Math.floor(area / 14000)));
       nodes = Array.from({ length: count }, () => ({
         x: Math.random() * W,
         y: Math.random() * H,
