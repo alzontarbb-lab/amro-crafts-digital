@@ -181,6 +181,19 @@ export function Hero() {
         mouseRef.current = { x: e.clientX - r.left, y: e.clientY - r.top };
       }}
       onMouseLeave={() => { mouseRef.current = { x: -9999, y: -9999 }; }}
+      onTouchStart={e => {
+        const t = e.touches[0];
+        if (!t) return;
+        const r = e.currentTarget.getBoundingClientRect();
+        mouseRef.current = { x: t.clientX - r.left, y: t.clientY - r.top };
+      }}
+      onTouchMove={e => {
+        const t = e.touches[0];
+        if (!t) return;
+        const r = e.currentTarget.getBoundingClientRect();
+        mouseRef.current = { x: t.clientX - r.left, y: t.clientY - r.top };
+      }}
+      onTouchEnd={() => { mouseRef.current = { x: -9999, y: -9999 }; }}
     >
       <canvas
         ref={canvasRef}
