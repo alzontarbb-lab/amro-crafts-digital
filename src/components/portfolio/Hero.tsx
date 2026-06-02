@@ -165,6 +165,9 @@ export function Hero() {
     const ro = new ResizeObserver(onResize);
     if (canvas.parentElement) ro.observe(canvas.parentElement);
 
+    // Paint an initial frame synchronously so the constellation is visible
+    // immediately on mount rather than after the first RAF tick.
+    draw(performance.now());
     rafRef.current = requestAnimationFrame((n) => { last = n; draw(n); });
 
     return () => {
