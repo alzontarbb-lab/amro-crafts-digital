@@ -200,13 +200,19 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    height: 165px;
+    height: 110px;
     background-image: var(--paisley-border-light);
     background-repeat: repeat-x;
     background-position: center;
-    background-size: auto 165px;
+    background-size: auto 110px;
     opacity: 0.35;
     pointer-events: none;
+  }
+  @media (min-width: 1024px) {
+    .section-divider::before {
+      height: 165px;
+      background-size: auto 165px;
+    }
   }
   .dark .section-divider::before,
   [data-theme="dark"] .section-divider::before {
