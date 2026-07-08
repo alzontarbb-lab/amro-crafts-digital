@@ -24,7 +24,7 @@ const items = [
 export function Experience() {
   return (
     <section id="experience" className="relative py-32 md:py-40 bg-surface/40">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <SectionHeader index="05" label="Timeline" title="A short, honest path." />
 
         <div className="max-w-3xl">
@@ -42,6 +42,7 @@ export function Experience() {
           ))}
         </div>
       </div>
+      <div className="section-divider" aria-hidden="true" />
     </section>
   );
 }

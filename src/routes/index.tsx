@@ -34,10 +34,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function Divider() {
-  return <div className="paisley-divider" aria-hidden="true" />;
-}
-
 function Index() {
   const style = {
     "--paisley-field-light": `url('${paisleyFieldLight.url}')`,
@@ -53,17 +49,11 @@ function Index() {
         <Nav />
         <main className="paisley-wash">
           <Hero />
-          <Divider />
           <About />
-          <Divider />
           <Skills />
-          <Divider />
           <Projects />
-          <Divider />
           <Experience />
-          <Divider />
           <Personal />
-          <Divider />
           <Contact />
         </main>
       </div>

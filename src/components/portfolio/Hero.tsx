@@ -288,6 +288,7 @@ export function Hero() {
           />
         </motion.div>
       </div>
+      <div className="section-divider" aria-hidden="true" />
     </section>
   );
 }
