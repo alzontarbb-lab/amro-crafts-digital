@@ -168,6 +168,7 @@
 
   .paisley-wash {
     position: relative;
+    isolation: isolate;
     background-image: var(--paisley-field-light);
     background-repeat: repeat;
     background-size: 480px auto;
@@ -184,21 +185,30 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
+    z-index: 0;
     background: color-mix(in oklab, var(--background) 97%, transparent);
   }
 
-  .paisley-divider {
+  .section-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     height: 60px;
+    transform: translateY(50%);
     background-image: var(--paisley-border-light);
     background-repeat: repeat-x;
     background-position: center;
     background-size: auto 60px;
     opacity: 0.3;
+    z-index: 2;
     pointer-events: none;
   }
-  .dark .paisley-divider {
+  .dark .section-divider,
+  [data-theme="dark"] .section-divider {
     background-image: var(--paisley-border-dark);
   }
+
 
   .project-card {
     position: relative;
