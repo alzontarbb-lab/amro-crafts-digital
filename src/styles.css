@@ -213,6 +213,10 @@
       height: 165px;
       background-size: auto 165px;
     }
+    .section-divider:last-of-type::before {
+      top: 0;
+      transform: translateY(-25px);
+    }
   }
   .dark .section-divider::before,
   [data-theme="dark"] .section-divider::before {
