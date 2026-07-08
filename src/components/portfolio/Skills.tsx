@@ -12,7 +12,7 @@ const groups = [
 export function Skills() {
   return (
     <section id="skills" className="relative py-32 md:py-40 bg-surface/40">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <SectionHeader index="03" label="Stack" title="The tools I reach for." />
 
         <div className="space-y-2">
@@ -46,6 +46,7 @@ export function Skills() {
           ))}
         </div>
       </div>
+      <div className="section-divider" aria-hidden="true" />
     </section>
   );
 }
