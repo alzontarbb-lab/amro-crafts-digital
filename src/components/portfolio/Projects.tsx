@@ -95,7 +95,7 @@ export function Projects() {
         </filter>
       </svg>
 
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <SectionHeader index="04" label="Selected Work" title="Built because something needed building." />
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -106,6 +106,7 @@ export function Projects() {
           ))}
         </div>
       </div>
+      <div className="section-divider" aria-hidden="true" />
     </section>
   );
 }
