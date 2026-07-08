@@ -181,7 +181,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden bg-background"
       onMouseMove={e => {
         const r = e.currentTarget.getBoundingClientRect();
         mouseRef.current = { x: e.clientX - r.left, y: e.clientY - r.top };

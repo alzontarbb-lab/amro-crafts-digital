@@ -9,6 +9,10 @@ import { Projects } from "@/components/portfolio/Projects";
 import { Experience } from "@/components/portfolio/Experience";
 import { Personal } from "@/components/portfolio/Personal";
 import { Contact } from "@/components/portfolio/Contact";
+import paisleyFieldLight from "@/assets/paisley-field-light.png.asset.json";
+import paisleyFieldDark from "@/assets/paisley-field-dark.png.asset.json";
+import paisleyBorderLight from "@/assets/paisley-sari-border-light-seamless.png.asset.json";
+import paisleyBorderDark from "@/assets/paisley-sari-border-dark-seamless.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,19 +34,36 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+function Divider() {
+  return <div className="paisley-divider" aria-hidden="true" />;
+}
+
 function Index() {
+  const style = {
+    "--paisley-field-light": `url('${paisleyFieldLight.url}')`,
+    "--paisley-field-dark": `url('${paisleyFieldDark.url}')`,
+    "--paisley-border-light": `url('${paisleyBorderLight.url}')`,
+    "--paisley-border-dark": `url('${paisleyBorderDark.url}')`,
+  } as React.CSSProperties;
+
   return (
     <ThemeProvider>
-      <div className="relative bg-background text-foreground antialiased">
+      <div className="relative bg-background text-foreground antialiased" style={style}>
         <Spotlight />
         <Nav />
-        <main>
+        <main className="paisley-wash">
           <Hero />
+          <Divider />
           <About />
+          <Divider />
           <Skills />
+          <Divider />
           <Projects />
+          <Divider />
           <Experience />
+          <Divider />
           <Personal />
+          <Divider />
           <Contact />
         </main>
       </div>
