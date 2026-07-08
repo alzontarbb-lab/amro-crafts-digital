@@ -22,7 +22,7 @@ const items = [
 ];
 
 // Stylized paisley/boteh tile — used as a CSS mask so we can tint via currentColor.
-const PAISLEY_SVG = `<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><g fill='none' stroke='black' stroke-width='1.2'><path d='M50 150 C 20 120, 30 70, 70 55 C 110 42, 140 65, 138 100 C 136 128, 110 140, 92 128 C 78 118, 82 98, 96 92 C 106 88, 116 96, 114 106'/><circle cx='96' cy='110' r='3'/><path d='M70 55 C 74 40, 88 32, 100 38'/><path d='M150 50 C 130 30, 100 34, 92 55'/><path d='M160 160 C 175 145, 178 120, 168 105 C 158 92, 142 96, 138 108 C 135 118, 145 126, 152 120'/><circle cx='150' cy='115' r='2'/></g></svg>`;
+const PAISLEY_SVG = `<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'><g fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M60 190 C 20 155, 30 80, 85 60 C 135 45, 175 78, 172 122 C 170 156, 138 172, 112 156 C 92 144, 96 118, 118 110 C 132 105, 146 118, 142 132'/><circle cx='120' cy='128' r='4'/><path d='M85 60 C 90 42, 108 32, 124 40'/><path d='M180 55 C 156 32, 118 38, 108 62'/><path d='M50 100 C 40 90, 40 78, 52 72'/><circle cx='60' cy='168' r='2.5'/><circle cx='168' cy='70' r='2.5'/></g></svg>`;
 
 const PAISLEY_URI = `url("data:image/svg+xml;utf8,${encodeURIComponent(PAISLEY_SVG)}")`;
 
@@ -32,15 +32,15 @@ export function Experience() {
       {/* Paisley texture — tinted via currentColor for light/dark accent */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 text-accent-500 dark:text-accent-400 opacity-[0.04] dark:opacity-[0.05]"
+        className="pointer-events-none absolute inset-0 text-accent-600 dark:text-accent-300 opacity-[0.18] dark:opacity-[0.22]"
         style={{
           backgroundColor: "currentColor",
           WebkitMaskImage: PAISLEY_URI,
           maskImage: PAISLEY_URI,
           WebkitMaskRepeat: "repeat",
           maskRepeat: "repeat",
-          WebkitMaskSize: "200px 200px",
-          maskSize: "200px 200px",
+          WebkitMaskSize: "240px 240px",
+          maskSize: "240px 240px",
         }}
       />
 
