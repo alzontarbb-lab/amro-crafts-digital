@@ -77,9 +77,9 @@ export function Contact() {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 300, damping: 18 }}
-                      className="w-16 h-16 rounded-full bg-foreground/15 border border-foreground/30 flex items-center justify-center mb-6"
+                      className="w-16 h-16 rounded-full bg-foreground border border-foreground flex items-center justify-center mb-6"
                     >
-                      <Check className="w-7 h-7 text-white" />
+                      <Check className="w-7 h-7 text-background" />
                     </motion.div>
                     <h3 className="font-display text-2xl font-medium mb-2">Message sent.</h3>
                     <p className="text-muted-foreground">I'll get back to you shortly.</p>
