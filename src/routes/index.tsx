@@ -49,10 +49,15 @@ function Index() {
         <Nav />
         <main className="paisley-wash">
           <Hero />
+          <div className="section-divider" aria-hidden="true" />
           <About />
+          <div className="section-divider" aria-hidden="true" />
           <Skills />
+          <div className="section-divider" aria-hidden="true" />
           <Projects />
+          <div className="section-divider" aria-hidden="true" />
           <Experience />
+          <div className="section-divider" aria-hidden="true" />
           <Personal />
           <Contact />
         </main>
