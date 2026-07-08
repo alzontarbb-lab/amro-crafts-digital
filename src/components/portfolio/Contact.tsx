@@ -22,7 +22,7 @@ export function Contact() {
         aria-hidden
         className="absolute inset-0 mesh-bg opacity-30 blur-3xl pointer-events-none"
       />
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <SectionHeader index="06" label="Contact" title="Got a project? Let's talk." />
 
         <div className="grid md:grid-cols-[1fr_1.2fr] gap-12 md:gap-20">
