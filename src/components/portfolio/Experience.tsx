@@ -34,7 +34,7 @@ export function Experience() {
                 <div className="font-mono text-xs text-muted-foreground pt-1">{it.period}</div>
                 <div>
                   <h3 className="font-display text-xl md:text-2xl font-medium">{it.role}</h3>
-                  <div className="text-teal text-sm font-mono mt-1">{it.org}</div>
+                  <div className="text-foreground text-sm font-mono mt-1">{it.org}</div>
                   <p className="text-muted-foreground mt-3 text-pretty">{it.note}</p>
                 </div>
               </div>

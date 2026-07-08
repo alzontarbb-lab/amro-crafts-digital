@@ -37,7 +37,7 @@ export function Nav() {
     <>
       <motion.div
         style={{ scaleX }}
-        className="fixed top-0 left-0 right-0 h-[2px] bg-teal origin-left z-[60]"
+        className="fixed top-0 left-0 right-0 h-[2px] bg-foreground origin-left z-[60]"
       />
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -51,7 +51,7 @@ export function Nav() {
             className="font-display text-lg font-semibold tracking-tight relative inline-flex items-center"
           >
             <Logo variant="wordmark" />
-            <span className="text-teal">.</span>
+            <span className="text-foreground">.</span>
           </a>
 
           <nav

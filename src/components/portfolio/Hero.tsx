@@ -57,7 +57,7 @@ export function Hero() {
     const readAccent = () => {
       const cs = getComputedStyle(document.documentElement);
       const isDark = document.documentElement.classList.contains("dark");
-      return cs.getPropertyValue(isDark ? "--teal-glow" : "--teal").trim() || "oklch(0.65 0.09 200)";
+      return cs.getPropertyValue(isDark ? "--foreground" : "--foreground").trim() || "oklch(0.65 0.09 200)";
     };
 
     const draw = (now: number) => {

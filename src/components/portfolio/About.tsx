@@ -84,8 +84,8 @@ function colorize(line: string) {
   return line.split(/(\/\/.*|"[^"]*"|\b(?:const|while|let|return)\b)/g).map((part, i) => {
     if (!part) return null;
     if (part.startsWith("//")) return <span key={i} className="text-muted-foreground/60">{part}</span>;
-    if (part.startsWith('"')) return <span key={i} className="text-teal">{part}</span>;
-    if (/^(const|while|let|return)$/.test(part)) return <span key={i} className="text-teal-glow">{part}</span>;
+    if (part.startsWith('"')) return <span key={i} className="text-foreground">{part}</span>;
+    if (/^(const|while|let|return)$/.test(part)) return <span key={i} className="text-muted-foreground">{part}</span>;
     return <span key={i}>{part}</span>;
   });
 }
