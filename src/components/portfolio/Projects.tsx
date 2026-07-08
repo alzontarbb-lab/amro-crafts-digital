@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Reveal, SectionHeader } from "./Reveal";
 import { ArrowUpRight } from "lucide-react";
 
@@ -52,16 +53,55 @@ const projects: Project[] = [
   },
 ];
 
+function useLiquidGlassSupport() {
+  const [supported, setSupported] = useState(true);
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    const isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(ua);
+    const hasBackdrop =
+      CSS.supports?.("backdrop-filter", "blur(1px)") ||
+      CSS.supports?.("-webkit-backdrop-filter", "blur(1px)");
+    setSupported(!isSafari && !!hasBackdrop);
+  }, []);
+  return supported;
+}
+
 export function Projects() {
+  const liquid = useLiquidGlassSupport();
+
   return (
     <section id="work" className="relative py-32 md:py-40">
+      {/* Hidden SVG filter used by liquid-glass cards */}
+      <svg
+        aria-hidden="true"
+        style={{ position: "absolute", width: 0, height: 0 }}
+      >
+        <filter id="liquid-glass-distortion">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.008 0.008"
+            numOctaves={2}
+            seed={4}
+            result="noise"
+          />
+          <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="blurred"
+            scale="18"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </svg>
+
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader index="04" label="Selected Work" title="Built because something needed building." />
 
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((p, i) => (
             <Reveal key={p.title} delay={(i % 2) * 0.08}>
-              <ProjectCard project={p} />
+              <ProjectCard project={p} liquid={liquid} />
             </Reveal>
           ))}
         </div>
@@ -70,20 +110,21 @@ export function Projects() {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, liquid }: { project: Project; liquid: boolean }) {
   const isFreelance = project.tag === "Freelance / In Progress";
   const isMeta = project.tag === "Meta / This One";
+  const cardClass = liquid ? "project-card" : "glass";
   return (
     <article
-      className={`group relative overflow-hidden rounded-2xl glass p-8 md:p-10 transition-all duration-500 hover:-translate-y-1 hover:bg-[var(--surface-hi)] dark:hover:bg-[var(--surface-hi)] ${
+      className={`group relative overflow-hidden rounded-2xl ${cardClass} p-8 md:p-10 ${
         isMeta ? "md:col-span-2" : ""
       }`}
     >
       <div
         aria-hidden
-        className="absolute inset-0 opacity-0 dark:group-hover:opacity-100 transition-opacity duration-700 mesh-bg"
+        className="absolute inset-0 opacity-0 dark:group-hover:opacity-100 transition-opacity duration-700 mesh-bg pointer-events-none"
       />
-      <div className="relative">
+      <div className="relative z-[1]">
         <div className="flex items-start justify-between gap-4 mb-6">
           <span
             className={`text-[10px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border ${
