@@ -18,12 +18,12 @@ export function Skills() {
         <div className="space-y-2">
           {groups.map((g, gi) => (
             <Reveal key={g.label} delay={gi * 0.05}>
-              <div className="group grid md:grid-cols-[200px_1fr] gap-6 py-6 border-t border-border first:border-t-0 hover:border-teal/40 transition-colors">
+              <div className="group grid md:grid-cols-[200px_1fr] gap-6 py-6 border-t border-border first:border-t-0 hover:border-foreground/40 transition-colors">
                 <div className="flex items-baseline gap-3">
                   <span className="font-mono text-xs text-muted-foreground">
                     {String(gi + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="font-display text-2xl md:text-3xl font-medium group-hover:text-teal transition-colors">
+                  <h3 className="font-display text-2xl md:text-3xl font-medium group-hover:text-foreground transition-colors">
                     {g.label}
                   </h3>
                 </div>
@@ -35,7 +35,7 @@ export function Skills() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-50px" }}
                       transition={{ delay: i * 0.04, duration: 0.4 }}
-                      className="px-3.5 py-1.5 rounded-full glass text-sm font-medium hover:border-teal hover:text-teal transition-colors cursor-default"
+                      className="px-3.5 py-1.5 rounded-full glass text-sm font-medium hover:border-foreground hover:text-foreground transition-colors cursor-default"
                     >
                       {it}
                     </motion.span>
