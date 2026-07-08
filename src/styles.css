@@ -199,4 +199,47 @@
   .dark .paisley-divider {
     background-image: var(--paisley-border-dark);
   }
+
+  .project-card {
+    position: relative;
+    isolation: isolate;
+    transition: transform 0.3s ease;
+  }
+  .project-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    filter: url(#liquid-glass-distortion);
+    z-index: -1;
+    border-radius: inherit;
+  }
+  .project-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.02) 40%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .dark .project-card::after {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.01) 40%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+  }
 }
