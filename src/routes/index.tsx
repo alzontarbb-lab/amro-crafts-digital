@@ -59,6 +59,7 @@ function Index() {
           <Experience />
           <div className="section-divider" aria-hidden="true" />
           <Personal />
+          <div className="section-divider" aria-hidden="true" />
           <Contact />
         </main>
       </div>
