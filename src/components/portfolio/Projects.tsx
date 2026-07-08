@@ -128,12 +128,10 @@ function ProjectCard({ project, liquid }: { project: Project; liquid: boolean })
       <div className="relative z-[1]">
         <div className="flex items-start justify-between gap-4 mb-6">
           <span
-            className={`text-[10px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border ${
+            className={`text-[10px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border bg-transparent ${
               isFreelance
                 ? "border-success/40 text-success"
-                : isMeta
-                  ? "border-foreground/20 text-foreground"
-                  : "border-teal/40 text-teal"
+                : "border-border text-muted-foreground"
             }`}
           >
             {project.tag}

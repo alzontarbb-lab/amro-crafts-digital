@@ -194,13 +194,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 110px;
     transform: translateY(50%);
     background-image: var(--paisley-border-light);
     background-repeat: repeat-x;
     background-position: center;
-    background-size: auto 60px;
-    opacity: 0.3;
+    background-size: auto 110px;
+    opacity: 0.35;
     z-index: 2;
     pointer-events: none;
   }

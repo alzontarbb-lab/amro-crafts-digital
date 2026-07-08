@@ -36,18 +36,18 @@ export function Contact() {
               <div className="space-y-4 font-mono text-sm">
                 <a
                   href="mailto:hello@amro.dev"
-                  className="flex items-center gap-3 text-foreground hover:text-teal transition-colors group"
+                  className="flex items-center gap-3 text-foreground hover:text-foreground transition-colors group"
                 >
-                  <span className="w-9 h-9 rounded-full glass flex items-center justify-center group-hover:border-teal">
+                  <span className="w-9 h-9 rounded-full glass flex items-center justify-center group-hover:border-foreground">
                     <Mail className="w-4 h-4" />
                   </span>
                   amrokfarajallah@gmail.com
                 </a>
                 <a
                   href="#"
-                  className="flex items-center gap-3 text-foreground hover:text-teal transition-colors group"
+                  className="flex items-center gap-3 text-foreground hover:text-foreground transition-colors group"
                 >
-                  <span className="w-9 h-9 rounded-full glass flex items-center justify-center group-hover:border-teal">
+                  <span className="w-9 h-9 rounded-full glass flex items-center justify-center group-hover:border-foreground">
                     <Linkedin className="w-4 h-4" />
                   </span>
                   linkedin.com/in/amro
@@ -102,7 +102,7 @@ export function Contact() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-foreground text-background text-sm font-medium hover:bg-teal hover:text-primary-foreground transition-colors disabled:opacity-60"
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-foreground text-background text-sm font-medium hover:bg-foreground hover:text-primary-foreground transition-colors disabled:opacity-60"
                     >
                       {loading ? "Sending..." : "Send message"}
                       <Send className="w-4 h-4" />
@@ -137,7 +137,7 @@ function Field({
   textarea?: boolean;
 }) {
   const common =
-    "w-full bg-transparent border-b border-border focus:border-teal outline-none py-3 text-foreground placeholder:text-muted-foreground/60 transition-colors";
+    "w-full bg-transparent border-b border-border focus:border-foreground outline-none py-3 text-foreground placeholder:text-muted-foreground/60 transition-colors";
   return (
     <label className="block">
       <span className="block font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-1">

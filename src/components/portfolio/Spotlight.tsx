@@ -29,7 +29,7 @@ export function Spotlight() {
       className="pointer-events-none fixed inset-0 z-[5] transition-opacity duration-500"
       style={{
         opacity: visible ? 1 : 0,
-        background: `radial-gradient(600px circle at ${pos.x}px ${pos.y}px, color-mix(in oklab, var(--teal-glow) 10%, transparent), transparent 70%)`,
+        background: `radial-gradient(600px circle at ${pos.x}px ${pos.y}px, color-mix(in oklab, var(--foreground) 10%, transparent), transparent 70%)`,
       }}
     />
   );

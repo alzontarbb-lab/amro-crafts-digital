@@ -37,7 +37,7 @@ export function Nav() {
     <>
       <motion.div
         style={{ scaleX }}
-        className="fixed top-0 left-0 right-0 h-[2px] bg-teal origin-left z-[60]"
+        className="fixed top-0 left-0 right-0 h-[2px] bg-foreground origin-left z-[60]"
       />
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -51,7 +51,7 @@ export function Nav() {
             className="font-display text-lg font-semibold tracking-tight relative inline-flex items-center"
           >
             <Logo variant="wordmark" />
-            <span className="text-teal">.</span>
+            <span className="text-foreground">.</span>
           </a>
 
           <nav
@@ -130,7 +130,7 @@ export function Nav() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 + i * 0.05, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="font-display text-4xl font-semibold tracking-tight py-3 hover:text-teal transition-colors"
+                  className="font-display text-4xl font-semibold tracking-tight py-3 hover:text-foreground transition-colors"
                 >
                   {l.label}
                 </motion.a>
