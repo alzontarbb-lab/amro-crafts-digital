@@ -40,16 +40,6 @@
   --color-surface: var(--surface);
   --color-surface-hi: var(--surface-hi);
   --color-success: var(--success);
-  --color-accent-50: #FBF4EA;
-  --color-accent-100: #F2E1C7;
-  --color-accent-200: #E4C393;
-  --color-accent-300: #D1A264;
-  --color-accent-400: #B98249;
-  --color-accent-500: #8A5A2B;
-  --color-accent-600: #714821;
-  --color-accent-700: #5A3A1B;
-  --color-accent-800: #442C15;
-  --color-accent-900: #2E1D0E;
 }
 
 :root {
@@ -77,9 +67,8 @@
   --border: oklch(0.88 0.01 80 / 0.7);
   --input: oklch(0.88 0.01 80);
   --ring: oklch(0.42 0.07 210);
-  /* Bronze Oud accent — light mode uses accent-500 */
-  --teal: #8A5A2B;
-  --teal-glow: #B98249;
+  --teal: oklch(0.42 0.07 210);
+  --teal-glow: oklch(0.55 0.1 200);
   --success: oklch(0.65 0.18 150);
 }
 
@@ -106,9 +95,8 @@
   --border: oklch(1 0 0 / 0.08);
   --input: oklch(1 0 0 / 0.12);
   --ring: oklch(0.7 0.1 200);
-  /* Bronze Oud accent — dark mode uses accent-400 */
-  --teal: #B98249;
-  --teal-glow: #D1A264;
+  --teal: oklch(0.65 0.09 200);
+  --teal-glow: oklch(0.75 0.13 195);
   --success: oklch(0.72 0.2 150);
 }
 
