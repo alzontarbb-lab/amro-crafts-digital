@@ -16,7 +16,7 @@ while (problem) {
 export function About() {
   return (
     <section id="about" className="relative py-32 md:py-40">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <SectionHeader index="02" label="About" title="Quiet confidence. Real systems." />
 
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
@@ -74,6 +74,7 @@ export function About() {
           </Reveal>
         </div>
       </div>
+      <div className="section-divider" aria-hidden="true" />
     </section>
   );
 }
