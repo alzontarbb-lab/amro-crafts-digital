@@ -74,7 +74,6 @@ export function About() {
           </Reveal>
         </div>
       </div>
-      <div className="section-divider" aria-hidden="true" />
     </section>
   );
 }
