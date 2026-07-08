@@ -172,7 +172,6 @@
     background-image: var(--paisley-field-light);
     background-repeat: repeat;
     background-size: 480px auto;
-    background-attachment: fixed;
   }
   .dark .paisley-wash {
     background-image: var(--paisley-field-dark);
@@ -190,22 +189,27 @@
   }
 
   .section-divider {
+    position: relative;
+    height: 0;
+    z-index: 5;
+  }
+  .section-divider::before {
+    content: "";
     position: absolute;
-    bottom: 0;
     left: 0;
     right: 0;
+    top: 50%;
+    transform: translateY(-50%);
     height: 110px;
-    transform: translateY(50%);
     background-image: var(--paisley-border-light);
     background-repeat: repeat-x;
     background-position: center;
     background-size: auto 110px;
     opacity: 0.35;
-    z-index: 2;
     pointer-events: none;
   }
-  .dark .section-divider,
-  [data-theme="dark"] .section-divider {
+  .dark .section-divider::before,
+  [data-theme="dark"] .section-divider::before {
     background-image: var(--paisley-border-dark);
   }
 
