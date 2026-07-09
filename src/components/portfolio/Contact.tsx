@@ -44,13 +44,15 @@ export function Contact() {
                   amrokfarajallah@gmail.com
                 </a>
                 <a
-                  href="#"
+                  href="https://linkedin.com/in/amr0kf/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 text-foreground hover:text-foreground transition-colors group"
                 >
                   <span className="w-9 h-9 rounded-full glass flex items-center justify-center group-hover:border-foreground">
                     <Linkedin className="w-4 h-4" />
                   </span>
-                  linkedin.com/in/amro
+                  linkedin.com/in/amr0kf
                 </a>
                 <div className="flex items-center gap-3 text-muted-foreground">
                   <span className="w-9 h-9 rounded-full glass flex items-center justify-center">
