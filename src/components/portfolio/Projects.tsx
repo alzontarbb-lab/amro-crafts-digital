@@ -122,7 +122,7 @@ function ProjectCard({ project, liquid }: { project: Project; liquid: boolean })
     >
       <div
         aria-hidden
-        className="absolute inset-0 opacity-0 dark:group-hover:opacity-100 transition-opacity duration-700 mesh-bg pointer-events-none"
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-xl"
       />
       <div className="relative z-[1]">
         <div className="flex items-start justify-between gap-4 mb-6">
