@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getProjectById, projects, Project, ProjectScreenshot } from "@/data/projects";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -8,10 +8,15 @@ import {
   ChevronRight,
   ShieldCheck,
   CheckCircle2,
-  Layers,
   Smartphone,
   Monitor,
   Tablet,
+  Maximize2,
+  X,
+  Cpu,
+  Database,
+  Radio,
+  Server,
 } from "lucide-react";
 
 export const Route = createFileRoute("/work/$projectId")({
@@ -36,11 +41,82 @@ export const Route = createFileRoute("/work/$projectId")({
   component: ProjectDetailPage,
 });
 
+interface OperationalMetric {
+  value: string;
+  label: string;
+  sub: string;
+}
+
+const PROJECT_METRICS: Record<string, OperationalMetric[]> = {
+  "field-dispatch": [
+    { value: "111+", label: "SLA Overdues Triaged", sub: "Automated engine breakdown alerts" },
+    { value: "50+", label: "Heavy Gensets Tracked", sub: "Per-unit KVA, serials & ATS switchgear" },
+    { value: "3 Divisions", label: "Workload Balancing", sub: "Mechanical, Electrical & Welders" },
+    { value: "0 Slips", label: "Paperless Target", sub: "Digital GPS-tagged photo work orders" },
+  ],
+  "market-dash": [
+    { value: "< 45s", label: "Checkout Velocity", sub: "Sub-minute direct mobile dispatch" },
+    { value: "0%", label: "Aggregator Fees", sub: "Direct retailer margin retention" },
+    { value: "Gemini AI", label: "Smart Item Discovery", sub: "Fuzzy catalog heuristics & suggestions" },
+    { value: "Sub-second", label: "Sliding Cart Drawer", sub: "Fluid bottom-sheet ergonomics" },
+  ],
+  "fragrance-storefront": [
+    { value: "100%", label: "Authenticity Verified", sub: "Batch-code transparency & olfactory notes" },
+    { value: "< 30s", label: "Direct WhatsApp Flow", sub: "Zero-friction order serialization" },
+    { value: "44px+", label: "Ergonomic Hit Targets", sub: "Fold-test passing mobile ergonomics" },
+    { value: "0 Fees", label: "Gateway Disintermediation", sub: "Full cash-on-delivery inspection" },
+  ],
+  "retail-pos": [
+    { value: "USD & LBP", label: "Dual Currency Ledgers", sub: "Real-time parallel shift drawer balance" },
+    { value: "4 Verticals", label: "Adapted Deployments", sub: "Grocery, footwear, menswear & trade" },
+    { value: "100%", label: "Offline-First Engine", sub: "FastAPI + SQLite, zero cloud failure" },
+    { value: "1-Click", label: "Shift Reconciliation", sub: "Automated cash discrepancy audit" },
+  ],
+  "ula-claims": [
+    { value: "Mins vs Days", label: "Turnaround Acceleration", sub: "Multi-model LLM API evidence parsing" },
+    { value: "100%", label: "Digital Audit Trail", sub: "Drag-and-drop Kanban claim pipeline" },
+    { value: "Agent Brain", label: "Adaptive Skill Memory", sub: "Self-refining report quality over time" },
+    { value: "Sanitized", label: "Strict NDA Protection", sub: "All proprietary trademarks withheld" },
+  ],
+  "case-file": [
+    { value: "Bilingual", label: "Arabic RTL & English", sub: "Seamless bidirectional layout toggle" },
+    { value: "100%", label: "Permanent Public Record", sub: "Resilient self-hosted documentation" },
+    { value: "5 Archives", label: "Content Media Library", sub: "Articles, evidence, audio & video" },
+    { value: "Navy & Gold", label: "Institutional Stature", sub: "High-credibility legal design system" },
+  ],
+  "invoice-maker": [
+    { value: "100%", label: "Offline Client-Side", sub: "Zero server dependency or account setup" },
+    { value: "Bilingual", label: "Arabic/English PDF", sub: "Dual-language invoice generation" },
+    { value: "< 60s", label: "Document Creation", sub: "Template styling with live preview" },
+    { value: "$0", label: "Zero SaaS Subscription", sub: "Browser local storage persistence" },
+  ],
+  "parts-intake": [
+    { value: "< 60s", label: "Depot Intake Speed", sub: "Stylus & screen-pen touch ergonomics" },
+    { value: "0", label: "Lost Carbon Slips", sub: "Replaced hand-written depot paper loop" },
+    { value: "Auto-Email", label: "Direct TRF Dispatch", sub: "Structured delivery into depot ERP" },
+    { value: "Live Depot", label: "Daily Production Use", sub: "Continuous active aftersales operations" },
+  ],
+  "contracts-portal": [
+    { value: "OCR Engine", label: "Automated Extraction", sub: "Machine serials parsed from notes" },
+    { value: "365-Day", label: "SLA Renewal Clock", sub: "Preemptive maintenance warranty alerts" },
+    { value: "0", label: "Uncovered Dispatches", sub: "Eliminated uncontracted service trips" },
+    { value: "Subscription", label: "Lifecycle Model", sub: "Centralized machinery warranty registry" },
+  ],
+  "python-automation": [
+    { value: "~10 hrs/wk", label: "Manual Labor Saved", sub: "Eliminated repetitive copy-paste tasks" },
+    { value: "100%", label: "Autonomous Schedule", sub: "Cron-triggered without human oversight" },
+    { value: "0", label: "Calculation Anomalies", sub: "Pandas cross-table reconciliation" },
+    { value: "Multi-Channel", label: "Automated Summaries", sub: "Daily KPI reporting to Slack & Email" },
+  ],
+};
+
 function ProjectDetailPage() {
   const { projectId } = Route.useParams();
   const project = getProjectById(projectId);
   if (!project) return null;
+
   const galleryRef = useRef<HTMLDivElement>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const scrollGallery = (direction: "left" | "right") => {
     if (galleryRef.current) {
@@ -51,89 +127,121 @@ function ProjectDetailPage() {
 
   const screenshots = project.screenshots || [];
   const screenshotCount = screenshots.length;
+  const metrics = PROJECT_METRICS[project.id] || [];
 
   // Adjacent projects for bottom pagination
   const currentIndex = projects.findIndex((p) => p.id === project.id);
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : projects[projects.length - 1];
   const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : projects[0];
 
+  // Lightbox keyboard listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === "Escape") setLightboxIndex(null);
+      if (e.key === "ArrowLeft" && lightboxIndex > 0) setLightboxIndex(lightboxIndex - 1);
+      if (e.key === "ArrowRight" && lightboxIndex < screenshots.length - 1) setLightboxIndex(lightboxIndex + 1);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex, screenshots.length]);
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-white/20 selection:text-white">
-      {/* Top sticky navigation bar */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-background/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5 sm:px-6">
+      {/* Top sticky navigation bar — Badge-free minimal design */}
+      <header className="sticky top-0 z-40 border-b border-border/40 bg-background/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 py-3.5">
           <Link
             to="/"
             hash="work"
-            className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-surface px-3.5 py-1.5 font-mono text-xs text-muted-foreground transition-all hover:border-white/25 hover:bg-surface-hi hover:text-foreground"
+            className="group inline-flex items-center gap-2 font-mono text-xs text-muted-foreground hover:text-foreground transition-colors"
           >
-            <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
-            <span>Back to portfolio</span>
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
+            <span>Back to selected work</span>
           </Link>
 
-          <div className="flex items-center gap-2.5">
-            <span className="rounded-full border border-white/10 bg-surface px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground/80">
               {project.tag}
             </span>
+            <span className="font-mono text-xs text-muted-foreground/60">·</span>
             <span className="font-mono text-xs text-foreground/80">{project.year}</span>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-5 py-10 sm:px-6 md:py-16">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-14 md:py-20">
         {/* Project Header */}
-        <section className="mb-12 md:mb-16">
-          <div className="flex flex-wrap items-center gap-2.5 mb-4">
-            <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 font-mono text-xs text-foreground/90">
+        <section className="mb-10 sm:mb-14">
+          <div className="flex flex-wrap items-center gap-2.5 mb-3 sm:mb-4">
+            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground/80">
               {project.tag}
             </span>
             {(project.id === "ula-claims" || project.isNda) && (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-zinc-700 bg-zinc-800/80 px-3 py-1 font-mono text-xs text-zinc-300">
-                <ShieldCheck className="h-3 w-3 text-zinc-400" />
-                NDA Protected
+              <span className="inline-flex items-center gap-1.5 font-mono text-xs text-zinc-400">
+                <span className="text-zinc-600">·</span>
+                <ShieldCheck className="h-3.5 w-3.5 text-zinc-400" />
+                <span>Sanitized Under NDA</span>
               </span>
             )}
           </div>
 
-          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-[1.15]">
             {project.title}
           </h1>
 
-          <p className="mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-4 sm:mt-5 max-w-3xl text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground">
             {project.blurb}
           </p>
 
-          {/* Tech Stack Pills */}
-          <div className="mt-6 flex flex-wrap items-center gap-1.5">
-            {project.tech.map((t) => (
-              <span
-                key={t}
-                className="rounded-md border border-white/8 bg-surface px-2.5 py-1 font-mono text-xs text-foreground/80"
-              >
-                {t}
+          {/* Tech Stack List — Badge-Free Monospace Typography */}
+          <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-xs text-muted-foreground/80">
+            {project.tech.map((t, idx) => (
+              <span key={t} className="flex items-center gap-2">
+                {idx > 0 && <span className="text-muted-foreground/30 select-none">/</span>}
+                <span className="text-foreground/90">{t}</span>
               </span>
             ))}
           </div>
 
           {/* Brand & Aesthetic Direction Note */}
           {project.brandNote && (
-            <div className="mt-8 rounded-xl border border-white/10 bg-surface/70 p-4 sm:p-5">
-              <div className="flex items-start gap-3">
-                <div className="mt-0.5 rounded-md bg-white/10 p-1.5 text-foreground shrink-0">
-                  <Layers className="h-4 w-4" />
-                </div>
-                <div>
-                  <span className="block font-mono text-xs uppercase tracking-wider text-muted-foreground">
-                    Brand & Aesthetic Alignment
-                  </span>
-                  <p className="mt-1 text-sm text-foreground/90 leading-relaxed">
-                    {project.brandNote}
-                  </p>
-                </div>
-              </div>
+            <div className="mt-6 sm:mt-8 rounded-xl border border-border/70 bg-card p-4 sm:p-5">
+              <span className="block font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground mb-1">
+                Design & Engineering Context
+              </span>
+              <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed">
+                {project.brandNote}
+              </p>
             </div>
           )}
         </section>
+
+        {/* P1: Hero Bento Metrics KPI Grid */}
+        {metrics.length > 0 && (
+          <section className="mb-12 sm:mb-16">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+              {metrics.map((m, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-xl border border-border/60 bg-card p-4 sm:p-5 flex flex-col justify-between"
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">
+                    {m.label}
+                  </span>
+                  <div className="my-2">
+                    <span className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
+                      {m.value}
+                    </span>
+                  </div>
+                  <span className="text-[11px] sm:text-xs text-muted-foreground/80 leading-snug">
+                    {m.sub}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Dynamic Showcase Section: Tablet Chassis, Desktop Window, or Mobile Deck */}
         {screenshotCount > 0 ? (
@@ -142,105 +250,156 @@ function ProjectDetailPage() {
               screenshots={screenshots}
               projectId={project.id}
               aspectRatio={project.aspectRatio}
+              onZoom={(idx) => setLightboxIndex(idx)}
             />
           ) : project.screenshotMode === "desktop" ? (
             <DesktopShowcase
               screenshots={screenshots}
               projectId={project.id}
               aspectRatio={project.aspectRatio}
+              onZoom={(idx) => setLightboxIndex(idx)}
             />
           ) : (
             <MobileShowcase
               screenshots={screenshots}
               galleryRef={galleryRef}
               scrollGallery={scrollGallery}
+              onZoom={(idx) => setLightboxIndex(idx)}
             />
           )
         ) : (
-          /* Placeholder / Confidentiality Notice if no public screenshots */
-          <section className="mb-16 md:mb-24">
-            <div className="rounded-2xl border border-dashed border-white/15 bg-surface/50 p-8 sm:p-12 text-center">
-              <ShieldCheck className="mx-auto h-8 w-8 text-muted-foreground" />
-              <h3 className="mt-4 text-base font-semibold text-foreground">
-                {project.tag.includes("Internal") || project.tag.includes("Automation")
-                  ? "Internal Production Tool — Interface Withheld"
-                  : "Sanitized Screenshots Under Non-Disclosure"}
+          /* Internal Tools / NDA Notice */
+          <section className="mb-12 sm:mb-20">
+            <div className="rounded-2xl border border-dashed border-border/80 bg-card/60 p-6 sm:p-10 text-center">
+              <ShieldCheck className="mx-auto h-7 w-7 text-muted-foreground mb-3" />
+              <h3 className="text-base font-semibold text-foreground">
+                Internal Production System — Interface Withheld
               </h3>
-              <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground leading-relaxed">
-                {project.tag.includes("Internal") || project.tag.includes("Automation")
-                  ? "This system was built for internal operational workflows. Production interfaces, client company records, and database structures are restricted."
-                  : "Production interface views, client logos, and proprietary data models are sanitized. Detailed walkthrough demonstrations and architecture diagrams available upon verified inquiry."}
+              <p className="mx-auto mt-2 max-w-md text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                This system was built for internal operational workflows. Production interfaces, client company records, and database structures are withheld under internal data protection. Detailed architecture walkthrough available upon verified inquiry.
               </p>
             </div>
           </section>
         )}
 
-        {/* P-A-R-O In-Depth Case Study Breakdown (Immediate solid rendering, zero scroll lag) */}
-        <section className="space-y-8">
-          <div className="border-b border-white/10 pb-4">
-            <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-              Deep Dive
+        {/* System Architecture Blueprint */}
+        <section className="mb-12 sm:mb-16">
+          <div className="rounded-xl border border-border/70 bg-card p-5 sm:p-7">
+            <div className="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-wider text-muted-foreground">
+              <Cpu className="h-4 w-4" />
+              <span>System Topology & Operational Flow</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs font-mono">
+              <div className="p-3.5 rounded-lg border border-border/50 bg-background/50 flex flex-col justify-between">
+                <div className="flex items-center gap-2 text-foreground font-semibold mb-2">
+                  <Radio className="h-3.5 w-3.5 text-emerald-400" />
+                  <span>1. Edge / Intake</span>
+                </div>
+                <p className="text-muted-foreground text-[11px] leading-relaxed">
+                  Field inputs, stylus signatures, mobile photo GPS reports, or incoming client invoices.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-lg border border-border/50 bg-background/50 flex flex-col justify-between">
+                <div className="flex items-center gap-2 text-foreground font-semibold mb-2">
+                  <Server className="h-3.5 w-3.5 text-sky-400" />
+                  <span>2. Processing Hub</span>
+                </div>
+                <p className="text-muted-foreground text-[11px] leading-relaxed">
+                  Haversine route optimization, OCR parsing, division workload balancing & SLA countdowns.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-lg border border-border/50 bg-background/50 flex flex-col justify-between">
+                <div className="flex items-center gap-2 text-foreground font-semibold mb-2">
+                  <Database className="h-3.5 w-3.5 text-violet-400" />
+                  <span>3. State & Ledger</span>
+                </div>
+                <p className="text-muted-foreground text-[11px] leading-relaxed">
+                  Offline SQLite / Postgres RLS data persistence, dual-currency ledgers, and audit trails.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-lg border border-border/50 bg-background/50 flex flex-col justify-between">
+                <div className="flex items-center gap-2 text-foreground font-semibold mb-2">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-amber-400" />
+                  <span>4. Real Outcome</span>
+                </div>
+                <p className="text-muted-foreground text-[11px] leading-relaxed">
+                  Automated dispatch, paperless carbon slip replacement, and sub-minute reconciliation.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Deep Dive Case Study Breakdown */}
+        <section className="space-y-6 sm:space-y-8">
+          <div className="border-b border-border/40 pb-3 sm:pb-4">
+            <span className="font-mono text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">
+              Engineering Breakdown
             </span>
-            <h2 className="mt-1 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-              System Architecture & Operational Breakdown
+            <h2 className="mt-1 text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+              Architecture & Operational Case Study
             </h2>
           </div>
 
-          {/* 01 · The Problem */}
-          <div className="rounded-xl border border-white/10 bg-surface p-6 sm:p-8">
-            <div className="flex items-center gap-3 mb-3">
+          {/* 01 · The Friction */}
+          <div className="rounded-xl border border-border/70 bg-card p-5 sm:p-7">
+            <div className="flex items-center gap-3 mb-2.5">
               <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                 01 · The Friction
               </span>
-              <span className="h-px flex-1 bg-white/10" />
+              <span className="h-px flex-1 bg-border/40" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground">The Operational Breakdown</h3>
-            <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted-foreground">
+            <h3 className="text-base sm:text-lg font-semibold text-foreground">The Operational Breakdown</h3>
+            <p className="mt-2.5 text-xs sm:text-sm md:text-base leading-relaxed text-muted-foreground whitespace-pre-line">
               {project.caseStudy.problem}
             </p>
           </div>
 
-          {/* 02 · System Architecture */}
-          <div className="rounded-xl border border-white/10 bg-surface p-6 sm:p-8">
-            <div className="flex items-center gap-3 mb-3">
+          {/* 02 · Engineering Strategy */}
+          <div className="rounded-xl border border-border/70 bg-card p-5 sm:p-7">
+            <div className="flex items-center gap-3 mb-2.5">
               <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                 02 · System Architecture & Technical Choices
               </span>
-              <span className="h-px flex-1 bg-white/10" />
+              <span className="h-px flex-1 bg-border/40" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground">Engineering Strategy</h3>
-            <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted-foreground">
+            <h3 className="text-base sm:text-lg font-semibold text-foreground">Engineering Strategy</h3>
+            <p className="mt-2.5 text-xs sm:text-sm md:text-base leading-relaxed text-muted-foreground whitespace-pre-line">
               {project.caseStudy.architecture}
             </p>
           </div>
 
-          {/* 03 · Operational Outcome */}
-          <div className="rounded-xl border border-white/10 bg-surface p-6 sm:p-8">
-            <div className="flex items-center gap-3 mb-3">
+          {/* 03 · Measurable Outcome */}
+          <div className="rounded-xl border border-border/70 bg-card p-5 sm:p-7">
+            <div className="flex items-center gap-3 mb-2.5">
               <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                 03 · Measurable Outcome
               </span>
-              <span className="h-px flex-1 bg-white/10" />
+              <span className="h-px flex-1 bg-border/40" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground">Real-World Business Impact</h3>
-            <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted-foreground">
+            <h3 className="text-base sm:text-lg font-semibold text-foreground">Real-World Business Impact</h3>
+            <p className="mt-2.5 text-xs sm:text-sm md:text-base leading-relaxed text-muted-foreground whitespace-pre-line">
               {project.caseStudy.outcome}
             </p>
           </div>
 
           {/* 04 · Highlights list */}
-          <div className="rounded-xl border border-white/10 bg-surface p-6 sm:p-8">
-            <div className="flex items-center gap-3 mb-3">
+          <div className="rounded-xl border border-border/70 bg-card p-5 sm:p-7">
+            <div className="flex items-center gap-3 mb-2.5">
               <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                 04 · Technical Highlights
               </span>
-              <span className="h-px flex-1 bg-white/10" />
+              <span className="h-px flex-1 bg-border/40" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground">Core Implementation Features</h3>
-            <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <h3 className="text-base sm:text-lg font-semibold text-foreground">Core Implementation Features</h3>
+            <ul className="mt-3.5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
               {project.caseStudy.highlights.map((h) => (
-                <li key={h} className="flex items-start gap-2.5 text-sm text-foreground/85">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-white/70" />
+                <li key={h} className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground/85">
+                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white/70" />
                   <span>{h}</span>
                 </li>
               ))}
@@ -249,8 +408,8 @@ function ProjectDetailPage() {
         </section>
 
         {/* Bottom Project Switcher & Contact CTA */}
-        <section className="mt-16 md:mt-24 border-t border-white/10 pt-10">
-          <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+        <section className="mt-12 sm:mt-20 border-t border-border/40 pt-8 sm:pt-10">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             {/* Prev project */}
             <Link
               to="/work/$projectId"
@@ -258,10 +417,10 @@ function ProjectDetailPage() {
               className="group flex flex-col items-start"
             >
               <span className="inline-flex items-center gap-1 font-mono text-xs text-muted-foreground transition-colors group-hover:text-foreground">
-                <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-0.5" />
+                <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
                 Previous Project
               </span>
-              <span className="mt-1 text-sm font-semibold text-foreground group-hover:underline">
+              <span className="mt-1 text-sm font-medium text-foreground group-hover:underline">
                 {prevProject.title}
               </span>
             </Link>
@@ -270,10 +429,10 @@ function ProjectDetailPage() {
             <Link
               to="/"
               hash="contact"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white px-5 py-3 text-sm font-semibold text-black transition-all hover:bg-white/90 hover:scale-[1.01]"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-black transition-all hover:bg-white/90 cursor-pointer"
             >
               <span>Have a project in mind? Let's talk</span>
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
 
             {/* Next project */}
@@ -284,15 +443,53 @@ function ProjectDetailPage() {
             >
               <span className="inline-flex items-center gap-1 font-mono text-xs text-muted-foreground transition-colors group-hover:text-foreground">
                 Next Project
-                <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
               </span>
-              <span className="mt-1 text-sm font-semibold text-foreground group-hover:underline">
+              <span className="mt-1 text-sm font-medium text-foreground group-hover:underline">
                 {nextProject.title}
               </span>
             </Link>
           </div>
         </section>
       </main>
+
+      {/* Fullscreen Lightbox Modal */}
+      {lightboxIndex !== null && screenshots[lightboxIndex] && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-between p-4 sm:p-8"
+          onClick={() => setLightboxIndex(null)}
+        >
+          <div className="w-full max-w-6xl flex items-center justify-between font-mono text-xs text-white/70">
+            <span>
+              {screenshots[lightboxIndex].badge} · {lightboxIndex + 1} of {screenshots.length}
+            </span>
+            <button
+              type="button"
+              onClick={() => setLightboxIndex(null)}
+              className="p-1.5 rounded-lg border border-white/20 hover:bg-white/10 text-white transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div
+            className="relative max-h-[82vh] max-w-full flex items-center justify-center my-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={screenshots[lightboxIndex].src}
+              alt={screenshots[lightboxIndex].alt}
+              className="max-h-[80vh] w-auto max-w-full object-contain rounded-lg shadow-2xl border border-white/10"
+            />
+          </div>
+
+          <div className="w-full max-w-xl text-center text-xs sm:text-sm text-zinc-400 font-mono">
+            {screenshots[lightboxIndex].alt}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -301,14 +498,16 @@ function MobileShowcase({
   screenshots,
   galleryRef,
   scrollGallery,
+  onZoom,
 }: {
   screenshots: ProjectScreenshot[];
   galleryRef: React.RefObject<HTMLDivElement | null>;
   scrollGallery: (dir: "left" | "right") => void;
+  onZoom: (idx: number) => void;
 }) {
   return (
-    <section className="mb-16 md:mb-24">
-      <div className="mb-6 flex items-center justify-between">
+    <section className="mb-12 sm:mb-20">
+      <div className="mb-4 sm:mb-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Smartphone className="h-4 w-4 text-muted-foreground" />
           <h2 className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
@@ -316,13 +515,13 @@ function MobileShowcase({
           </h2>
         </div>
 
-        {/* Scroll controls for desktop */}
-        <div className="flex items-center gap-2">
+        {/* Scroll controls */}
+        <div className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={() => scrollGallery("left")}
             aria-label="Scroll left"
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-surface text-muted-foreground transition-all hover:border-white/30 hover:bg-surface-hi hover:text-foreground"
+            className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all hover:bg-surface-hi hover:text-foreground cursor-pointer"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
@@ -330,45 +529,39 @@ function MobileShowcase({
             type="button"
             onClick={() => scrollGallery("right")}
             aria-label="Scroll right"
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-surface text-muted-foreground transition-all hover:border-white/30 hover:bg-surface-hi hover:text-foreground"
+            className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all hover:bg-surface-hi hover:text-foreground cursor-pointer"
           >
             <ChevronRight className="h-4 w-4" />
           </button>
         </div>
       </div>
 
-      {/* Horizontal Scrollable Phones Track */}
+      {/* Horizontal Scrollable Track */}
       <div
         ref={galleryRef}
-        className="flex gap-5 sm:gap-7 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth"
-        style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.15) transparent" }}
+        className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth no-scrollbar"
       >
         {screenshots.map((s, idx) => (
           <div key={s.src} className="flex flex-col items-center shrink-0 snap-center sm:snap-start">
-            {/* Phone Chassis */}
-            <div className="group relative w-[240px] sm:w-[270px] md:w-[290px] rounded-[34px] p-2 bg-zinc-900 border-2 border-zinc-700 shadow-2xl ring-1 ring-white/10 transition-transform duration-300 hover:scale-[1.02]">
-              {/* Top camera pill */}
-              <div className="absolute top-3.5 left-1/2 -translate-x-1/2 h-3.5 w-16 rounded-full bg-black z-20" />
-
-              {/* Screen Image Container */}
-              <div className="relative aspect-[9/18.5] w-full overflow-hidden rounded-[26px] bg-black">
+            <div
+              onClick={() => onZoom(idx)}
+              className="group relative w-[220px] sm:w-[260px] md:w-[280px] rounded-[30px] p-2 bg-zinc-900 border border-zinc-700 shadow-xl transition-transform duration-300 hover:scale-[1.02] cursor-zoom-in"
+            >
+              <div className="relative aspect-[9/18.5] w-full overflow-hidden rounded-[22px] bg-black">
                 <img
                   src={s.src}
                   alt={s.alt}
                   loading="lazy"
-                  decoding="async"
                   className="h-full w-full object-cover select-none"
                   draggable={false}
                 />
               </div>
             </div>
 
-            {/* Clean Minimal Badge */}
-            <div className="mt-3.5 flex items-center gap-2">
-              <span className="font-mono text-[10px] text-muted-foreground/60">0{idx + 1}</span>
-              <span className="rounded-full border border-white/10 bg-surface px-2.5 py-0.5 font-mono text-xs text-foreground/80">
-                {s.badge}
-              </span>
+            <div className="mt-3 flex items-center gap-2 text-xs font-mono text-muted-foreground">
+              <span>0{idx + 1}</span>
+              <span>·</span>
+              <span className="text-foreground/90">{s.badge}</span>
             </div>
           </div>
         ))}
@@ -381,21 +574,23 @@ function TabletShowcase({
   screenshots,
   projectId,
   aspectRatio = "881/914",
+  onZoom,
 }: {
   screenshots: ProjectScreenshot[];
   projectId: string;
   aspectRatio?: string;
+  onZoom: (idx: number) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeScreen = screenshots[activeIndex];
 
   return (
-    <section className="mb-16 md:mb-24">
-      <div className="mb-4 flex items-center justify-between">
+    <section className="mb-12 sm:mb-20">
+      <div className="mb-3 sm:mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Tablet className="h-4 w-4 text-muted-foreground" />
           <h2 className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-            Tablet Touchscreen Interface ({screenshots.length} Screens · Stylus & Pen Optimized)
+            Tablet Touchscreen Interface ({screenshots.length} Screens · Stylus Optimized)
           </h2>
         </div>
 
@@ -404,54 +599,37 @@ function TabletShowcase({
         </span>
       </div>
 
-      {/* Realistic Tablet Device Frame */}
       <div className="mx-auto max-w-2xl sm:max-w-3xl">
-        <div className="relative rounded-[28px] sm:rounded-[36px] p-3 sm:p-5 bg-zinc-900 border-2 border-zinc-700/80 shadow-2xl ring-1 ring-white/10">
-          {/* Top camera sensor */}
-          <div className="absolute top-2 sm:top-2.5 left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-zinc-950 border border-zinc-800" />
-
-          {/* Top Header / Bar inside tablet */}
-          <div className="mb-2.5 flex items-center justify-between px-2 pt-1 text-[11px] font-mono text-muted-foreground">
-            <span className="flex items-center gap-1.5 text-zinc-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+        <div className="relative rounded-[24px] sm:rounded-[32px] p-3 sm:p-4 bg-zinc-900 border border-zinc-700/80 shadow-2xl">
+          <div className="mb-2 flex items-center justify-between px-2 text-[11px] font-mono text-muted-foreground">
+            <span className="text-zinc-400">
               Depot Tablet · {projectId} · {activeScreen.badge}
             </span>
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => setActiveIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1))}
-                aria-label="Previous tablet screen"
-                className="flex h-6 w-6 items-center justify-center rounded border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors"
-              >
-                <ChevronLeft className="h-3.5 w-3.5" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0))}
-                aria-label="Next tablet screen"
-                className="flex h-6 w-6 items-center justify-center rounded border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors"
-              >
-                <ChevronRight className="h-3.5 w-3.5" />
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => onZoom(activeIndex)}
+              className="flex items-center gap-1 text-[10px] text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <Maximize2 className="w-3 h-3" />
+              <span>Inspect</span>
+            </button>
           </div>
 
-          {/* Screen Image Container with exact aspect ratio (881/914) — zero cut/crop */}
           <div
-            className="relative w-full overflow-hidden rounded-[18px] sm:rounded-[24px] bg-black shadow-inner flex items-center justify-center border border-white/5"
+            onClick={() => onZoom(activeIndex)}
+            className="relative w-full overflow-hidden rounded-[16px] sm:rounded-[20px] bg-black shadow-inner flex items-center justify-center border border-white/5 cursor-zoom-in"
             style={{ aspectRatio }}
           >
             <img
               src={activeScreen.src}
               alt={activeScreen.alt}
               loading="lazy"
-              decoding="async"
               className="h-full w-full object-contain select-none"
             />
           </div>
 
-          {/* Tablet Screen Selector Tabs */}
-          <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-center gap-2">
+          {/* Thumbnail Track */}
+          <div className="mt-3.5 pt-2.5 border-t border-white/10 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
             {screenshots.map((s, idx) => {
               const isSelected = idx === activeIndex;
               return (
@@ -459,9 +637,9 @@ function TabletShowcase({
                   key={s.src}
                   type="button"
                   onClick={() => setActiveIndex(idx)}
-                  className={`rounded-lg border px-3 py-1.5 font-mono text-xs transition-all ${
+                  className={`rounded-md border px-2.5 py-1 font-mono text-xs transition-all cursor-pointer ${
                     isSelected
-                      ? "border-white bg-white text-black font-semibold shadow-md"
+                      ? "border-white bg-white text-black font-semibold shadow-sm"
                       : "border-white/10 bg-surface text-muted-foreground hover:border-white/20 hover:text-foreground"
                   }`}
                 >
@@ -480,17 +658,19 @@ function DesktopShowcase({
   screenshots,
   projectId,
   aspectRatio,
+  onZoom,
 }: {
   screenshots: ProjectScreenshot[];
   projectId: string;
   aspectRatio?: string;
+  onZoom: (idx: number) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeScreen = screenshots[activeIndex];
 
   return (
-    <section className="mb-16 md:mb-24">
-      <div className="mb-4 flex items-center justify-between">
+    <section className="mb-12 sm:mb-20">
+      <div className="mb-3 sm:mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Monitor className="h-4 w-4 text-muted-foreground" />
           <h2 className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
@@ -503,57 +683,66 @@ function DesktopShowcase({
         </span>
       </div>
 
-      {/* Sleek Desktop Browser Frame */}
-      <div className="rounded-2xl border border-white/15 bg-surface overflow-hidden shadow-2xl">
-        {/* Browser Chrome Bar */}
-        <div className="flex items-center justify-between border-b border-white/10 bg-black/60 px-4 py-3 backdrop-blur-md">
+      <div className="rounded-xl md:rounded-2xl border border-border/80 bg-card overflow-hidden shadow-2xl">
+        {/* Chrome Bar */}
+        <div className="flex items-center justify-between border-b border-border/50 bg-black/60 px-4 py-2.5 backdrop-blur-md">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-red-500/40 border border-red-500/60" />
             <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/40 border border-yellow-500/60" />
             <span className="h-2.5 w-2.5 rounded-full bg-green-500/40 border border-green-500/60" />
           </div>
 
-          <div className="rounded-md border border-white/10 bg-white/5 px-3 py-1 font-mono text-[11px] text-muted-foreground/80">
+          <div className="font-mono text-[11px] text-muted-foreground/80">
             {projectId}.portal / {activeScreen.badge}
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={() => setActiveIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1))}
-              aria-label="Previous desktop screen"
-              className="flex h-6 w-6 items-center justify-center rounded border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors"
+              onClick={() => onZoom(activeIndex)}
+              className="flex items-center gap-1 text-[10px] font-mono text-muted-foreground hover:text-white transition-colors cursor-pointer"
             >
-              <ChevronLeft className="h-3.5 w-3.5" />
+              <Maximize2 className="w-3 h-3" />
+              <span className="hidden sm:inline">Zoom</span>
             </button>
-            <button
-              type="button"
-              onClick={() => setActiveIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0))}
-              aria-label="Next desktop screen"
-              className="flex h-6 w-6 items-center justify-center rounded border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors"
-            >
-              <ChevronRight className="h-3.5 w-3.5" />
-            </button>
+            <div className="flex items-center gap-1 ml-1">
+              <button
+                type="button"
+                onClick={() => setActiveIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1))}
+                aria-label="Previous desktop screen"
+                className="flex h-6 w-6 items-center justify-center rounded border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors cursor-pointer"
+              >
+                <ChevronLeft className="h-3.5 w-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0))}
+                aria-label="Next desktop screen"
+                className="flex h-6 w-6 items-center justify-center rounded border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors cursor-pointer"
+              >
+                <ChevronRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Active Desktop Screen Image */}
         <div
-          className="relative w-full bg-black overflow-hidden flex items-center justify-center"
+          onClick={() => onZoom(activeIndex)}
+          className="relative w-full bg-black overflow-hidden flex items-center justify-center cursor-zoom-in"
           style={{ aspectRatio: aspectRatio || "16 / 9" }}
         >
           <img
             src={activeScreen.src}
             alt={activeScreen.alt}
             loading="lazy"
-            decoding="async"
             className="h-full w-full object-contain select-none"
           />
         </div>
 
         {/* Tab Selection Bar */}
-        <div className="border-t border-white/10 bg-surface-hi/80 p-3 sm:p-4">
-          <div className="flex flex-wrap items-center gap-2">
+        <div className="border-t border-border/40 bg-surface-hi/80 p-2.5 sm:p-3.5">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
             {screenshots.map((s, idx) => {
               const isSelected = idx === activeIndex;
               return (
@@ -561,9 +750,9 @@ function DesktopShowcase({
                   key={s.src}
                   type="button"
                   onClick={() => setActiveIndex(idx)}
-                  className={`rounded-lg border px-3 py-1.5 font-mono text-xs transition-all ${
+                  className={`rounded-md border px-2.5 py-1 font-mono text-xs transition-all cursor-pointer ${
                     isSelected
-                      ? "border-white bg-white text-black font-semibold shadow-md"
+                      ? "border-white bg-white text-black font-semibold shadow-sm"
                       : "border-white/10 bg-surface text-muted-foreground hover:border-white/20 hover:text-foreground"
                   }`}
                 >
