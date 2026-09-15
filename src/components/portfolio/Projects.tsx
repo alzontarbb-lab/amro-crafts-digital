@@ -307,11 +307,15 @@ function ProjectCard({ project }: { project: Project }) {
     >
       {/* Visual Preview Banner (Flagship Screenshot) */}
       {cover && (
-        <div className="relative w-full aspect-[16/9] sm:aspect-[16/8.5] overflow-hidden bg-black/40 border-b border-border/30">
-          <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-80 z-10 pointer-events-none" />
+        <div className="relative w-full aspect-[16/9] sm:aspect-[16/8.5] overflow-hidden">
+          {/* Harder, taller seamless gradient dissolving into the card background */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 h-36 sm:h-48 bg-gradient-to-t from-[var(--card)] from-20% via-[var(--card)]/90 via-55% to-transparent z-10 pointer-events-none"
+          />
 
           {project.screenshotMode === "mobile" ? (
-            <div className="w-full h-full p-3.5 sm:p-4 flex items-center justify-center bg-radial from-white/[0.03] to-transparent">
+            <div className="w-full h-full p-3.5 sm:p-4 flex items-center justify-center">
               <img
                 src={cover}
                 alt={project.title}
@@ -320,7 +324,7 @@ function ProjectCard({ project }: { project: Project }) {
               />
             </div>
           ) : project.screenshotMode === "tablet" ? (
-            <div className="w-full h-full p-3 sm:p-4 flex items-center justify-center bg-radial from-white/[0.03] to-transparent">
+            <div className="w-full h-full p-3 sm:p-4 flex items-center justify-center">
               <img
                 src={cover}
                 alt={project.title}
@@ -340,7 +344,7 @@ function ProjectCard({ project }: { project: Project }) {
       )}
 
       {/* Card Body */}
-      <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-1 justify-between">
+      <div className="p-5 sm:p-6 md:p-8 pt-2 sm:pt-3 flex flex-col flex-1 justify-between relative z-20">
         <div>
           {/* Header Metadata — Pure Typography, Without Badges */}
           <div className="flex items-center justify-between gap-3 mb-3 sm:mb-4">
