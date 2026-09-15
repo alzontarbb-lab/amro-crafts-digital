@@ -179,7 +179,7 @@ export function Projects() {
   return (
     <section id="work" className="relative py-12 md:py-28">
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6">
-        <SectionHeader index="04" label="Selected Work" title="Built because something needed building." />
+        <SectionHeader index="04" label="Selected Work" title="Engineered for real-world operations." />
 
         <p className="-mt-4 md:-mt-10 mb-6 md:mb-8 text-sm sm:text-base text-muted-foreground">
           Click any project to explore its case study, system architecture, and operational breakdown.
