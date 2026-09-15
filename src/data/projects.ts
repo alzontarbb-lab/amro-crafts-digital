@@ -190,6 +190,7 @@ export const projects: Project[] = [
     tag: "Enterprise Operations",
     year: "2026",
     featured: true,
+    coverImage: "/projects/ula/01-management-dashboard.webp",
     screenshotMode: "desktop",
     brandNote: "Strict NDA protection: Client name, company trademark, and logo have been blurred and sanitized throughout all production interface views.",
     screenshots: [
