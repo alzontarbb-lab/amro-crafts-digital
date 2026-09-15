@@ -72,19 +72,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Amro" },
-      { name: "theme-color", content: "#0a0a0a" },
-      { name: "description", content: "Portfolio" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Amro" },
-      { property: "og:description", content: "Portfolio" },
+      { title: "Amro — Software Developer & Automation Engineer" },
+      { name: "theme-color", content: "#060607" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Amro, a software developer based in Beirut bridging operations and software. Building production full-stack systems, automation, and internal tools.",
+      },
+      { name: "author", content: "Amro" },
+      { property: "og:title", content: "Amro — Software Developer & Automation Engineer" },
+      {
+        property: "og:description",
+        content:
+          "Full-stack developer bridging operations and software. React, PHP, Python, AI automation.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Amro" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Amro" },
-      { name: "twitter:description", content: "Portfolio" },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/13481337-6f87-44aa-9360-3e943bdc0442/id-preview-4698b7ae--12b7962c-0017-4bda-a6c3-a4df9b7bb3e0.lovable.app-1779393133588.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/13481337-6f87-44aa-9360-3e943bdc0442/id-preview-4698b7ae--12b7962c-0017-4bda-a6c3-a4df9b7bb3e0.lovable.app-1779393133588.png" },
+      { name: "twitter:title", content: "Amro — Software Developer & Automation Engineer" },
+      {
+        name: "twitter:description",
+        content: "Full-stack developer bridging operations and software.",
+      },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
@@ -106,11 +115,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="bg-background text-foreground antialiased selection:bg-white/20 selection:text-white">
         {children}
         <Scripts />
       </body>

@@ -1,10 +1,7 @@
-import { motion, useInView } from "motion/react";
-import { useRef, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 export function Reveal({
   children,
-  delay = 0,
-  y = 24,
   className,
 }: {
   children: ReactNode;
@@ -12,19 +9,7 @@ export function Reveal({
   y?: number;
   className?: string;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 export function SectionHeader({
@@ -37,17 +22,17 @@ export function SectionHeader({
   title: string;
 }) {
   return (
-    <div className="mb-16 md:mb-24">
+    <div className="mb-8 md:mb-16">
       <Reveal>
-        <div className="flex items-center gap-3 mb-6">
-          <span className="font-mono text-xs text-muted-foreground uppercase tracking-[0.25em]">
+        <div className="flex items-center gap-3 mb-3 md:mb-4">
+          <span className="font-mono text-[11px] md:text-xs text-muted-foreground uppercase tracking-[0.25em]">
             {index} — {label}
           </span>
-          <div className="h-px flex-1 max-w-[80px] bg-border" />
+          <div className="h-px flex-1 max-w-[60px] md:max-w-[80px] bg-border" />
         </div>
       </Reveal>
       <Reveal delay={0.1}>
-        <h2 className="font-display text-4xl md:text-6xl font-semibold tracking-tighter text-balance max-w-3xl">
+        <h2 className="font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-balance max-w-3xl">
           {title}
         </h2>
       </Reveal>

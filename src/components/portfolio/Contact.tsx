@@ -1,62 +1,104 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import emailjs from "@emailjs/browser";
 import { Reveal, SectionHeader } from "./Reveal";
-import { Mail, MapPin, Linkedin, Check, Send } from "lucide-react";
+import { Mail, MapPin, Linkedin, Check, Send, AlertCircle } from "lucide-react";
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined;
 
 export function Contact() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
+    if (!formRef.current) return;
+
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      setError(
+        "Contact form isn't configured yet — email me directly at the address below instead.",
+      );
+      return;
+    }
+
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    setError(null);
+    try {
+      const formData = new FormData(formRef.current);
+      const nameVal = (formData.get("name") as string) || "";
+      const emailVal = (formData.get("email") as string) || "";
+      const messageVal = (formData.get("message") as string) || "";
+
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: nameVal,
+          from_name: nameVal,
+          email: emailVal,
+          from_email: emailVal,
+          reply_to: emailVal,
+          to_email: "alzontarbb@gmail.com",
+          to_name: "Amro",
+          recipient: "alzontarbb@gmail.com",
+          message: messageVal,
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY },
+      );
       setSent(true);
-    }, 900);
+    } catch (err) {
+      console.error("EmailJS send error:", err);
+      setError("Something went wrong sending that — email me directly at amrokfarajallah@gmail.com instead.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <section id="contact" className="relative py-32 md:py-40 overflow-hidden">
+    <section id="contact" className="relative py-12 md:py-28 overflow-hidden">
       <div
         aria-hidden
-        className="absolute inset-0 mesh-bg opacity-30 blur-3xl pointer-events-none"
+        className="absolute inset-0 mesh-bg opacity-20 blur-3xl pointer-events-none"
       />
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6">
         <SectionHeader index="06" label="Contact" title="Got a project? Let's talk." />
 
-        <div className="grid md:grid-cols-[1fr_1.2fr] gap-12 md:gap-20">
+        <div className="grid md:grid-cols-[1fr_1.2fr] gap-6 md:gap-14">
           <Reveal>
-            <div className="space-y-8">
-              <p className="text-xl text-pretty text-muted-foreground max-w-md">
+            <div className="space-y-6">
+              <p className="text-base sm:text-lg text-pretty text-muted-foreground max-w-md leading-relaxed">
                 Whether it's a system that needs building, a workflow that needs automating, or an
                 idea you can't get out of your head — I'm listening.
               </p>
 
-              <div className="space-y-4 font-mono text-sm">
+              <div className="space-y-3 font-mono text-xs sm:text-sm">
                 <a
-                  href="mailto:hello@amro.dev"
-                  className="flex items-center gap-3 text-foreground hover:text-foreground transition-colors group"
+                  href="mailto:alzontarbb@gmail.com"
+                  className="flex items-center gap-2.5 text-foreground hover:text-foreground transition-colors group"
                 >
-                  <span className="w-9 h-9 rounded-full glass flex items-center justify-center group-hover:border-foreground">
-                    <Mail className="w-4 h-4" />
+                  <span className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center group-hover:border-foreground shrink-0">
+                    <Mail className="w-3.5 h-3.5" />
                   </span>
-                  amrokfarajallah@gmail.com
+                  alzontarbb@gmail.com
                 </a>
                 <a
                   href="https://linkedin.com/in/amr0kf/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-foreground hover:text-foreground transition-colors group"
+                  className="flex items-center gap-2.5 text-foreground hover:text-foreground transition-colors group"
                 >
-                  <span className="w-9 h-9 rounded-full glass flex items-center justify-center group-hover:border-foreground">
-                    <Linkedin className="w-4 h-4" />
+                  <span className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center group-hover:border-foreground shrink-0">
+                    <Linkedin className="w-3.5 h-3.5" />
                   </span>
                   linkedin.com/in/amr0kf
                 </a>
-                <div className="flex items-center gap-3 text-muted-foreground">
-                  <span className="w-9 h-9 rounded-full glass flex items-center justify-center">
-                    <MapPin className="w-4 h-4" />
+                <div className="flex items-center gap-2.5 text-muted-foreground">
+                  <span className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center shrink-0">
+                    <MapPin className="w-3.5 h-3.5" />
                   </span>
                   Beirut, Lebanon 🇱🇧
                 </div>
@@ -65,7 +107,11 @@ export function Contact() {
           </Reveal>
 
           <Reveal delay={0.15}>
-            <form onSubmit={submit} className="glass rounded-2xl p-8 md:p-10 relative overflow-hidden">
+            <form
+              ref={formRef}
+              onSubmit={submit}
+              className="border border-border/80 bg-card rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8 relative overflow-hidden"
+            >
               <AnimatePresence mode="wait">
                 {sent ? (
                   <motion.div
@@ -73,25 +119,39 @@ export function Contact() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
-                    className="flex flex-col items-center justify-center text-center py-16"
+                    className="flex flex-col items-center justify-center text-center py-10 sm:py-14"
                   >
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 300, damping: 18 }}
-                      className="w-16 h-16 rounded-full bg-foreground border border-foreground flex items-center justify-center mb-6 dark:!bg-background dark:!border-background"
+                      className="w-14 h-14 rounded-full bg-surface-hi border border-border flex items-center justify-center mb-4"
                     >
-                      <Check className="w-7 h-7 text-white" />
+                      <Check className="w-6 h-6 text-foreground" />
                     </motion.div>
-                    <h3 className="font-display text-2xl font-medium mb-2">Message sent.</h3>
-                    <p className="text-muted-foreground">I'll get back to you shortly.</p>
+                    <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full border border-border bg-foreground/5 text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      Direct Transmission Confirmed
+                    </div>
+                    <h3 className="font-display text-xl sm:text-2xl font-medium mb-2">Message landed.</h3>
+                    <p className="text-muted-foreground text-xs sm:text-sm max-w-sm leading-relaxed mb-6">
+                      Your note was delivered directly to my inbox at{" "}
+                      <span className="text-foreground font-mono">alzontarbb@gmail.com</span>. I personally review all incoming inquiries and will follow up shortly.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setSent(false)}
+                      className="text-xs font-mono text-muted-foreground hover:text-foreground underline transition-colors"
+                    >
+                      Send another note →
+                    </button>
                   </motion.div>
                 ) : (
                   <motion.div
                     key="form"
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="space-y-5"
+                    className="space-y-4"
                   >
                     <Field label="Name" name="name" placeholder="Your name" />
                     <Field label="Email" name="email" type="email" placeholder="you@domain.com" />
@@ -101,13 +161,19 @@ export function Contact() {
                       placeholder="Tell me about the project..."
                       textarea
                     />
+                    {error && (
+                      <p className="flex items-start gap-2 text-xs sm:text-sm text-destructive">
+                        <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+                        {error}
+                      </p>
+                    )}
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-foreground text-background text-sm font-medium hover:bg-foreground hover:text-primary-foreground transition-colors disabled:opacity-60"
+                      className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60"
                     >
                       {loading ? "Sending..." : "Send message"}
-                      <Send className="w-4 h-4" />
+                      <Send className="w-3.5 h-3.5" />
                     </button>
                   </motion.div>
                 )}
@@ -116,7 +182,7 @@ export function Contact() {
           </Reveal>
         </div>
 
-        <footer className="mt-32 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-muted-foreground">
+        <footer className="mt-14 md:mt-24 pt-6 border-t border-border/70 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] sm:text-xs font-mono text-muted-foreground">
           <span>© 2026 Amro — Built in Beirut.</span>
           <span>Let's build something.</span>
         </footer>

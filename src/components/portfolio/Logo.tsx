@@ -1,6 +1,29 @@
-type Variant = "wordmark" | "stamp";
+type Variant = "wordmark" | "stamp" | "avatar";
 
 export function Logo({ variant = "wordmark" }: { variant?: Variant }) {
+  if (variant === "avatar") {
+    return (
+      <div
+        className="w-full h-full flex items-center justify-center"
+        style={{ background: "#0a0a0a" }}
+      >
+        <span
+          className="text-4xl md:text-5xl font-bold"
+          style={{
+            fontFamily: "var(--font-arabic)",
+            color: "#f0ede6",
+            direction: "rtl",
+            unicodeBidi: "isolate",
+            lineHeight: 1,
+            display: "inline-block",
+          }}
+        >
+          عمرو
+        </span>
+      </div>
+    );
+  }
+
   if (variant === "stamp") {
     return (
       <div

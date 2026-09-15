@@ -1,291 +1,87 @@
 import { motion } from "motion/react";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { useEffect, useRef } from "react";
-
-const words = ["Code.", "Automate.", "Ship."];
+import { ArrowUpRight, MapPin, BadgeCheck } from "lucide-react";
+import waveWebp from "@/assets/wave-cover.webp";
+import waveLightGif from "@/assets/wave-cover-light.gif";
+import amroAvatar from "@/assets/amro-avatar.webp";
 
 export function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: -9999, y: -9999 });
-  const rafRef = useRef<number>(0);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
-
-    // Constellation network: drifting nodes connected by faint lines.
-    type N = { x: number; y: number; vx: number; vy: number; r: number; tw: number };
-
-    let nodes: N[] = [];
-    let W = 0, H = 0, DPR = 1;
-
-    const resize = () => {
-      const rect = canvas.getBoundingClientRect();
-      if (rect.width < 2 || rect.height < 2) return;
-      DPR = Math.min(window.devicePixelRatio || 1, 2);
-      W = Math.floor(rect.width);
-      H = Math.floor(rect.height);
-      canvas.width = Math.floor(W * DPR);
-      canvas.height = Math.floor(H * DPR);
-      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    };
-
-    const init = () => {
-      const area = W * H;
-      const isDesktop = W >= 1024;
-      const count = isDesktop
-        ? Math.min(280, Math.max(120, Math.floor(area / 9000)))
-        : Math.min(180, Math.max(80, Math.floor(area / 14000)));
-      nodes = Array.from({ length: count }, () => ({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.08,
-        vy: (Math.random() - 0.5) * 0.08,
-        r: Math.random() * 1.4 + 0.6,
-        tw: Math.random() * Math.PI * 2,
-      }));
-    };
-
-    resize();
-    init();
-
-    let t = 0;
-    let last = performance.now();
-
-    const readAccent = () => {
-      const cs = getComputedStyle(document.documentElement);
-      const isDark = document.documentElement.classList.contains("dark");
-      return cs.getPropertyValue(isDark ? "--foreground" : "--foreground").trim() || "oklch(0.65 0.09 200)";
-    };
-
-    const draw = (now: number) => {
-      const dt = Math.min(64, now - last);
-      last = now;
-      t += dt;
-      rafRef.current = requestAnimationFrame(draw);
-
-      if (W < 2 || H < 2) return;
-      const isDark = document.documentElement.classList.contains("dark");
-      const accent = readAccent();
-      const mouse = mouseRef.current;
-      const hasMouse = mouse.x > -9000;
-
-      ctx.clearRect(0, 0, W, H);
-
-
-      // Update node positions
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        n.x += n.vx * dt;
-        n.y += n.vy * dt;
-        if (n.x < -20) n.x = W + 20;
-        else if (n.x > W + 20) n.x = -20;
-        if (n.y < -20) n.y = H + 20;
-        else if (n.y > H + 20) n.y = -20;
-      }
-
-      const LINK = 140;
-      const LINK2 = LINK * LINK;
-      const MOUSE_LINK = 180;
-      const MOUSE_LINK2 = MOUSE_LINK * MOUSE_LINK;
-
-      // Draw lines between nearby nodes
-      ctx.lineWidth = 1;
-      for (let i = 0; i < nodes.length; i++) {
-        const a = nodes[i];
-        for (let j = i + 1; j < nodes.length; j++) {
-          const b = nodes[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 > LINK2) continue;
-          const alpha = (1 - d2 / LINK2) * (isDark ? 0.32 : 0.28);
-          ctx.strokeStyle = `color-mix(in oklab, ${accent} ${Math.round(alpha * 100)}%, transparent)`;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-
-        // Lines to mouse
-        if (hasMouse) {
-          const dx = a.x - mouse.x;
-          const dy = a.y - mouse.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < MOUSE_LINK2) {
-            const alpha = (1 - d2 / MOUSE_LINK2) * (isDark ? 0.55 : 0.45);
-            ctx.strokeStyle = `color-mix(in oklab, ${accent} ${Math.round(alpha * 100)}%, transparent)`;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw nodes with gentle twinkle
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        const tw = (Math.sin(t * 0.002 + n.tw) + 1) * 0.5;
-        const alpha = (isDark ? 0.55 : 0.6) + tw * 0.35;
-        ctx.fillStyle = `color-mix(in oklab, ${accent} ${Math.round(alpha * 100)}%, transparent)`;
-        const size = n.r * (1 + tw * 0.3);
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // Soft top + bottom fade so nodes vanish into the page background.
-      ctx.globalCompositeOperation = "destination-out";
-      const fade = ctx.createLinearGradient(0, 0, 0, H);
-      fade.addColorStop(0, "rgba(0,0,0,0)");
-      fade.addColorStop(0.5, "rgba(0,0,0,0)");
-      fade.addColorStop(0.75, "rgba(0,0,0,0.35)");
-      fade.addColorStop(0.92, "rgba(0,0,0,0.85)");
-      fade.addColorStop(1, "rgba(0,0,0,1)");
-      ctx.fillStyle = fade;
-      ctx.fillRect(0, 0, W, H);
-      ctx.globalCompositeOperation = "source-over";
-
-    };
-
-    const onResize = () => {
-      const prevW = W;
-      resize();
-      // Only re-seed nodes when width changes meaningfully. This prevents
-      // mobile URL bar show/hide (height-only viewport changes during scroll)
-      // from reshuffling the entire field.
-      if (Math.abs(W - prevW) > 24) init();
-    };
-    window.addEventListener("resize", onResize);
-    // Observe the parent section, not the canvas — the canvas itself is
-    // sized by the observer's own resize callback, which can feedback loop.
-    const ro = new ResizeObserver(onResize);
-    if (canvas.parentElement) ro.observe(canvas.parentElement);
-
-    // Paint an initial frame synchronously so the constellation is visible
-    // immediately on mount rather than after the first RAF tick.
-    draw(performance.now());
-    rafRef.current = requestAnimationFrame((n) => { last = n; draw(n); });
-
-    return () => {
-      window.removeEventListener("resize", onResize);
-      ro.disconnect();
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
-
   return (
-    <section
-      id="top"
-      className="relative min-h-screen flex items-center overflow-hidden bg-background"
-      onMouseMove={e => {
-        const r = e.currentTarget.getBoundingClientRect();
-        mouseRef.current = { x: e.clientX - r.left, y: e.clientY - r.top };
-      }}
-      onMouseLeave={() => { mouseRef.current = { x: -9999, y: -9999 }; }}
-      onTouchStart={e => {
-        const t = e.touches[0];
-        if (!t) return;
-        const r = e.currentTarget.getBoundingClientRect();
-        mouseRef.current = { x: t.clientX - r.left, y: t.clientY - r.top };
-      }}
-      onTouchMove={e => {
-        const t = e.touches[0];
-        if (!t) return;
-        const r = e.currentTarget.getBoundingClientRect();
-        mouseRef.current = { x: t.clientX - r.left, y: t.clientY - r.top };
-      }}
-      onTouchEnd={() => { mouseRef.current = { x: -9999, y: -9999 }; }}
-    >
-      <canvas
-        ref={canvasRef}
-        aria-hidden
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ zIndex: 0 }}
-      />
+    <section id="top" className="relative">
+      <div className="relative h-36 sm:h-48 md:h-64 w-full overflow-hidden bg-surface">
+        <picture>
+          <source srcSet={waveWebp} type="image/webp" />
+          <img
+            src={waveLightGif}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 w-full h-full object-cover opacity-75"
+          />
+        </picture>
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-background" />
+      </div>
 
-
-      <div className="relative z-10 mx-auto max-w-7xl px-6 w-full pt-28 pb-16 md:pt-32 md:pb-24">
-        <motion.div
-          initial={false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 mb-8"
-        >
-          <span className="font-mono text-xs text-muted-foreground uppercase tracking-[0.2em]">
-            01 — Portfolio / 2026
-          </span>
-          <div className="h-px flex-1 max-w-[120px] bg-border" />
-        </motion.div>
-
-        <h1 className="font-display text-[clamp(3rem,11vw,10rem)] font-bold leading-[0.92] tracking-tighter">
-          {words.map((w, i) => (
-            <motion.span
-              key={w}
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className={`block ${i === 2 ? "text-gradient italic font-light" : ""}`}
-            >
-              {w}
-            </motion.span>
-          ))}
-        </h1>
-
-        <div className="mt-10 md:mt-12 grid md:grid-cols-2 gap-8 items-end">
-          <motion.p
+      <div className="relative z-10 mx-auto max-w-5xl px-5 sm:px-6">
+        <div className="flex items-end justify-between -mt-12 sm:-mt-14 md:-mt-16">
+          <motion.div
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-md text-pretty"
+            className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-background shrink-0 shadow-2xl bg-surface relative"
           >
-            Software Developer & Automation Engineer based in{" "}
-            <span className="text-foreground">Beirut, Lebanon</span>. Bridging
-            operations and software — building the systems that make business
-            actually run.
-          </motion.p>
+            <img
+              src={amroAvatar}
+              alt="Amro — Software Developer & Automation Engineer"
+              className="w-full h-full object-cover object-[center_20%]"
+            />
+          </motion.div>
 
           <motion.div
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex flex-wrap gap-3 md:justify-end"
+            className="flex gap-2 sm:gap-3 pb-1 sm:pb-2"
           >
             <a
               href="#work"
-              className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-foreground text-background text-sm font-medium hover:bg-foreground hover:text-primary-foreground transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full border border-border text-xs sm:text-sm font-medium hover:border-foreground transition-colors"
             >
-              See my work
-              <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+              Work
             </a>
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full glass text-sm font-medium hover:border-foreground transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-foreground text-background text-xs sm:text-sm font-medium hover:opacity-90 transition-opacity"
             >
-              Get in touch
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              Contact
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </motion.div>
         </div>
 
         <motion.div
           initial={false}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mt-4 sm:mt-5 space-y-3 sm:space-y-4 pb-10 sm:pb-14 md:pb-20"
         >
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            Scroll
-          </span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            className="w-px h-10 bg-gradient-to-b from-foreground/60 to-transparent"
-          />
+          <div className="flex items-center gap-2">
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Amro</h1>
+            <BadgeCheck className="w-4 h-4 sm:w-5 sm:h-5 text-foreground/80" aria-label="Verified" />
+          </div>
+
+          <p className="font-mono text-sm text-muted-foreground">
+            @amr0kf · Software Developer &amp; Automation Engineer
+          </p>
+
+          <p className="max-w-xl text-muted-foreground text-pretty leading-relaxed">
+            Bridging operations and software — building the systems that make business
+            actually run.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="w-4 h-4" /> Beirut, Lebanon
+            </span>
+          </div>
         </motion.div>
       </div>
     </section>

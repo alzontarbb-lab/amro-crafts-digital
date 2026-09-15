@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amro-crafts.lovable.app/sitemap.xml

@@ -14,7 +14,7 @@ const items = [
     note: "Ran the aftersales operation end-to-end, then built internal tools on the side that replaced manual workflows and got adopted across the team.",
   },
   {
-    period: "2020 — 2024",
+    period: "2021 — 2024",
     role: "B.Sc. Computer Science",
     org: "Arab Open University",
     note: "Graduated with GPA 3.66.",
@@ -23,19 +23,19 @@ const items = [
 
 export function Experience() {
   return (
-    <section id="experience" className="relative py-32 md:py-40 bg-surface/40">
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
+    <section id="experience" className="relative py-12 md:py-28 bg-surface/30">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6">
         <SectionHeader index="05" label="Timeline" title="A short, honest path." />
 
         <div className="max-w-3xl">
           {items.map((it, i) => (
-            <Reveal key={it.role} delay={i * 0.08}>
-              <div className="grid grid-cols-[100px_1fr] md:grid-cols-[180px_1fr] gap-6 py-8 border-t border-border last:border-b">
-                <div className="font-mono text-xs text-muted-foreground pt-1">{it.period}</div>
+            <Reveal key={it.role} delay={i * 0.06}>
+              <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-1.5 md:gap-6 py-4 md:py-6 border-t border-border/70 last:border-b">
+                <div className="font-mono text-xs text-muted-foreground/70 md:pt-1">{it.period}</div>
                 <div>
-                  <h3 className="font-display text-xl md:text-2xl font-medium">{it.role}</h3>
-                  <div className="text-foreground text-sm font-mono mt-1">{it.org}</div>
-                  <p className="text-muted-foreground mt-3 text-pretty">{it.note}</p>
+                  <h3 className="font-display text-lg md:text-xl font-medium">{it.role}</h3>
+                  <div className="text-foreground/90 text-xs sm:text-sm font-mono mt-0.5">{it.org}</div>
+                  <p className="text-muted-foreground mt-2 text-sm sm:text-base text-pretty leading-relaxed">{it.note}</p>
                 </div>
               </div>
             </Reveal>
