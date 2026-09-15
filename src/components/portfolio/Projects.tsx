@@ -303,39 +303,31 @@ function ProjectCard({ project }: { project: Project }) {
       params={{ projectId: project.id }}
       onClick={handleClick}
       id={`project-${project.id}`}
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-xl md:rounded-2xl project-card border border-border/70 bg-card cursor-pointer transition-all duration-300 ${brand.border} ${brand.glow}`}
+      className={`group relative flex flex-col overflow-hidden rounded-xl md:rounded-2xl project-card border border-border/70 bg-card cursor-pointer transition-all duration-300 ${brand.border} ${brand.glow}`}
     >
       {/* Visual Preview Banner (Flagship Screenshot) */}
       {cover && (
-        <div className="relative w-full aspect-[16/9] sm:aspect-[16/8.5] overflow-hidden bg-card">
-          {/* Harder, taller seamless gradient dissolving into the card background */}
+        <div className="relative w-full bg-card">
+          {/* Gentle low gradient extending past the bottom to bridge seamlessly */}
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 -bottom-2 h-44 sm:h-56 bg-gradient-to-t from-[var(--card)] from-25% via-[var(--card)]/95 via-60% to-transparent z-10 pointer-events-none"
+            className="absolute inset-x-0 -bottom-2 h-20 sm:h-24 bg-gradient-to-t from-[var(--card)] from-20% via-[var(--card)]/75 via-60% to-transparent z-10 pointer-events-none"
           />
 
           {project.screenshotMode === "mobile" ? (
-            <div className="w-full h-full p-3 sm:p-4 flex items-center justify-center gap-2.5 sm:gap-4">
+            <div className="w-full aspect-[16/8] sm:aspect-[16/7.5] p-2.5 sm:p-3.5 flex items-center justify-center gap-2.5 sm:gap-4 overflow-hidden">
               {project.screenshots && project.screenshots.length >= 2 ? (
                 <>
                   <img
                     src={project.screenshots[0].src}
                     alt={project.screenshots[0].alt}
-                    className="h-full w-auto max-h-[92%] object-contain rounded-lg shadow-2xl border border-white/10 group-hover:-translate-y-1 group-hover:scale-[1.025] transition-all duration-500 ease-out"
-                    style={{
-                      maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
-                      WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
-                    }}
+                    className="h-full w-auto max-h-[94%] object-contain rounded-lg shadow-2xl border border-white/10 group-hover:-translate-y-1 group-hover:scale-[1.02] transition-all duration-500 ease-out"
                     loading="lazy"
                   />
                   <img
                     src={project.screenshots[1].src}
                     alt={project.screenshots[1].alt}
-                    className="h-full w-auto max-h-[92%] object-contain rounded-lg shadow-2xl border border-white/10 group-hover:-translate-y-1 group-hover:scale-[1.025] transition-all duration-500 ease-out delay-75"
-                    style={{
-                      maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
-                      WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
-                    }}
+                    className="h-full w-auto max-h-[94%] object-contain rounded-lg shadow-2xl border border-white/10 group-hover:-translate-y-1 group-hover:scale-[1.02] transition-all duration-500 ease-out delay-75"
                     loading="lazy"
                   />
                 </>
@@ -343,45 +335,35 @@ function ProjectCard({ project }: { project: Project }) {
                 <img
                   src={cover}
                   alt={project.title}
-                  className="h-full w-auto max-h-[88%] object-contain rounded-md shadow-2xl border border-white/10 group-hover:scale-[1.04] transition-transform duration-500 ease-out"
-                  style={{
-                    maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
-                    WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
-                  }}
+                  className="h-full w-auto max-h-[92%] object-contain rounded-md shadow-2xl border border-white/10 group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                   loading="lazy"
                 />
               )}
             </div>
           ) : project.screenshotMode === "tablet" ? (
-            <div className="w-full h-full p-3 sm:p-4 flex items-center justify-center">
+            <div className="w-full aspect-[16/8] sm:aspect-[16/7.5] p-2.5 sm:p-3.5 flex items-center justify-center overflow-hidden">
               <img
                 src={cover}
                 alt={project.title}
-                className="h-full w-auto max-h-[92%] object-contain rounded-md shadow-2xl border border-white/10 group-hover:scale-[1.03] transition-transform duration-500 ease-out"
-                style={{
-                  maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 92%)",
-                  WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 92%)",
-                }}
+                className="h-full w-auto max-h-[94%] object-contain rounded-md shadow-2xl border border-white/10 group-hover:scale-[1.025] transition-transform duration-500 ease-out"
                 loading="lazy"
               />
             </div>
           ) : (
-            <img
-              src={cover}
-              alt={project.title}
-              className="w-full h-full object-cover object-top group-hover:scale-[1.025] transition-transform duration-500 ease-out"
-              style={{
-                maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 88%)",
-                WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 88%)",
-              }}
-              loading="lazy"
-            />
+            <div className="w-full aspect-[16/8] sm:aspect-[16/7.5] overflow-hidden">
+              <img
+                src={cover}
+                alt={project.title}
+                className="w-full h-full object-cover object-top origin-top group-hover:scale-[1.02] transition-transform duration-500 ease-out block"
+                loading="lazy"
+              />
+            </div>
           )}
         </div>
       )}
 
-      {/* Card Body — Overlapping seamlessly with negative margin */}
-      <div className="p-5 sm:p-6 md:p-8 pt-0 sm:pt-0 -mt-3 sm:-mt-4 flex flex-col flex-1 justify-between relative z-20">
+      {/* Card Body */}
+      <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-1 justify-between relative z-20">
         <div>
           {/* Header Metadata — Pure Typography, Without Badges */}
           <div className="flex items-center justify-between gap-3 mb-3 sm:mb-4">
