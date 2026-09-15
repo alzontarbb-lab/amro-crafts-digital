@@ -42,9 +42,9 @@ export function Contact() {
           email: emailVal,
           from_email: emailVal,
           reply_to: emailVal,
-          to_email: "alzontarbb@gmail.com",
+          to_email: "amrokfarajallah@gmail.com",
           to_name: "Amro",
-          recipient: "alzontarbb@gmail.com",
+          recipient: "amrokfarajallah@gmail.com",
           message: messageVal,
         },
         { publicKey: EMAILJS_PUBLIC_KEY },
@@ -77,13 +77,13 @@ export function Contact() {
 
               <div className="space-y-3 font-mono text-xs sm:text-sm">
                 <a
-                  href="mailto:alzontarbb@gmail.com"
+                  href="mailto:amrokfarajallah@gmail.com"
                   className="flex items-center gap-2.5 text-foreground hover:text-foreground transition-colors group"
                 >
                   <span className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center group-hover:border-foreground shrink-0">
                     <Mail className="w-3.5 h-3.5" />
                   </span>
-                  alzontarbb@gmail.com
+                  amrokfarajallah@gmail.com
                 </a>
                 <a
                   href="https://linkedin.com/in/amr0kf/"
@@ -136,7 +136,7 @@ export function Contact() {
                     <h3 className="font-display text-xl sm:text-2xl font-medium mb-2">Message landed.</h3>
                     <p className="text-muted-foreground text-xs sm:text-sm max-w-sm leading-relaxed mb-6">
                       Your note was delivered directly to my inbox at{" "}
-                      <span className="text-foreground font-mono">alzontarbb@gmail.com</span>. I personally review all incoming inquiries and will follow up shortly.
+                      <span className="text-foreground font-mono">amrokfarajallah@gmail.com</span>. I personally review all incoming inquiries and will follow up shortly.
                     </p>
                     <button
                       type="button"
