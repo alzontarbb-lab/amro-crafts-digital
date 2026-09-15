@@ -315,13 +315,30 @@ function ProjectCard({ project }: { project: Project }) {
           />
 
           {project.screenshotMode === "mobile" ? (
-            <div className="w-full h-full p-3.5 sm:p-4 flex items-center justify-center">
-              <img
-                src={cover}
-                alt={project.title}
-                className="h-full w-auto max-h-[88%] object-contain rounded-md shadow-2xl border border-white/10 group-hover:scale-[1.04] transition-transform duration-500 ease-out"
-                loading="lazy"
-              />
+            <div className="w-full h-full p-3 sm:p-4 flex items-center justify-center gap-2.5 sm:gap-4">
+              {project.screenshots && project.screenshots.length >= 2 ? (
+                <>
+                  <img
+                    src={project.screenshots[0].src}
+                    alt={project.screenshots[0].alt}
+                    className="h-full w-auto max-h-[92%] object-contain rounded-lg shadow-2xl border border-white/10 group-hover:-translate-y-1 group-hover:scale-[1.025] transition-all duration-500 ease-out"
+                    loading="lazy"
+                  />
+                  <img
+                    src={project.screenshots[1].src}
+                    alt={project.screenshots[1].alt}
+                    className="h-full w-auto max-h-[92%] object-contain rounded-lg shadow-2xl border border-white/10 group-hover:-translate-y-1 group-hover:scale-[1.025] transition-all duration-500 ease-out delay-75"
+                    loading="lazy"
+                  />
+                </>
+              ) : (
+                <img
+                  src={cover}
+                  alt={project.title}
+                  className="h-full w-auto max-h-[88%] object-contain rounded-md shadow-2xl border border-white/10 group-hover:scale-[1.04] transition-transform duration-500 ease-out"
+                  loading="lazy"
+                />
+              )}
             </div>
           ) : project.screenshotMode === "tablet" ? (
             <div className="w-full h-full p-3 sm:p-4 flex items-center justify-center">
