@@ -307,11 +307,11 @@ function ProjectCard({ project }: { project: Project }) {
     >
       {/* Visual Preview Banner (Flagship Screenshot) */}
       {cover && (
-        <div className="relative w-full aspect-[16/9] sm:aspect-[16/8.5] overflow-hidden">
+        <div className="relative w-full aspect-[16/9] sm:aspect-[16/8.5] overflow-hidden bg-card">
           {/* Harder, taller seamless gradient dissolving into the card background */}
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 h-36 sm:h-48 bg-gradient-to-t from-[var(--card)] from-20% via-[var(--card)]/90 via-55% to-transparent z-10 pointer-events-none"
+            className="absolute inset-x-0 -bottom-2 h-44 sm:h-56 bg-gradient-to-t from-[var(--card)] from-25% via-[var(--card)]/95 via-60% to-transparent z-10 pointer-events-none"
           />
 
           {project.screenshotMode === "mobile" ? (
@@ -322,12 +322,20 @@ function ProjectCard({ project }: { project: Project }) {
                     src={project.screenshots[0].src}
                     alt={project.screenshots[0].alt}
                     className="h-full w-auto max-h-[92%] object-contain rounded-lg shadow-2xl border border-white/10 group-hover:-translate-y-1 group-hover:scale-[1.025] transition-all duration-500 ease-out"
+                    style={{
+                      maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
+                      WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
+                    }}
                     loading="lazy"
                   />
                   <img
                     src={project.screenshots[1].src}
                     alt={project.screenshots[1].alt}
                     className="h-full w-auto max-h-[92%] object-contain rounded-lg shadow-2xl border border-white/10 group-hover:-translate-y-1 group-hover:scale-[1.025] transition-all duration-500 ease-out delay-75"
+                    style={{
+                      maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
+                      WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
+                    }}
                     loading="lazy"
                   />
                 </>
@@ -336,6 +344,10 @@ function ProjectCard({ project }: { project: Project }) {
                   src={cover}
                   alt={project.title}
                   className="h-full w-auto max-h-[88%] object-contain rounded-md shadow-2xl border border-white/10 group-hover:scale-[1.04] transition-transform duration-500 ease-out"
+                  style={{
+                    maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 94%)",
+                  }}
                   loading="lazy"
                 />
               )}
@@ -346,6 +358,10 @@ function ProjectCard({ project }: { project: Project }) {
                 src={cover}
                 alt={project.title}
                 className="h-full w-auto max-h-[92%] object-contain rounded-md shadow-2xl border border-white/10 group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                style={{
+                  maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 92%)",
+                  WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 92%)",
+                }}
                 loading="lazy"
               />
             </div>
@@ -354,14 +370,18 @@ function ProjectCard({ project }: { project: Project }) {
               src={cover}
               alt={project.title}
               className="w-full h-full object-cover object-top group-hover:scale-[1.025] transition-transform duration-500 ease-out"
+              style={{
+                maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 88%)",
+                WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 88%)",
+              }}
               loading="lazy"
             />
           )}
         </div>
       )}
 
-      {/* Card Body */}
-      <div className="p-5 sm:p-6 md:p-8 pt-2 sm:pt-3 flex flex-col flex-1 justify-between relative z-20">
+      {/* Card Body — Overlapping seamlessly with negative margin */}
+      <div className="p-5 sm:p-6 md:p-8 pt-0 sm:pt-0 -mt-3 sm:-mt-4 flex flex-col flex-1 justify-between relative z-20">
         <div>
           {/* Header Metadata — Pure Typography, Without Badges */}
           <div className="flex items-center justify-between gap-3 mb-3 sm:mb-4">
