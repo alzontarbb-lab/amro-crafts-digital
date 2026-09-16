@@ -95,7 +95,7 @@ export function Projects() {
     }
     if (activeTab === "internal") {
       return projects.filter(
-        (p) => p.tag === "Internal / Production" || p.tag === "Automation / Data"
+        (p) => p.tag === "Internal / Production" || p.tag === "Automation / Data",
       );
     }
     return projects;
@@ -114,18 +114,19 @@ export function Projects() {
         id: "commercial",
         label: "Commercial Web & POS",
         mobileLabel: "Commercial",
-        count: projects.filter((p) => p.tag === "Commercial / Web" || p.tag === "Commercial POS").length,
+        count: projects.filter((p) => p.tag === "Commercial / Web" || p.tag === "Commercial POS")
+          .length,
       },
       {
         id: "internal",
         label: "Internal & Automation",
         mobileLabel: "Internal",
         count: projects.filter(
-          (p) => p.tag === "Internal / Production" || p.tag === "Automation / Data"
+          (p) => p.tag === "Internal / Production" || p.tag === "Automation / Data",
         ).length,
       },
     ],
-    []
+    [],
   );
 
   useEffect(() => {
@@ -151,7 +152,9 @@ export function Projects() {
             }, 80);
           });
         }
-      } catch {}
+      } catch {
+        // Ignore storage access errors
+      }
     }
   }, [showAll]);
 
@@ -160,7 +163,9 @@ export function Projects() {
       setShowAll(true);
       try {
         sessionStorage.setItem(STORAGE_KEY, "true");
-      } catch {}
+      } catch {
+        // Ignore storage access errors
+      }
     } else {
       setHiding(true);
       const workSection = document.getElementById("work");
@@ -175,7 +180,9 @@ export function Projects() {
         setHiding(false);
         try {
           sessionStorage.removeItem(STORAGE_KEY);
-        } catch {}
+        } catch {
+          // Ignore storage access errors
+        }
       }, totalDuration);
     }
   };
@@ -185,18 +192,23 @@ export function Projects() {
   const displayedProjects = isFiltered
     ? filteredProjects
     : showAll || hiding
-    ? filteredProjects
-    : filteredProjects.slice(0, INITIAL_COUNT);
+      ? filteredProjects
+      : filteredProjects.slice(0, INITIAL_COUNT);
 
   const extraCount = filteredProjects.length - INITIAL_COUNT;
 
   return (
     <section id="work" className="relative py-12 md:py-28">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeader index="04" label="Selected Work" title="Engineered for real-world operations." />
+        <SectionHeader
+          index="04"
+          label="Selected Work"
+          title="Engineered for real-world operations."
+        />
 
         <p className="-mt-4 md:-mt-10 mb-6 md:mb-8 text-xs sm:text-base text-muted-foreground leading-relaxed">
-          Click any project to explore its case study, system architecture, and operational breakdown.
+          Click any project to explore its case study, system architecture, and operational
+          breakdown.
         </p>
 
         {/* Minimalist Mobile-Optimized Tab Navigation — Edge-to-Edge Touch Scroll */}
@@ -219,9 +231,7 @@ export function Projects() {
                   <span className="hidden sm:inline">{tab.label}</span>
                   <span
                     className={`text-[10px] font-mono px-1.5 py-0.2 rounded ${
-                      isActive
-                        ? "bg-foreground/10 text-foreground"
-                        : "text-muted-foreground/50"
+                      isActive ? "bg-foreground/10 text-foreground" : "text-muted-foreground/50"
                     }`}
                   >
                     {tab.count}
@@ -311,7 +321,9 @@ function ProjectCard({ project }: { project: Project }) {
   const handleClick = () => {
     try {
       sessionStorage.setItem(LAST_PROJECT_KEY, project.id);
-    } catch {}
+    } catch {
+      // Ignore storage access errors
+    }
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -411,7 +423,9 @@ function ProjectCard({ project }: { project: Project }) {
               <span className="w-2 h-2 rounded-full bg-indigo-400" />
               <span>ocr_engine.service · SLA Pipeline v2.4</span>
             </div>
-            <span className="text-zinc-500 text-[9px] uppercase tracking-wider">Internal OCR Engine</span>
+            <span className="text-zinc-500 text-[9px] uppercase tracking-wider">
+              Internal OCR Engine
+            </span>
           </div>
           <div className="space-y-1 sm:space-y-1.5 text-[10px] sm:text-[11px] leading-relaxed py-1 text-zinc-300">
             <p className="text-zinc-500">&gt; INGEST /pdf/invoices/inv_2026_0412.pdf --ocr</p>
@@ -432,11 +446,15 @@ function ProjectCard({ project }: { project: Project }) {
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>cron_daemon · pandas_etl_pipeline.py</span>
             </div>
-            <span className="text-zinc-500 text-[9px] uppercase tracking-wider">Scheduled 06:00 UTC</span>
+            <span className="text-zinc-500 text-[9px] uppercase tracking-wider">
+              Scheduled 06:00 UTC
+            </span>
           </div>
           <div className="space-y-1 sm:space-y-1.5 text-[10px] sm:text-[11px] leading-relaxed py-1 text-zinc-300">
             <p className="text-zinc-500">&gt; pd.read_csv('/exports/raw_operations_*.csv')</p>
-            <p className="text-emerald-400/90">✓ INGESTED: 14 operational tables (42,890 records)</p>
+            <p className="text-emerald-400/90">
+              ✓ INGESTED: 14 operational tables (42,890 records)
+            </p>
             <p className="text-teal-300">✓ ANOMALY CHECK: 0 deviation errors detected</p>
             <p className="text-zinc-400">→ DISPATCHED: Automated KPI summary to Slack & Mail</p>
           </div>
@@ -455,7 +473,9 @@ function ProjectCard({ project }: { project: Project }) {
             <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground/80">
               {project.tag}
             </span>
-            <span className="font-mono text-[11px] sm:text-xs text-muted-foreground/60">{project.year}</span>
+            <span className="font-mono text-[11px] sm:text-xs text-muted-foreground/60">
+              {project.year}
+            </span>
           </div>
 
           <h3 className="font-display text-base sm:text-xl md:text-2xl font-medium mb-1.5 sm:mb-2 text-foreground group-hover:text-foreground transition-colors flex items-center justify-between">

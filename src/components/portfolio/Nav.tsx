@@ -123,7 +123,11 @@ export function Nav() {
             </nav>
             <div className="px-8 pb-10 flex items-center justify-between text-xs text-muted-foreground font-mono">
               <span>Beirut, LB</span>
-              <a href="#contact" onClick={() => setOpen(false)} className="underline hover:text-foreground">
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="underline hover:text-foreground"
+              >
                 Get in touch →
               </a>
             </div>

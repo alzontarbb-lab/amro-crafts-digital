@@ -15,7 +15,13 @@ const groups = [
   {
     index: "03",
     label: "Automation & AI Pipelines",
-    items: ["Python Scripts", "LLM Integration", "Automated Reporting", "Scheduled Cron", "Email Triggers"],
+    items: [
+      "Python Scripts",
+      "LLM Integration",
+      "Automated Reporting",
+      "Scheduled Cron",
+      "Email Triggers",
+    ],
   },
   {
     index: "04",

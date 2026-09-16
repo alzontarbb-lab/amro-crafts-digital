@@ -33,17 +33,17 @@ export function About() {
           <div className="space-y-4 md:space-y-5 text-base sm:text-lg leading-relaxed text-pretty">
             <Reveal>
               <p>
-                I'm a CS graduate who bridges operations and software — building
-                full-stack web systems and automating the friction points that businesses pretend
-                aren't costing them money.
+                I'm a CS graduate who bridges operations and software — building full-stack web
+                systems and automating the friction points that businesses pretend aren't costing
+                them money.
               </p>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="text-muted-foreground">
                 I've built production tools that real businesses run on — not because I was asked
-                to, but because I saw a problem. Scheduling chaos became an automated dispatch platform. Paper
-                intake became an authenticated digital workflow. Repetitive tasks became Python jobs that run
-                quietly in the background.
+                to, but because I saw a problem. Scheduling chaos became an automated dispatch
+                platform. Paper intake became an authenticated digital workflow. Repetitive tasks
+                became Python jobs that run quietly in the background.
               </p>
             </Reveal>
             <Reveal delay={0.2}>

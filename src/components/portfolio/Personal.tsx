@@ -53,7 +53,9 @@ export function Personal() {
                 <h3 className="font-display text-lg sm:text-xl md:text-2xl font-semibold tracking-tight mb-1.5">
                   {r.title}
                 </h3>
-                <p className="text-muted-foreground text-sm sm:text-base text-pretty max-w-md leading-relaxed">{r.copy}</p>
+                <p className="text-muted-foreground text-sm sm:text-base text-pretty max-w-md leading-relaxed">
+                  {r.copy}
+                </p>
               </div>
             </Reveal>
           ))}

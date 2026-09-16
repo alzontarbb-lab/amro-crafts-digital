@@ -9,7 +9,13 @@ export type Project = {
   title: string;
   blurb: string;
   tech: string[];
-  tag: "Commercial / AI" | "Enterprise Operations" | "Internal / Production" | "Commercial POS" | "Automation / Data" | "Commercial / Web";
+  tag:
+    | "Commercial / AI"
+    | "Enterprise Operations"
+    | "Internal / Production"
+    | "Commercial POS"
+    | "Automation / Data"
+    | "Commercial / Web";
   year: string;
   featured?: boolean;
   coverImage?: string;
@@ -32,7 +38,14 @@ export const projects: Project[] = [
     title: "Luxury Fragrance Direct-to-Consumer Storefront",
     blurb:
       "A mobile-first direct-to-consumer fragrance boutique purveying 100% authentic perfumes. Crafted with an intentional minimalist black-and-white luxury design that puts verified flacons and olfactory craftsmanship at center stage, backed by tactile touch ergonomics and a direct WhatsApp checkout engine.",
-    tech: ["React", "TypeScript", "Vite", "Tailwind CSS", "Editorial Minimalist UI", "WhatsApp Handoff"],
+    tech: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Editorial Minimalist UI",
+      "WhatsApp Handoff",
+    ],
     tag: "Commercial / Web",
     year: "2026",
     featured: true,
@@ -82,12 +95,21 @@ export const projects: Project[] = [
     featured: true,
     coverImage: "/projects/market-dash/01-home-produce.webp",
     screenshotMode: "mobile",
-    brandNote: "Custom palette tailored to the company's brand identity: deep charcoal backdrop paired with warm gold and amber accents (#D4AF37 / #C5A059), delivering a premium supermarket feel.",
+    brandNote:
+      "Custom palette tailored to the company's brand identity: deep charcoal backdrop paired with warm gold and amber accents (#D4AF37 / #C5A059), delivering a premium supermarket feel.",
     screenshots: [
       { src: "/projects/market-dash/01-home-produce.webp", alt: "Storefront", badge: "Storefront" },
       { src: "/projects/market-dash/02-meat-seafood.webp", alt: "Storefront", badge: "Storefront" },
-      { src: "/projects/market-dash/03-my-orders.webp", alt: "Orders History", badge: "Orders History" },
-      { src: "/projects/market-dash/04-cart-drawer.webp", alt: "Cart Drawer", badge: "Cart Drawer" },
+      {
+        src: "/projects/market-dash/03-my-orders.webp",
+        alt: "Orders History",
+        badge: "Orders History",
+      },
+      {
+        src: "/projects/market-dash/04-cart-drawer.webp",
+        alt: "Cart Drawer",
+        badge: "Cart Drawer",
+      },
       { src: "/projects/market-dash/05-checkout.webp", alt: "Checkout", badge: "Checkout" },
     ],
     caseStudy: {
@@ -111,7 +133,16 @@ export const projects: Project[] = [
     title: "Power Generator Fleet Operations & Field Dispatch Command Center",
     blurb:
       "A mission-critical fleet operations and dispatch platform built specifically for industrial diesel power generators (gensets) and standby energy infrastructure. Bridges office administration with on-the-ground technicians through algorithmic route optimization, multi-division schedule boards, GPS-tagged mobile field reporting, and automated SLA overdue tracking — designed to fully digitalize physical paper work orders.",
-    tech: ["React 19", "Vite", "Supabase", "Leaflet / Geospatial", "Gemini AI (@google/genai)", "Postgres (RLS)", "Route Optimization", "ExcelJS"],
+    tech: [
+      "React 19",
+      "Vite",
+      "Supabase",
+      "Leaflet / Geospatial",
+      "Gemini AI (@google/genai)",
+      "Postgres (RLS)",
+      "Route Optimization",
+      "ExcelJS",
+    ],
     tag: "Enterprise Operations",
     year: "2026",
     featured: true,
@@ -186,18 +217,43 @@ export const projects: Project[] = [
     title: "Enterprise Claims & Document Review Portal",
     blurb:
       "Enterprise operations platform featuring multi-model AI API analysis, an adaptive agent brain & skill architecture that refines output over time, and interactive drag-and-drop workflow tracking. All proprietary branding and logos sanitized under NDA.",
-    tech: ["React", "Vite", "AI Agent Brain", "LLM APIs", "@hello-pangea/dnd", "PostgreSQL", "Canvas"],
+    tech: [
+      "React",
+      "Vite",
+      "AI Agent Brain",
+      "LLM APIs",
+      "@hello-pangea/dnd",
+      "PostgreSQL",
+      "Canvas",
+    ],
     tag: "Enterprise Operations",
     year: "2026",
     featured: true,
     coverImage: "/projects/ula/01-management-dashboard.webp",
     screenshotMode: "desktop",
-    brandNote: "Strict NDA protection: Client name, company trademark, and logo have been blurred and sanitized throughout all production interface views.",
+    brandNote:
+      "Strict NDA protection: Client name, company trademark, and logo have been blurred and sanitized throughout all production interface views.",
     screenshots: [
-      { src: "/projects/ula/01-management-dashboard.webp", alt: "Management Dashboard", badge: "Portfolio Release Control" },
-      { src: "/projects/ula/02-ai-autonomous-agent.webp", alt: "AI Reporting Workspace", badge: "Autonomous AI Agent" },
-      { src: "/projects/ula/03-fact-extraction-billing.webp", alt: "Fact Extraction & Billing", badge: "Fact Extraction & Readiness" },
-      { src: "/projects/ula/04-annual-leave-control.webp", alt: "Annual Leave & Operations Calendar", badge: "Operations Calendar & Leave" },
+      {
+        src: "/projects/ula/01-management-dashboard.webp",
+        alt: "Management Dashboard",
+        badge: "Portfolio Release Control",
+      },
+      {
+        src: "/projects/ula/02-ai-autonomous-agent.webp",
+        alt: "AI Reporting Workspace",
+        badge: "Autonomous AI Agent",
+      },
+      {
+        src: "/projects/ula/03-fact-extraction-billing.webp",
+        alt: "Fact Extraction & Billing",
+        badge: "Fact Extraction & Readiness",
+      },
+      {
+        src: "/projects/ula/04-annual-leave-control.webp",
+        alt: "Annual Leave & Operations Calendar",
+        badge: "Operations Calendar & Leave",
+      },
     ],
     caseStudy: {
       problem:
@@ -227,7 +283,8 @@ export const projects: Project[] = [
     isNda: true,
     coverImage: "/projects/case-file/02-home.webp",
     screenshotMode: "desktop",
-    brandNote: "Project was discontinued due to high risk. Case identity and subject name sanitized under confidentiality.",
+    brandNote:
+      "Project was discontinued due to high risk. Case identity and subject name sanitized under confidentiality.",
     screenshots: [
       {
         src: "/projects/case-file/02-home.webp",
@@ -262,7 +319,15 @@ export const projects: Project[] = [
     title: "Offline-First Multi-Vertical Retail POS",
     blurb:
       "A unified point-of-sale and inventory core, adapted across distinct retail trade verticals including grocery/supermarkets (Dukanji), footwear (ShoePOS), menswear (ZOROPOS), and specialized trade verticals under NDA. Features robust cash box logic with dual-currency (USD/LBP) shift reconciliation, dual retail/wholesale pricing, and hardware barcode integration.",
-    tech: ["React", "Vite", "TypeScript", "Python (FastAPI)", "SQLite", "Cash Box Ledger", "Hardware Barcode"],
+    tech: [
+      "React",
+      "Vite",
+      "TypeScript",
+      "Python (FastAPI)",
+      "SQLite",
+      "Cash Box Ledger",
+      "Hardware Barcode",
+    ],
     tag: "Commercial POS",
     year: "2026",
     featured: true,
@@ -271,15 +336,51 @@ export const projects: Project[] = [
     brandNote:
       "Client brand names (including Khalifa) sanitized throughout the codebase. Features full multi-currency cash drawer management, live register analytics, and offline-first database resilience.",
     screenshots: [
-      { src: "/projects/retail-pos/01-store-dashboard.webp", alt: "Dukanji - Live Store Register & Profit Analytics Dashboard", badge: "Store Analytics" },
-      { src: "/projects/retail-pos/02-financial-cash-box.webp", alt: "Dukanji - Dual-Currency Cash Box & Shift Reconciliation Ledger", badge: "Cash Box & Ledger" },
-      { src: "/projects/retail-pos/03-point-of-sale.webp", alt: "Dukanji - Point of Sale Register with Dual Retail/Wholesale & Currency Toggles", badge: "POS Checkout" },
-      { src: "/projects/shopepos/dashboard.webp", alt: "ShoePOS - Owner Dashboard: Revenue, Cash Box, Receivables & Top Models", badge: "ShoePOS Dashboard" },
-      { src: "/projects/shopepos/stock-screen.webp", alt: "ShoePOS - Size & Color Variant Matrix per Model", badge: "ShoePOS Stock Matrix" },
-      { src: "/projects/shopepos/reports.webp", alt: "ShoePOS - Profit by Model, Sales by Size & Color", badge: "ShoePOS Reports" },
-      { src: "/projects/retail-pos/zoropos-pos.webp", alt: "ZOROPOS - Menswear POS Register with Live-Switchable Brand Theme", badge: "ZOROPOS Register" },
-      { src: "/projects/retail-pos/zoropos-financial.webp", alt: "ZOROPOS - Cash Ledger: Sales, Collections & Cash-In Events", badge: "ZOROPOS Cash Ledger" },
-      { src: "/projects/retail-pos/zoropos-customers.webp", alt: "ZOROPOS - Customer Receivables & Debt Tracking", badge: "ZOROPOS Customers" },
+      {
+        src: "/projects/retail-pos/01-store-dashboard.webp",
+        alt: "Dukanji - Live Store Register & Profit Analytics Dashboard",
+        badge: "Store Analytics",
+      },
+      {
+        src: "/projects/retail-pos/02-financial-cash-box.webp",
+        alt: "Dukanji - Dual-Currency Cash Box & Shift Reconciliation Ledger",
+        badge: "Cash Box & Ledger",
+      },
+      {
+        src: "/projects/retail-pos/03-point-of-sale.webp",
+        alt: "Dukanji - Point of Sale Register with Dual Retail/Wholesale & Currency Toggles",
+        badge: "POS Checkout",
+      },
+      {
+        src: "/projects/shopepos/dashboard.webp",
+        alt: "ShoePOS - Owner Dashboard: Revenue, Cash Box, Receivables & Top Models",
+        badge: "ShoePOS Dashboard",
+      },
+      {
+        src: "/projects/shopepos/stock-screen.webp",
+        alt: "ShoePOS - Size & Color Variant Matrix per Model",
+        badge: "ShoePOS Stock Matrix",
+      },
+      {
+        src: "/projects/shopepos/reports.webp",
+        alt: "ShoePOS - Profit by Model, Sales by Size & Color",
+        badge: "ShoePOS Reports",
+      },
+      {
+        src: "/projects/retail-pos/zoropos-pos.webp",
+        alt: "ZOROPOS - Menswear POS Register with Live-Switchable Brand Theme",
+        badge: "ZOROPOS Register",
+      },
+      {
+        src: "/projects/retail-pos/zoropos-financial.webp",
+        alt: "ZOROPOS - Cash Ledger: Sales, Collections & Cash-In Events",
+        badge: "ZOROPOS Cash Ledger",
+      },
+      {
+        src: "/projects/retail-pos/zoropos-customers.webp",
+        alt: "ZOROPOS - Customer Receivables & Debt Tracking",
+        badge: "ZOROPOS Customers",
+      },
     ],
     caseStudy: {
       problem:
@@ -394,7 +495,14 @@ export const projects: Project[] = [
     title: "Maintenance Contract & SLA Portal",
     blurb:
       "An internal subscription and SLA management portal built to centralize machinery service contracts. The system ingests company data from customer invoices and handwritten technician invoice notes using automated text recognition (OCR), organizing recurring service agreements like a subscription model.",
-    tech: ["React", "Python", "OCR / Text Recognition", "SLA Engine", "FastAPI", "Subscription Logic"],
+    tech: [
+      "React",
+      "Python",
+      "OCR / Text Recognition",
+      "SLA Engine",
+      "FastAPI",
+      "Subscription Logic",
+    ],
     tag: "Internal / Production",
     year: "2026",
     brandNote:

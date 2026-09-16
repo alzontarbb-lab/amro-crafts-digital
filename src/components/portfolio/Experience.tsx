@@ -31,11 +31,17 @@ export function Experience() {
           {items.map((it, i) => (
             <Reveal key={it.role} delay={i * 0.06}>
               <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-1.5 md:gap-6 py-4 md:py-6 border-t border-border/70 last:border-b">
-                <div className="font-mono text-xs text-muted-foreground/70 md:pt-1">{it.period}</div>
+                <div className="font-mono text-xs text-muted-foreground/70 md:pt-1">
+                  {it.period}
+                </div>
                 <div>
                   <h3 className="font-display text-lg md:text-xl font-medium">{it.role}</h3>
-                  <div className="text-foreground/90 text-xs sm:text-sm font-mono mt-0.5">{it.org}</div>
-                  <p className="text-muted-foreground mt-2 text-sm sm:text-base text-pretty leading-relaxed">{it.note}</p>
+                  <div className="text-foreground/90 text-xs sm:text-sm font-mono mt-0.5">
+                    {it.org}
+                  </div>
+                  <p className="text-muted-foreground mt-2 text-sm sm:text-base text-pretty leading-relaxed">
+                    {it.note}
+                  </p>
                 </div>
               </div>
             </Reveal>

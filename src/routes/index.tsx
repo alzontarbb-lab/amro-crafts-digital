@@ -37,7 +37,10 @@ function Index() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="relative min-h-screen bg-background text-foreground antialiased" style={style}>
+      <div
+        className="relative min-h-screen bg-background text-foreground antialiased"
+        style={style}
+      >
         <Nav />
         <main className="paisley-wash">
           <Hero />

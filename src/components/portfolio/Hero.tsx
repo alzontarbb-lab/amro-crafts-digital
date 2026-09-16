@@ -71,8 +71,13 @@ export function Hero() {
           className="mt-4 sm:mt-5 space-y-3 sm:space-y-4 pb-10 sm:pb-14 md:pb-20"
         >
           <div className="flex items-center gap-2">
-            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Amro</h1>
-            <BadgeCheck className="w-4 h-4 sm:w-5 sm:h-5 text-foreground/80" aria-label="Verified" />
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+              Amro
+            </h1>
+            <BadgeCheck
+              className="w-4 h-4 sm:w-5 sm:h-5 text-foreground/80"
+              aria-label="Verified"
+            />
           </div>
 
           <p className="font-mono text-sm text-muted-foreground">
@@ -80,8 +85,7 @@ export function Hero() {
           </p>
 
           <p className="max-w-xl text-muted-foreground text-pretty leading-relaxed">
-            Bridging operations and software — building the systems that make business
-            actually run.
+            Bridging operations and software — building the systems that make business actually run.
           </p>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">

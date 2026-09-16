@@ -52,7 +52,9 @@ export function Contact() {
       setSent(true);
     } catch (err) {
       console.error("EmailJS send error:", err);
-      setError("Something went wrong sending that — email me directly at amrokfarajallah@gmail.com instead.");
+      setError(
+        "Something went wrong sending that — email me directly at amrokfarajallah@gmail.com instead.",
+      );
     } finally {
       setLoading(false);
     }
@@ -133,10 +135,13 @@ export function Contact() {
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                       Direct Transmission Confirmed
                     </div>
-                    <h3 className="font-display text-xl sm:text-2xl font-medium mb-2">Message landed.</h3>
+                    <h3 className="font-display text-xl sm:text-2xl font-medium mb-2">
+                      Message landed.
+                    </h3>
                     <p className="text-muted-foreground text-xs sm:text-sm max-w-sm leading-relaxed mb-6">
                       Your note was delivered directly to my inbox at{" "}
-                      <span className="text-foreground font-mono">amrokfarajallah@gmail.com</span>. I personally review all incoming inquiries and will follow up shortly.
+                      <span className="text-foreground font-mono">amrokfarajallah@gmail.com</span>.
+                      I personally review all incoming inquiries and will follow up shortly.
                     </p>
                     <button
                       type="button"

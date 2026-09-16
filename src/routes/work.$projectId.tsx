@@ -25,9 +25,18 @@ export const Route = createFileRoute("/work/$projectId")({
     return {
       meta: [
         { title: project ? `${project.title} — Case Study by Amro` : "Project Not Found" },
-        { name: "description", content: project?.blurb || "Software engineering and systems case study." },
-        { property: "og:title", content: project ? `${project.title} — Amro Portfolio` : "Case Study" },
-        { property: "og:description", content: project?.blurb || "Full-stack and operations systems." },
+        {
+          name: "description",
+          content: project?.blurb || "Software engineering and systems case study.",
+        },
+        {
+          property: "og:title",
+          content: project ? `${project.title} — Amro Portfolio` : "Case Study",
+        },
+        {
+          property: "og:description",
+          content: project?.blurb || "Full-stack and operations systems.",
+        },
       ],
     };
   },
@@ -57,32 +66,76 @@ const PROJECT_METRICS: Record<string, OperationalMetric[]> = {
   "market-dash": [
     { value: "< 45s", label: "Checkout Velocity", sub: "Sub-minute direct mobile dispatch" },
     { value: "0%", label: "Aggregator Fees", sub: "Direct retailer margin retention" },
-    { value: "Gemini AI", label: "Smart Item Discovery", sub: "Fuzzy catalog heuristics & suggestions" },
+    {
+      value: "Gemini AI",
+      label: "Smart Item Discovery",
+      sub: "Fuzzy catalog heuristics & suggestions",
+    },
     { value: "Sub-second", label: "Sliding Cart Drawer", sub: "Fluid bottom-sheet ergonomics" },
   ],
   "fragrance-storefront": [
-    { value: "100%", label: "Authenticity Verified", sub: "Batch-code transparency & olfactory notes" },
+    {
+      value: "100%",
+      label: "Authenticity Verified",
+      sub: "Batch-code transparency & olfactory notes",
+    },
     { value: "< 30s", label: "Direct WhatsApp Flow", sub: "Zero-friction order serialization" },
     { value: "44px+", label: "Ergonomic Hit Targets", sub: "Fold-test passing mobile ergonomics" },
-    { value: "0 Fees", label: "Gateway Disintermediation", sub: "Full cash-on-delivery inspection" },
+    {
+      value: "0 Fees",
+      label: "Gateway Disintermediation",
+      sub: "Full cash-on-delivery inspection",
+    },
   ],
   "retail-pos": [
-    { value: "USD & LBP", label: "Dual Currency Ledgers", sub: "Real-time parallel shift drawer balance" },
-    { value: "4 Verticals", label: "Adapted Deployments", sub: "Grocery, footwear, menswear & trade" },
+    {
+      value: "USD & LBP",
+      label: "Dual Currency Ledgers",
+      sub: "Real-time parallel shift drawer balance",
+    },
+    {
+      value: "4 Verticals",
+      label: "Adapted Deployments",
+      sub: "Grocery, footwear, menswear & trade",
+    },
     { value: "100%", label: "Offline-First Engine", sub: "FastAPI + SQLite, zero cloud failure" },
     { value: "1-Click", label: "Shift Reconciliation", sub: "Automated cash discrepancy audit" },
   ],
   "ula-claims": [
-    { value: "Mins vs Days", label: "Turnaround Acceleration", sub: "Multi-model LLM API evidence parsing" },
+    {
+      value: "Mins vs Days",
+      label: "Turnaround Acceleration",
+      sub: "Multi-model LLM API evidence parsing",
+    },
     { value: "100%", label: "Digital Audit Trail", sub: "Drag-and-drop Kanban claim pipeline" },
-    { value: "Agent Brain", label: "Adaptive Skill Memory", sub: "Self-refining report quality over time" },
-    { value: "Sanitized", label: "Strict NDA Protection", sub: "All proprietary trademarks withheld" },
+    {
+      value: "Agent Brain",
+      label: "Adaptive Skill Memory",
+      sub: "Self-refining report quality over time",
+    },
+    {
+      value: "Sanitized",
+      label: "Strict NDA Protection",
+      sub: "All proprietary trademarks withheld",
+    },
   ],
   "case-file": [
-    { value: "Bilingual", label: "Arabic RTL & English", sub: "Seamless bidirectional layout toggle" },
+    {
+      value: "Bilingual",
+      label: "Arabic RTL & English",
+      sub: "Seamless bidirectional layout toggle",
+    },
     { value: "100%", label: "Permanent Public Record", sub: "Resilient self-hosted documentation" },
-    { value: "5 Archives", label: "Content Media Library", sub: "Articles, evidence, audio & video" },
-    { value: "Navy & Gold", label: "Institutional Stature", sub: "High-credibility legal design system" },
+    {
+      value: "5 Archives",
+      label: "Content Media Library",
+      sub: "Articles, evidence, audio & video",
+    },
+    {
+      value: "Navy & Gold",
+      label: "Institutional Stature",
+      sub: "High-credibility legal design system",
+    },
   ],
   "invoice-maker": [
     { value: "100%", label: "Offline Client-Side", sub: "Zero server dependency or account setup" },
@@ -93,30 +146,62 @@ const PROJECT_METRICS: Record<string, OperationalMetric[]> = {
   "parts-intake": [
     { value: "< 60s", label: "Depot Intake Speed", sub: "Stylus & screen-pen touch ergonomics" },
     { value: "0", label: "Lost Carbon Slips", sub: "Replaced hand-written depot paper loop" },
-    { value: "Auto-Email", label: "Direct TRF Dispatch", sub: "Structured delivery into depot ERP" },
-    { value: "Live Depot", label: "Daily Production Use", sub: "Continuous active aftersales operations" },
+    {
+      value: "Auto-Email",
+      label: "Direct TRF Dispatch",
+      sub: "Structured delivery into depot ERP",
+    },
+    {
+      value: "Live Depot",
+      label: "Daily Production Use",
+      sub: "Continuous active aftersales operations",
+    },
   ],
   "contracts-portal": [
-    { value: "OCR Engine", label: "Automated Extraction", sub: "Machine serials parsed from notes" },
+    {
+      value: "OCR Engine",
+      label: "Automated Extraction",
+      sub: "Machine serials parsed from notes",
+    },
     { value: "365-Day", label: "SLA Renewal Clock", sub: "Preemptive maintenance warranty alerts" },
     { value: "0", label: "Uncovered Dispatches", sub: "Eliminated uncontracted service trips" },
-    { value: "Subscription", label: "Lifecycle Model", sub: "Centralized machinery warranty registry" },
+    {
+      value: "Subscription",
+      label: "Lifecycle Model",
+      sub: "Centralized machinery warranty registry",
+    },
   ],
   "python-automation": [
-    { value: "~10 hrs/wk", label: "Manual Labor Saved", sub: "Eliminated repetitive copy-paste tasks" },
+    {
+      value: "~10 hrs/wk",
+      label: "Manual Labor Saved",
+      sub: "Eliminated repetitive copy-paste tasks",
+    },
     { value: "100%", label: "Autonomous Schedule", sub: "Cron-triggered without human oversight" },
     { value: "0", label: "Calculation Anomalies", sub: "Pandas cross-table reconciliation" },
-    { value: "Multi-Channel", label: "Automated Summaries", sub: "Daily KPI reporting to Slack & Email" },
+    {
+      value: "Multi-Channel",
+      label: "Automated Summaries",
+      sub: "Daily KPI reporting to Slack & Email",
+    },
   ],
 };
 
 function ProjectDetailPage() {
   const { projectId } = Route.useParams();
   const project = getProjectById(projectId);
-  if (!project) return null;
 
   const galleryRef = useRef<HTMLDivElement>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const screenshots = project?.screenshots || [];
+  const screenshotCount = screenshots.length;
+  const metrics = project ? PROJECT_METRICS[project.id] || [] : [];
+
+  // Adjacent projects for bottom pagination
+  const currentIndex = project ? projects.findIndex((p) => p.id === project.id) : -1;
+  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : projects[projects.length - 1];
+  const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : projects[0];
 
   const scrollGallery = (direction: "left" | "right") => {
     if (galleryRef.current) {
@@ -125,26 +210,20 @@ function ProjectDetailPage() {
     }
   };
 
-  const screenshots = project.screenshots || [];
-  const screenshotCount = screenshots.length;
-  const metrics = PROJECT_METRICS[project.id] || [];
-
-  // Adjacent projects for bottom pagination
-  const currentIndex = projects.findIndex((p) => p.id === project.id);
-  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : projects[projects.length - 1];
-  const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : projects[0];
-
   // Lightbox keyboard listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (lightboxIndex === null) return;
       if (e.key === "Escape") setLightboxIndex(null);
       if (e.key === "ArrowLeft" && lightboxIndex > 0) setLightboxIndex(lightboxIndex - 1);
-      if (e.key === "ArrowRight" && lightboxIndex < screenshots.length - 1) setLightboxIndex(lightboxIndex + 1);
+      if (e.key === "ArrowRight" && lightboxIndex < screenshots.length - 1)
+        setLightboxIndex(lightboxIndex + 1);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightboxIndex, screenshots.length]);
+
+  if (!project) return null;
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-white/20 selection:text-white">
@@ -276,7 +355,9 @@ function ProjectDetailPage() {
                 Internal Production System — Interface Withheld
               </h3>
               <p className="mx-auto mt-2 max-w-md text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                This system was built for internal operational workflows. Production interfaces, client company records, and database structures are withheld under internal data protection. Detailed architecture walkthrough available upon verified inquiry.
+                This system was built for internal operational workflows. Production interfaces,
+                client company records, and database structures are withheld under internal data
+                protection. Detailed architecture walkthrough available upon verified inquiry.
               </p>
             </div>
           </section>
@@ -297,7 +378,8 @@ function ProjectDetailPage() {
                   <span>1. Edge / Intake</span>
                 </div>
                 <p className="text-muted-foreground text-[11px] leading-relaxed">
-                  Field inputs, stylus signatures, mobile photo GPS reports, or incoming client invoices.
+                  Field inputs, stylus signatures, mobile photo GPS reports, or incoming client
+                  invoices.
                 </p>
               </div>
 
@@ -307,7 +389,8 @@ function ProjectDetailPage() {
                   <span>2. Processing Hub</span>
                 </div>
                 <p className="text-muted-foreground text-[11px] leading-relaxed">
-                  Haversine route optimization, OCR parsing, division workload balancing & SLA countdowns.
+                  Haversine route optimization, OCR parsing, division workload balancing & SLA
+                  countdowns.
                 </p>
               </div>
 
@@ -317,7 +400,8 @@ function ProjectDetailPage() {
                   <span>3. State & Ledger</span>
                 </div>
                 <p className="text-muted-foreground text-[11px] leading-relaxed">
-                  Offline SQLite / Postgres RLS data persistence, dual-currency ledgers, and audit trails.
+                  Offline SQLite / Postgres RLS data persistence, dual-currency ledgers, and audit
+                  trails.
                 </p>
               </div>
 
@@ -327,7 +411,8 @@ function ProjectDetailPage() {
                   <span>4. Real Outcome</span>
                 </div>
                 <p className="text-muted-foreground text-[11px] leading-relaxed">
-                  Automated dispatch, paperless carbon slip replacement, and sub-minute reconciliation.
+                  Automated dispatch, paperless carbon slip replacement, and sub-minute
+                  reconciliation.
                 </p>
               </div>
             </div>
@@ -353,7 +438,9 @@ function ProjectDetailPage() {
               </span>
               <span className="h-px flex-1 bg-border/40" />
             </div>
-            <h3 className="text-base sm:text-lg font-semibold text-foreground">The Operational Breakdown</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-foreground">
+              The Operational Breakdown
+            </h3>
             <p className="mt-2.5 text-xs sm:text-sm md:text-base leading-relaxed text-muted-foreground whitespace-pre-line">
               {project.caseStudy.problem}
             </p>
@@ -367,7 +454,9 @@ function ProjectDetailPage() {
               </span>
               <span className="h-px flex-1 bg-border/40" />
             </div>
-            <h3 className="text-base sm:text-lg font-semibold text-foreground">Engineering Strategy</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-foreground">
+              Engineering Strategy
+            </h3>
             <p className="mt-2.5 text-xs sm:text-sm md:text-base leading-relaxed text-muted-foreground whitespace-pre-line">
               {project.caseStudy.architecture}
             </p>
@@ -381,7 +470,9 @@ function ProjectDetailPage() {
               </span>
               <span className="h-px flex-1 bg-border/40" />
             </div>
-            <h3 className="text-base sm:text-lg font-semibold text-foreground">Real-World Business Impact</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-foreground">
+              Real-World Business Impact
+            </h3>
             <p className="mt-2.5 text-xs sm:text-sm md:text-base leading-relaxed text-muted-foreground whitespace-pre-line">
               {project.caseStudy.outcome}
             </p>
@@ -395,10 +486,15 @@ function ProjectDetailPage() {
               </span>
               <span className="h-px flex-1 bg-border/40" />
             </div>
-            <h3 className="text-base sm:text-lg font-semibold text-foreground">Core Implementation Features</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-foreground">
+              Core Implementation Features
+            </h3>
             <ul className="mt-3.5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
               {project.caseStudy.highlights.map((h) => (
-                <li key={h} className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground/85">
+                <li
+                  key={h}
+                  className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground/85"
+                >
                   <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white/70" />
                   <span>{h}</span>
                 </li>
@@ -542,7 +638,10 @@ function MobileShowcase({
         className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth no-scrollbar"
       >
         {screenshots.map((s, idx) => (
-          <div key={s.src} className="flex flex-col items-center shrink-0 snap-center sm:snap-start">
+          <div
+            key={s.src}
+            className="flex flex-col items-center shrink-0 snap-center sm:snap-start"
+          >
             <div
               onClick={() => onZoom(idx)}
               className="group relative w-[220px] sm:w-[260px] md:w-[280px] rounded-[30px] p-2 bg-zinc-900 border border-zinc-700 shadow-xl transition-transform duration-300 hover:scale-[1.02] cursor-zoom-in"
@@ -708,7 +807,9 @@ function DesktopShowcase({
             <div className="flex items-center gap-1 ml-1">
               <button
                 type="button"
-                onClick={() => setActiveIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1))}
+                onClick={() =>
+                  setActiveIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1))
+                }
                 aria-label="Previous desktop screen"
                 className="flex h-6 w-6 items-center justify-center rounded border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors cursor-pointer"
               >
@@ -716,7 +817,9 @@ function DesktopShowcase({
               </button>
               <button
                 type="button"
-                onClick={() => setActiveIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0))}
+                onClick={() =>
+                  setActiveIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0))
+                }
                 aria-label="Next desktop screen"
                 className="flex h-6 w-6 items-center justify-center rounded border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors cursor-pointer"
               >

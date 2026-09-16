@@ -12,9 +12,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <ThemeCtx.Provider value={{ theme: "dark", toggle: () => {} }}>
-      {children}
-    </ThemeCtx.Provider>
+    <ThemeCtx.Provider value={{ theme: "dark", toggle: () => {} }}>{children}</ThemeCtx.Provider>
   );
 }
 
