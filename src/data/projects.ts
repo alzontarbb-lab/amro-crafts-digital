@@ -36,17 +36,17 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: "field-dispatch",
-    title: "Power Generator Fleet Operations & Field Dispatch Command Center",
+    title: "Industrial Genset Fleet Operations & Intelligent Vehicle Routing Command Center",
     blurb:
-      "A mission-critical fleet operations and dispatch platform built specifically for industrial diesel power generators (gensets) and standby energy infrastructure. Inspired by the operational ergonomics of the Toters Driver app, it bridges office administration with on-the-ground technicians through algorithmic route optimization, multi-division schedule boards, GPS-tagged mobile field reporting, and automated SLA overdue tracking — designed to fully digitalize physical paper work orders.",
+      "A mission-critical geospatial fleet operations and combinatorial vehicle routing (VRP/TSP) platform engineered for an authorized industrial diesel generator (genset) dealership in Lebanon. Bridges central office dispatchers with field service engineers across all 8 governorates through constrained greedy skill insertion, 2-Opt local search refinement, empirical time-of-day Lebanese traffic modeling, Supabase WebSocket CDC synchronization, and an ergonomic bilingual (English/Arabic RTL) mobile field PWA with one-tap turn-by-turn navigation and offline Plus Code address geocoding.",
     tech: [
       "React 19",
-      "Vite",
-      "Supabase",
-      "Leaflet / Geospatial",
-      "Gemini AI (@google/genai)",
-      "Postgres (RLS)",
-      "Route Optimization",
+      "TypeScript",
+      "Supabase (PostgreSQL 15+)",
+      "VRP & 2-Opt TSP Engine",
+      "Leaflet & OSRM Routing",
+      "Bilingual Mobile PWA",
+      "Google Gemini 3 Flash",
       "ExcelJS",
     ],
     tag: "Enterprise Operations",
@@ -55,7 +55,7 @@ export const projects: Project[] = [
     coverImage: "/projects/field-dispatch/01-live-command-dashboard.webp",
     screenshotMode: "desktop",
     brandNote:
-      "Client trademark and personnel identities sanitized under confidentiality. Built with a high-contrast Bento UI (Emerald & Slate) optimized for high-density dispatch monitors and mobile field use.",
+      "Client corporate identity, dealer registration, and customer trademarks sanitized under enterprise confidentiality. Built with an Emerald & Slate industrial design system, sub-150ms client-side combinatorial route optimization, and 100% bilingual English/Arabic RTL field ergonomics.",
     screenshots: [
       {
         src: "/projects/field-dispatch/01-live-command-dashboard.webp",
@@ -100,22 +100,25 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       problem:
-        "Maintaining mission-critical diesel power generators (gensets across hospitals, banks, retail hubs, and industrial sites) was historically hindered by operational friction between office administration and field crews. Coordinators relied on phone calls, fragmented WhatsApp messages, and multi-carbon paper slips to assign emergency breakdowns and routine SLA visits. Office staff lacked real-time visibility into technician whereabouts, leading to crisscrossing driving routes, unbalanced workloads between mechanical and electrical crews, and delayed billing caused by lost or illegible handwritten maintenance slips.",
+        "In Lebanon, severe national power grid instability makes heavy-duty industrial diesel generators (gensets across hospitals, supermarkets, production plants, financial hubs, and correctional facilities) critical continuous-power infrastructure. Managing fleet maintenance across hundreds of heavy units was historically crippled by four real-world logistical bottlenecks:\n\n1. Unstructured Geospatial Vernacular: Complete absence of standardized street postal addresses; locations were communicated via neighborhood vernacular (Achrafieh, Dekwaneh, Jdeideh, Dahye, Bekaa), vague landmarks, or Google Plus Codes, causing technicians to lose hours hunting for unmapped basement engine rooms.\n2. Strict Craft Partitioning: Generator maintenance cannot be handled interchangeably—work is divided into three non-overlapping technical divisions (Mechanical for overhauls, fuel injectors, water pumps; Electrical for alternators, AVRs, ECUs, ATS panels; Welders for canopies, structural vibration mounts, muffler exhausts).\n3. Severe Highway Bottlenecks & Mountain Pass Impedance: Coastal choke points (Dbayeh, Jal El Dib, Nahr El Mot) and mountain routes double transit times during rush hours.\n4. Paper Slips & Delayed Billing: Hand-filled job sheets, consumed spare parts, and handwritten engine run-hours took days to return to headquarters, delaying customer invoicing and preventative oil-analysis testing.",
       architecture:
-        "Engineered as a full-stack operational hub connecting administrative coordinators with mobile field technicians, built with React 19, Vite, Leaflet, and Supabase Postgres with strict Row-Level Security (RLS). Inspired by how on-demand logistics apps like Toters Driver handle live dispatching, order states, and waypoint guidance, the platform translates courier-grade dispatch ergonomics into heavy industrial service operations:\n\n1. Administrative Command Center: Live regional map tracking fleet distribution across Greater Beirut and Mount Lebanon, daily completion metrics, 111+ overdue SLA alerts, and real-time crew availability.\n2. Intelligent Dispatch & Load Balancing: Division-partitioned scheduling (Mechanical, Electrical, Welders) with daily backlog staging, drag-and-drop timeline reordering, and 1-click Auto-Assign / Re-Sequence algorithms factoring technician skills and locations.\n3. Geospatial Route Optimization: Calculates Haversine distance matrices and applies time-of-day traffic heuristics (morning/evening rush hour multipliers) to optimize multi-stop routes with return-to-HQ logic.\n4. Toters Driver–Inspired Field Bridge: Field technicians receive sequenced stops with clear status transitions (En Route, On Site, Completed) and capture on-site generator photos with GPS coordinates; dispatchers can 1-click merge them into customer profiles or instantly spin up new service jobs.\n5. Genset Asset Registry & Digital Work Orders: Per-customer machinery records tracking KVA ratings, engine serials, alternator specs, and multi-point maintenance checklists (lubrication, cooling, electrical, ATS) to systematically replace paper slips with structured digital exports.\n\nIntegrated with Google Gemini AI (@google/genai) to analyze daily schedule summaries and provide automated workload balancing suggestions.",
+        "Engineered as an enterprise operations command center and mobile field telemetry platform built with React 19, TypeScript, Leaflet, and Supabase Managed PostgreSQL 15+ with Row-Level Security (RLS):\n\n1. Constrained Vehicle Routing (VRP) & 2-Opt TSP Engine: A client-side combinatorial optimization solver in utils/optimization.ts. Pending work orders are sorted by priority (Critical: 4 -> High: 3 -> Preventive: 2 -> Normal: 1) and duration, strictly matched against technician division skills (Mechanical, Electrical, Welders). Greedy insertion tests all route candidate positions to minimize marginal travel time while penalizing loaded technicians ((committedDuration / 60) * 120). A post-processing 2-Opt local search refinement (optimizeRoute2Opt) reverses intersecting route legs. High-demand schedules leverage a 10% relaxation buffer (up to 726 mins) to prevent emergency jobs from being orphaned.\n2. Empirical Time-of-Day Traffic Modeling: Implements step-function travel multipliers (Morning Rush 07:00-09:00: 1.5x, Evening Rush 16:00-18:00: 1.5x, Mid-Day: 1.2x, Off-Peak: 1.0x) on top of an urban 30 km/h baseline (2 mins/km), plus an enforced 5-minute fixed buffer per stop for gate security check-in, parking, and engine room access.\n3. Real-Road Geometry via Project OSRM: Queries the Project OSRM API (router.project-osrm.org) with a 300ms debounced controller, in-memory caching (routeCache), and graceful straight-line polyline fallbacks to display true road paths without UI stutter.\n4. Unstructured Address Geocoding & High-Accuracy GPS Telemetry: Decodes Google Plus Codes offline via OpenLocationCode, provides instant autocomplete via Komoot Photon geocoding biased to Beirut coordinates (lat: 33.8938, lon: 35.5018), and features a field-driven self-correction loop where technicians capture HTML5 high-accuracy GPS coordinates (navigator.geolocation) on-site to permanently update customer records in PostgreSQL.\n5. Mobile-First Field Cockpit (English/Arabic RTL): Dedicated field PWA for on-site engineers featuring 100% native Arabic RTL support, high-contrast sunlight visibility, 48px+ touch targets, one-tap Google Maps turn-by-turn navigation (dir/?api=1&destination=lat,lng&travelmode=driving), one-tap WhatsApp deep-links (wa.me), consumed spare parts logging, and on-site photo uploads to S3-compatible Supabase storage (customer-media).\n6. Realtime Sync & 15-Step Undo Architecture: Supabase Managed PostgreSQL 15+ broadcasting multi-table CDC changes over WebSockets (useSupabaseRealtime). Equipped with an in-memory 15-state immutable Undo Stack (Ctrl+Z / Cmd+Z) and partitioned batch chunking (50 rows/chunk for upserts, 100 rows/chunk for deletes).\n7. Official 22-Point Maintenance Reports & Excel Manifests: Built-in report generator conforming to official partner standards and Lebanese tax requirements (VAT invoice ready), with full @media print CSS stripping web navigation for direct-to-PDF output, alongside ExcelJS-driven styled dispatch manifest exports.",
       outcome:
-        "Bridged the office-to-field communication divide with a unified live operations platform. Slashed technician travel hours and fuel waste through sequenced routing, gave administration instant oversight across 111+ overdue maintenance alerts before catastrophic equipment downtime, and established the architecture for completely paperless field operations.",
+        "Transformed manual phone and paper dispatching into a sub-150ms combinatorial routing workflow. Slashed daily driving hours and fuel waste across Greater Beirut and mountain passes by eliminating crisscrossing routes, replaced days of delayed paper slips with instant real-time field logging (spare parts, engine hours, GPS coordinates, and photos) syncing directly via WebSockets, and closed the address gap for dozens of rural and industrial sites through one-tap technician GPS self-correction.",
       highlights: [
-        "Toters Driver–inspired technician UX: intuitive stop progression, quick status transitions, and frictionless on-site job completion",
-        "Live administrative dashboard tracking fleet locations, daily completion rates, and critical priority alerts",
-        "Division-partitioned dispatch board (Mechanical, Electrical, Welders) with 1-click Auto-Assign & Re-Sequence",
-        "Algorithmic route optimizer with time-of-day traffic multipliers and multi-stop sequence planning",
-        "GPS-verified mobile field reporting with photo proof, machinery location tags, and 1-click job creation",
-        "Industrial genset asset tracking: customer KVA ratings, serial numbers, ATS panels, and service history",
-        "Google Gemini AI assistant (@google/genai) for schedule analysis and workload recommendations",
-        "Role-based Supabase Postgres architecture with Row-Level Security (RLS) and Google OAuth 2.0",
-        "Roadmap: Google Maps API integration for real-time live traffic feeds and automated congestion rerouting",
-        "Roadmap: Full paperless digital report workflow replacing carbon slips with in-app digital signatures & ERP sync",
+        "Sub-150ms client-side VRP solver: Constrained Greedy Skill Insertion + 2-Opt local search refinement (2-edge swap)",
+        "Time-of-day Lebanese traffic model (1.5x morning/evening rush, 1.2x mid-day) with 5-minute gate/parking buffer",
+        "Division skill constraints: strictly routes Mechanical, Electrical, and Welder work orders to certified technicians",
+        "Real-road driving geometry via Project OSRM API with in-memory memoization (routeCache) and 300ms debouncing",
+        "Offline Google Plus Code (OLC) decoding and Komoot Photon geocoding biased to Beirut coordinates",
+        "Mobile-first field technician cockpit: 100% bilingual English/Arabic RTL, 48px+ touch targets, one-tap navigation",
+        "Field-driven GPS self-correction: one-tap high-accuracy HTML5 geolocation updating customer coordinates in PostgreSQL",
+        "Field reports triage queue: office ingestion of on-site photos and coordinates with 1-click customer promote/merge",
+        "Supabase PostgreSQL 15+ with Row-Level Security, multi-table WebSocket CDC realtime sync, and S3 media storage",
+        "15-step in-memory immutable Undo Stack (Ctrl+Z / Cmd+Z) with 50-row batch chunked database synchronization",
+        "22-point printable bilingual generator maintenance inspection certificates with @media print CSS optimization",
+        "AI dispatch diagnostics via Google GenAI SDK (Gemini 3 Flash) and styled ExcelJS dispatch manifest exports",
+        "Strict NDA: Corporate trademark, dealer identity, and personnel sanitized under enterprise confidentiality",
       ],
     },
   },
@@ -140,9 +143,9 @@ export const projects: Project[] = [
     featured: true,
     coverImage: "/projects/ula/01-management-dashboard.webp",
     screenshotMode: "desktop",
-    role: "Co-developed with AI Consultant & Senior Developer",
+    role: "Co-developed with AI Consultant & Junior Developer",
     brandNote:
-      "Co-developed in technical partnership with an external Senior Developer & AI Consultant. Strict NDA protection: Client name, company trademark, and surveyor identities sanitized throughout all interface views. Conforms to formal Loss Adjusting Report Specifications (including the 7 September 2026 Provisional Drafts Amendment) producing certified, court- and underwriter-ready Microsoft Word (.docx) and Adobe PDF (.pdf) deliverables.",
+      "Co-developed in technical partnership with an external Junior Developer & AI Consultant. Strict NDA protection: Client name, company trademark, and surveyor identities sanitized throughout all interface views. Conforms to formal Loss Adjusting Report Specifications (including the 7 September 2026 Provisional Drafts Amendment) producing certified, court- and underwriter-ready Microsoft Word (.docx) and Adobe PDF (.pdf) deliverables.",
     screenshots: [
       {
         src: "/projects/ula/01-management-dashboard.webp",
@@ -173,7 +176,7 @@ export const projects: Project[] = [
       outcome:
         "Accelerated claim assessment turnaround from multiple days to minutes with zero arithmetic errors. Established an immutable digital audit trail connecting every quantum figure to exact document citations, backed by 175/175 passing automated tests and automated Microsoft Word (.docx) and Adobe PDF export engines.",
       highlights: [
-        "Co-developed in technical collaboration with an external senior developer & AI consultant, pairing loss adjusting domain specifications with multi-agent streaming architecture",
+        "Co-developed in technical collaboration with an external junior developer & AI consultant, pairing loss adjusting domain specifications with multi-agent streaming architecture",
         "Multi-model LLM architecture: Claude Sonnet 5 (128k output), Gemini 3.7 Flash / Pro Vision, and OpenRouter",
         "Autonomous 4-stage adjuster agent streaming live progress via Server-Sent Events (SSE)",
         "Loss Adjuster Brain codifying institutional memory, cause standards, and adversarial draft audits",
