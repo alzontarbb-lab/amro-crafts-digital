@@ -191,7 +191,6 @@ function ProjectDetailPage() {
   const { projectId } = Route.useParams();
   const project = getProjectById(projectId);
 
-  const galleryRef = useRef<HTMLDivElement>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const screenshots = project?.screenshots || [];
@@ -203,25 +202,38 @@ function ProjectDetailPage() {
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : projects[projects.length - 1];
   const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : projects[0];
 
-  const scrollGallery = (direction: "left" | "right") => {
-    if (galleryRef.current) {
-      const scrollAmount = direction === "left" ? -320 : 320;
-      galleryRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
-
   // Lightbox keyboard listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (lightboxIndex === null) return;
       if (e.key === "Escape") setLightboxIndex(null);
-      if (e.key === "ArrowLeft" && lightboxIndex > 0) setLightboxIndex(lightboxIndex - 1);
-      if (e.key === "ArrowRight" && lightboxIndex < screenshots.length - 1)
-        setLightboxIndex(lightboxIndex + 1);
+      if (e.key === "ArrowLeft") {
+        setLightboxIndex((prev) =>
+          prev !== null ? (prev > 0 ? prev - 1 : screenshots.length - 1) : null,
+        );
+      }
+      if (e.key === "ArrowRight") {
+        setLightboxIndex((prev) =>
+          prev !== null ? (prev < screenshots.length - 1 ? prev + 1 : 0) : null,
+        );
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightboxIndex, screenshots.length]);
+
+  const lightboxSwipe = useSwipe({
+    onSwipeLeft: () => {
+      if (lightboxIndex !== null && screenshots.length > 1) {
+        setLightboxIndex((prev) => (prev! < screenshots.length - 1 ? prev! + 1 : 0));
+      }
+    },
+    onSwipeRight: () => {
+      if (lightboxIndex !== null && screenshots.length > 1) {
+        setLightboxIndex((prev) => (prev! > 0 ? prev! - 1 : screenshots.length - 1));
+      }
+    },
+  });
 
   if (!project) return null;
 
@@ -341,8 +353,7 @@ function ProjectDetailPage() {
           ) : (
             <MobileShowcase
               screenshots={screenshots}
-              galleryRef={galleryRef}
-              scrollGallery={scrollGallery}
+              projectId={project.id}
               onZoom={(idx) => setLightboxIndex(idx)}
             />
           )
@@ -549,40 +560,96 @@ function ProjectDetailPage() {
         </section>
       </main>
 
-      {/* Fullscreen Lightbox Modal */}
+      {/* Fullscreen Lightbox Modal — Mobile-First Glass Translucent Controls */}
       {lightboxIndex !== null && screenshots[lightboxIndex] && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-between p-4 sm:p-8"
+          aria-label="Screenshot lightbox view"
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex flex-col justify-between p-3 sm:p-6 md:p-8 animate-in fade-in duration-200"
           onClick={() => setLightboxIndex(null)}
         >
-          <div className="w-full max-w-6xl flex items-center justify-between font-mono text-xs text-white/70">
-            <span>
-              {screenshots[lightboxIndex].badge} · {lightboxIndex + 1} of {screenshots.length}
-            </span>
+          {/* Header */}
+          <div className="w-full max-w-6xl mx-auto flex items-center justify-between font-mono text-xs text-white/80 z-30 py-1">
+            <div className="flex items-center gap-2.5">
+              <span className="px-2 py-0.5 rounded bg-white/10 text-white font-semibold border border-white/15">
+                {String(lightboxIndex + 1).padStart(2, "0")} / {String(screenshots.length).padStart(2, "0")}
+              </span>
+              <span className="text-zinc-300 font-medium hidden sm:inline">
+                {screenshots[lightboxIndex].badge}
+              </span>
+            </div>
+
             <button
               type="button"
               onClick={() => setLightboxIndex(null)}
-              className="p-1.5 rounded-lg border border-white/20 hover:bg-white/10 text-white transition-colors cursor-pointer"
+              aria-label="Close fullscreen inspection"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 hover:bg-white/20 active:scale-95 text-white transition-all cursor-pointer backdrop-blur-md"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
+          {/* Central Showcase Stage with Glass Prev/Next Buttons */}
           <div
-            className="relative max-h-[82vh] max-w-full flex items-center justify-center my-auto"
+            {...lightboxSwipe}
+            className="relative w-full max-w-6xl mx-auto flex-1 flex items-center justify-center my-2 sm:my-4 overflow-hidden select-none"
             onClick={(e) => e.stopPropagation()}
           >
-            <img
-              src={screenshots[lightboxIndex].src}
-              alt={screenshots[lightboxIndex].alt}
-              className="max-h-[80vh] w-auto max-w-full object-contain rounded-lg shadow-2xl border border-white/10"
-            />
+            {/* Glass Translucent Prev Button */}
+            {screenshots.length > 1 && (
+              <GlassNavButton
+                direction="left"
+                label="Previous fullscreen image"
+                onClick={() =>
+                  setLightboxIndex((prev) => (prev! > 0 ? prev! - 1 : screenshots.length - 1))
+                }
+              />
+            )}
+
+            <div className="relative max-h-[75vh] w-full flex items-center justify-center">
+              <BlurImage
+                src={screenshots[lightboxIndex].src}
+                alt={screenshots[lightboxIndex].alt}
+                className="max-h-[72vh] w-auto max-w-full object-contain rounded-xl shadow-2xl border border-white/10"
+              />
+            </div>
+
+            {/* Glass Translucent Next Button */}
+            {screenshots.length > 1 && (
+              <GlassNavButton
+                direction="right"
+                label="Next fullscreen image"
+                onClick={() =>
+                  setLightboxIndex((prev) => (prev! < screenshots.length - 1 ? prev! + 1 : 0))
+                }
+              />
+            )}
           </div>
 
-          <div className="w-full max-w-xl text-center text-xs sm:text-sm text-zinc-400 font-mono">
-            {screenshots[lightboxIndex].alt}
+          {/* Footer Legend */}
+          <div
+            className="w-full max-w-2xl mx-auto text-center z-30 pt-1 pb-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-xs sm:text-sm text-zinc-300 font-sans leading-relaxed">
+              {screenshots[lightboxIndex].alt}
+            </p>
+            {screenshots.length > 1 && (
+              <div className="flex items-center justify-center gap-1.5 pt-3">
+                {screenshots.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    aria-label={`Jump to slide ${idx + 1}`}
+                    onClick={() => setLightboxIndex(idx)}
+                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      idx === lightboxIndex ? "w-7 bg-white" : "w-2 bg-white/25 hover:bg-white/50"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -590,85 +657,333 @@ function ProjectDetailPage() {
   );
 }
 
-function MobileShowcase({
-  screenshots,
-  galleryRef,
-  scrollGallery,
-  onZoom,
-}: {
-  screenshots: ProjectScreenshot[];
-  galleryRef: React.RefObject<HTMLDivElement | null>;
-  scrollGallery: (dir: "left" | "right") => void;
-  onZoom: (idx: number) => void;
-}) {
-  return (
-    <section className="mb-12 sm:mb-20">
-      <div className="mb-4 sm:mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Smartphone className="h-4 w-4 text-muted-foreground" />
-          <h2 className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-            Mobile Interface Screens ({screenshots.length})
-          </h2>
-        </div>
+// Global cache for preloaded image URLs to avoid repeated blur flashing
+const loadedImagesCache = new Set<string>();
 
-        {/* Scroll controls */}
-        <div className="flex items-center gap-1.5">
-          <button
-            type="button"
-            onClick={() => scrollGallery("left")}
-            aria-label="Scroll left"
-            className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all hover:bg-surface-hi hover:text-foreground cursor-pointer"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollGallery("right")}
-            aria-label="Scroll right"
-            className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all hover:bg-surface-hi hover:text-foreground cursor-pointer"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
+/**
+ * Mobile-First Blur Image with Progressive Color Blur Load
+ * Renders an ambient blurred backdrop and smoothly unblurs into high-res clarity.
+ */
+function BlurImage({
+  src,
+  alt,
+  className = "",
+  aspectRatio,
+  onClick,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  aspectRatio?: string;
+  onClick?: () => void;
+}) {
+  const [isLoaded, setIsLoaded] = useState(() => loadedImagesCache.has(src));
+
+  useEffect(() => {
+    if (loadedImagesCache.has(src)) {
+      setIsLoaded(true);
+    } else {
+      setIsLoaded(false);
+    }
+  }, [src]);
+
+  return (
+    <div
+      onClick={onClick}
+      style={aspectRatio ? { aspectRatio } : undefined}
+      className="relative w-full h-full overflow-hidden flex items-center justify-center bg-black/60"
+    >
+      {/* Ambient Color Blur Placeholder Backdrop */}
+      <div
+        aria-hidden="true"
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-700 ease-out flex items-center justify-center ${
+          isLoaded ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/90 via-zinc-950 to-black" />
+        {/* Soft color pulse placeholder */}
+        <div className="w-3/5 h-3/5 rounded-full bg-emerald-500/10 blur-3xl animate-pulse" />
+        <div className="absolute font-mono text-[10px] text-zinc-500 tracking-widest uppercase">
+          Loading preview...
         </div>
       </div>
 
-      {/* Horizontal Scrollable Track */}
-      <div
-        ref={galleryRef}
-        className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth no-scrollbar"
-      >
-        {screenshots.map((s, idx) => (
-          <div
-            key={s.src}
-            className="flex flex-col items-center shrink-0 snap-center sm:snap-start"
-          >
-            <div
-              onClick={() => onZoom(idx)}
-              className="group relative w-[220px] sm:w-[260px] md:w-[280px] rounded-[30px] p-2 bg-zinc-900 border border-zinc-700 shadow-xl transition-transform duration-300 hover:scale-[1.02] cursor-zoom-in"
-            >
-              <div className="relative aspect-[9/18.5] w-full overflow-hidden rounded-[22px] bg-black">
-                <img
-                  src={s.src}
-                  alt={s.alt}
-                  loading="lazy"
-                  className="h-full w-full object-cover select-none"
-                  draggable={false}
-                />
-              </div>
-            </div>
+      {/* Main Image with Progressive Unblur and Fade */}
+      <img
+        src={src}
+        alt={alt}
+        loading="eager"
+        decoding="async"
+        onLoad={() => {
+          loadedImagesCache.add(src);
+          setIsLoaded(true);
+        }}
+        className={`${className} transition-all duration-500 ease-out select-none ${
+          isLoaded
+            ? "opacity-100 blur-0 scale-100"
+            : "opacity-30 blur-2xl scale-[1.04]"
+        }`}
+        draggable={false}
+      />
+    </div>
+  );
+}
 
-            <div className="mt-3 flex items-center gap-2 text-xs font-mono text-muted-foreground">
-              <span>0{idx + 1}</span>
-              <span>·</span>
-              <span className="text-foreground/90">{s.badge}</span>
-            </div>
+/**
+ * Mobile-First Glass Translucent Navigation Button
+ * Ergonomically sized (44-48px touch target) for easy thumb tapping.
+ */
+function GlassNavButton({
+  direction,
+  onClick,
+  label,
+  className = "",
+}: {
+  direction: "left" | "right";
+  onClick: (e: React.MouseEvent) => void;
+  label: string;
+  className?: string;
+}) {
+  const Icon = direction === "left" ? ChevronLeft : ChevronRight;
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className={`group absolute top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 bg-black/45 hover:bg-black/75 active:scale-90 text-white/90 hover:text-white backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.65)] transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
+        direction === "left" ? "left-2.5 sm:left-4" : "right-2.5 sm:right-4"
+      } ${className}`}
+    >
+      <Icon className="h-6 w-6 stroke-[2.2] transition-transform duration-200 group-hover:scale-110" />
+    </button>
+  );
+}
+
+/**
+ * Clean Unified Legend Below (Replaces Chunky Pills)
+ */
+function ShowcaseLegend({
+  activeIndex,
+  total,
+  badge,
+  caption,
+  onSelectIndex,
+}: {
+  activeIndex: number;
+  total: number;
+  badge: string;
+  caption?: string;
+  onSelectIndex: (idx: number) => void;
+}) {
+  return (
+    <div className="border-t border-border/40 bg-card/60 backdrop-blur-md px-4 sm:px-6 py-3.5 sm:py-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4">
+        {/* Index counter & Badge */}
+        <div className="flex items-center gap-2.5 min-w-0">
+          <span className="font-mono text-[11px] sm:text-xs font-semibold px-2 py-0.5 rounded bg-white/10 text-white border border-white/15 shrink-0 tracking-wider">
+            {String(activeIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </span>
+          <span className="font-mono text-xs sm:text-sm font-medium text-foreground tracking-wide truncate">
+            {badge}
+          </span>
+        </div>
+
+        {/* Minimalist Progress Indicators */}
+        {total > 1 && (
+          <div
+            className="flex items-center gap-1.5 shrink-0"
+            role="tablist"
+            aria-label="Screenshot navigation indicators"
+          >
+            {Array.from({ length: total }).map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                role="tab"
+                aria-selected={idx === activeIndex}
+                aria-label={`Go to screenshot ${idx + 1}`}
+                onClick={() => onSelectIndex(idx)}
+                className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${
+                  idx === activeIndex
+                    ? "w-7 sm:w-8 bg-white"
+                    : "w-2 sm:w-2.5 bg-white/20 hover:bg-white/40"
+                }`}
+              />
+            ))}
           </div>
-        ))}
+        )}
+      </div>
+
+      {/* Descriptive Caption from alt */}
+      {caption && (
+        <p className="mt-2 text-xs sm:text-[13px] text-muted-foreground/90 font-sans leading-relaxed">
+          {caption}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Lightweight touch swipe gesture hook for fluid mobile navigation
+ */
+function useSwipe({
+  onSwipeLeft,
+  onSwipeRight,
+  minSwipeDistance = 40,
+}: {
+  onSwipeLeft: () => void;
+  onSwipeRight: () => void;
+  minSwipeDistance?: number;
+}) {
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const diffX = touchStartX.current - e.changedTouches[0].clientX;
+    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minSwipeDistance) {
+      if (diffX > 0) {
+        onSwipeLeft();
+      } else {
+        onSwipeRight();
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
+  return { onTouchStart, onTouchEnd };
+}
+
+/**
+ * Mobile Showcase Component
+ * Features an interactive smartphone frame with glass translucent buttons,
+ * progressive blur loading, touch swipe, and a clean legend below.
+ */
+function MobileShowcase({
+  screenshots,
+  projectId,
+  onZoom,
+}: {
+  screenshots: ProjectScreenshot[];
+  projectId: string;
+  onZoom: (idx: number) => void;
+}) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeScreen = screenshots[activeIndex] || screenshots[0];
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1));
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0));
+  };
+
+  const swipeHandlers = useSwipe({
+    onSwipeLeft: handleNext,
+    onSwipeRight: handlePrev,
+  });
+
+  return (
+    <section className="mb-12 sm:mb-20">
+      <div className="mb-3 sm:mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Smartphone className="h-4 w-4 text-muted-foreground" />
+          <h2 className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            Mobile Interface Screens ({screenshots.length} Screens · Touch Ergonomics)
+          </h2>
+        </div>
+
+        <span className="font-mono text-xs text-muted-foreground/70">
+          0{activeIndex + 1} / 0{screenshots.length}
+        </span>
+      </div>
+
+      <div className="mx-auto max-w-sm sm:max-w-md">
+        {/* Smartphone Chassis Frame */}
+        <div className="relative rounded-[32px] sm:rounded-[40px] p-2.5 sm:p-3.5 bg-zinc-900 border border-zinc-700/80 shadow-2xl">
+          {/* Top Notch / Dynamic Island Bar */}
+          <div className="mb-2 flex items-center justify-between px-3 text-[11px] font-mono text-muted-foreground">
+            <span className="text-zinc-400 truncate max-w-[200px]">
+              {activeScreen.badge}
+            </span>
+            <button
+              type="button"
+              onClick={() => onZoom(activeIndex)}
+              className="flex items-center gap-1 text-[11px] text-zinc-400 hover:text-white transition-colors cursor-pointer py-1 px-1.5"
+            >
+              <Maximize2 className="w-3.5 h-3.5" />
+              <span>Inspect</span>
+            </button>
+          </div>
+
+          {/* Interactive Screen Canvas with Glass Buttons & Blur Load */}
+          <div
+            {...swipeHandlers}
+            className="group relative w-full overflow-hidden rounded-[24px] sm:rounded-[30px] bg-black shadow-inner flex items-center justify-center border border-white/5 cursor-zoom-in"
+          >
+            {/* Prev Glass Button */}
+            {screenshots.length > 1 && (
+              <GlassNavButton
+                direction="left"
+                label="Previous mobile screen"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrev();
+                }}
+              />
+            )}
+
+            <BlurImage
+              src={activeScreen.src}
+              alt={activeScreen.alt}
+              aspectRatio="9 / 18.5"
+              onClick={() => onZoom(activeIndex)}
+              className="h-full w-full object-cover"
+            />
+
+            {/* Next Glass Button */}
+            {screenshots.length > 1 && (
+              <GlassNavButton
+                direction="right"
+                label="Next mobile screen"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNext();
+                }}
+              />
+            )}
+          </div>
+
+          {/* Clean Legend Below (Replaces Chunky Pills) */}
+          <ShowcaseLegend
+            activeIndex={activeIndex}
+            total={screenshots.length}
+            badge={activeScreen.badge}
+            caption={activeScreen.alt}
+            onSelectIndex={(idx) => setActiveIndex(idx)}
+          />
+        </div>
       </div>
     </section>
   );
 }
 
+/**
+ * Tablet Showcase Component
+ * Features touchscreen tablet frame with glass translucent buttons,
+ * progressive blur loading, touch swipe, and a clean legend below.
+ */
 function TabletShowcase({
   screenshots,
   projectId,
@@ -681,7 +996,20 @@ function TabletShowcase({
   onZoom: (idx: number) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeScreen = screenshots[activeIndex];
+  const activeScreen = screenshots[activeIndex] || screenshots[0];
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1));
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0));
+  };
+
+  const swipeHandlers = useSwipe({
+    onSwipeLeft: handleNext,
+    onSwipeRight: handlePrev,
+  });
 
   return (
     <section className="mb-12 sm:mb-20">
@@ -700,6 +1028,7 @@ function TabletShowcase({
 
       <div className="mx-auto max-w-2xl sm:max-w-3xl">
         <div className="relative rounded-[24px] sm:rounded-[32px] p-3 sm:p-4 bg-zinc-900 border border-zinc-700/80 shadow-2xl">
+          {/* Header Bar */}
           <div className="mb-2 flex items-center justify-between px-2 text-[11px] font-mono text-muted-foreground">
             <span className="text-zinc-400">
               Depot Tablet · {projectId} · {activeScreen.badge}
@@ -707,52 +1036,70 @@ function TabletShowcase({
             <button
               type="button"
               onClick={() => onZoom(activeIndex)}
-              className="flex items-center gap-1 text-[10px] text-zinc-400 hover:text-white transition-colors cursor-pointer"
+              className="flex items-center gap-1 text-[11px] text-zinc-400 hover:text-white transition-colors cursor-pointer py-1 px-1.5"
             >
-              <Maximize2 className="w-3 h-3" />
+              <Maximize2 className="w-3.5 h-3.5" />
               <span>Inspect</span>
             </button>
           </div>
 
+          {/* Interactive Screen Canvas with Glass Buttons & Blur Load */}
           <div
-            onClick={() => onZoom(activeIndex)}
-            className="relative w-full overflow-hidden rounded-[16px] sm:rounded-[20px] bg-black shadow-inner flex items-center justify-center border border-white/5 cursor-zoom-in"
-            style={{ aspectRatio }}
+            {...swipeHandlers}
+            className="group relative w-full overflow-hidden rounded-[16px] sm:rounded-[20px] bg-black shadow-inner flex items-center justify-center border border-white/5 cursor-zoom-in"
           >
-            <img
+            {/* Prev Glass Button */}
+            {screenshots.length > 1 && (
+              <GlassNavButton
+                direction="left"
+                label="Previous tablet screen"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrev();
+                }}
+              />
+            )}
+
+            <BlurImage
               src={activeScreen.src}
               alt={activeScreen.alt}
-              loading="lazy"
-              className="h-full w-full object-contain select-none"
+              aspectRatio={aspectRatio}
+              onClick={() => onZoom(activeIndex)}
+              className="h-full w-full object-contain"
             />
+
+            {/* Next Glass Button */}
+            {screenshots.length > 1 && (
+              <GlassNavButton
+                direction="right"
+                label="Next tablet screen"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNext();
+                }}
+              />
+            )}
           </div>
 
-          {/* Thumbnail Track */}
-          <div className="mt-3.5 pt-2.5 border-t border-white/10 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
-            {screenshots.map((s, idx) => {
-              const isSelected = idx === activeIndex;
-              return (
-                <button
-                  key={s.src}
-                  type="button"
-                  onClick={() => setActiveIndex(idx)}
-                  className={`rounded-md border px-2.5 py-1 font-mono text-xs transition-all cursor-pointer ${
-                    isSelected
-                      ? "border-white bg-white text-black font-semibold shadow-sm"
-                      : "border-white/10 bg-surface text-muted-foreground hover:border-white/20 hover:text-foreground"
-                  }`}
-                >
-                  0{idx + 1} · {s.badge}
-                </button>
-              );
-            })}
-          </div>
+          {/* Clean Legend Below (Replaces Chunky Pills) */}
+          <ShowcaseLegend
+            activeIndex={activeIndex}
+            total={screenshots.length}
+            badge={activeScreen.badge}
+            caption={activeScreen.alt}
+            onSelectIndex={(idx) => setActiveIndex(idx)}
+          />
         </div>
       </div>
     </section>
   );
 }
 
+/**
+ * Desktop Showcase Component
+ * Features desktop browser frame with glass translucent buttons,
+ * progressive blur loading, touch swipe, and a clean legend below.
+ */
 function DesktopShowcase({
   screenshots,
   projectId,
@@ -765,7 +1112,20 @@ function DesktopShowcase({
   onZoom: (idx: number) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeScreen = screenshots[activeIndex];
+  const activeScreen = screenshots[activeIndex] || screenshots[0];
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1));
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0));
+  };
+
+  const swipeHandlers = useSwipe({
+    onSwipeLeft: handleNext,
+    onSwipeRight: handlePrev,
+  });
 
   return (
     <section className="mb-12 sm:mb-20">
@@ -791,80 +1151,66 @@ function DesktopShowcase({
             <span className="h-2.5 w-2.5 rounded-full bg-green-500/40 border border-green-500/60" />
           </div>
 
-          <div className="font-mono text-[11px] text-muted-foreground/80">
+          <div className="font-mono text-[11px] text-muted-foreground/80 truncate px-2">
             {projectId}.portal / {activeScreen.badge}
           </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => onZoom(activeIndex)}
-              className="flex items-center gap-1 text-[10px] font-mono text-muted-foreground hover:text-white transition-colors cursor-pointer"
-            >
-              <Maximize2 className="w-3 h-3" />
-              <span className="hidden sm:inline">Zoom</span>
-            </button>
-            <div className="flex items-center gap-1 ml-1">
-              <button
-                type="button"
-                onClick={() =>
-                  setActiveIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1))
-                }
-                aria-label="Previous desktop screen"
-                className="flex h-6 w-6 items-center justify-center rounded border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors cursor-pointer"
-              >
-                <ChevronLeft className="h-3.5 w-3.5" />
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  setActiveIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0))
-                }
-                aria-label="Next desktop screen"
-                className="flex h-6 w-6 items-center justify-center rounded border border-white/10 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors cursor-pointer"
-              >
-                <ChevronRight className="h-3.5 w-3.5" />
-              </button>
-            </div>
-          </div>
+          <button
+            type="button"
+            onClick={() => onZoom(activeIndex)}
+            className="flex items-center gap-1 text-[11px] font-mono text-muted-foreground hover:text-white transition-colors cursor-pointer py-1 px-1.5"
+          >
+            <Maximize2 className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Zoom</span>
+          </button>
         </div>
 
-        {/* Active Desktop Screen Image */}
+        {/* Active Desktop Screen Canvas with Glass Buttons & Blur Load */}
         <div
-          onClick={() => onZoom(activeIndex)}
-          className="relative w-full bg-black overflow-hidden flex items-center justify-center cursor-zoom-in"
-          style={{ aspectRatio: aspectRatio || "16 / 9" }}
+          {...swipeHandlers}
+          className="group relative w-full bg-black overflow-hidden flex items-center justify-center cursor-zoom-in"
         >
-          <img
+          {/* Glass Prev Button */}
+          {screenshots.length > 1 && (
+            <GlassNavButton
+              direction="left"
+              label="Previous desktop screen"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrev();
+              }}
+            />
+          )}
+
+          <BlurImage
             src={activeScreen.src}
             alt={activeScreen.alt}
-            loading="lazy"
-            className="h-full w-full object-contain select-none"
+            aspectRatio={aspectRatio || "16 / 9"}
+            onClick={() => onZoom(activeIndex)}
+            className="h-full w-full object-contain"
           />
+
+          {/* Glass Next Button */}
+          {screenshots.length > 1 && (
+            <GlassNavButton
+              direction="right"
+              label="Next desktop screen"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNext();
+              }}
+            />
+          )}
         </div>
 
-        {/* Tab Selection Bar */}
-        <div className="border-t border-border/40 bg-surface-hi/80 p-2.5 sm:p-3.5">
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-            {screenshots.map((s, idx) => {
-              const isSelected = idx === activeIndex;
-              return (
-                <button
-                  key={s.src}
-                  type="button"
-                  onClick={() => setActiveIndex(idx)}
-                  className={`rounded-md border px-2.5 py-1 font-mono text-xs transition-all cursor-pointer ${
-                    isSelected
-                      ? "border-white bg-white text-black font-semibold shadow-sm"
-                      : "border-white/10 bg-surface text-muted-foreground hover:border-white/20 hover:text-foreground"
-                  }`}
-                >
-                  0{idx + 1} · {s.badge}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        {/* Clean Legend Below (Replaces Chunky Pills) */}
+        <ShowcaseLegend
+          activeIndex={activeIndex}
+          total={screenshots.length}
+          badge={activeScreen.badge}
+          caption={activeScreen.alt}
+          onSelectIndex={(idx) => setActiveIndex(idx)}
+        />
       </div>
     </section>
   );
