@@ -573,7 +573,8 @@ function ProjectDetailPage() {
           <div className="w-full max-w-6xl mx-auto flex items-center justify-between font-mono text-xs text-white/80 z-30 py-1">
             <div className="flex items-center gap-2.5">
               <span className="px-2 py-0.5 rounded bg-white/10 text-white font-semibold border border-white/15">
-                {String(lightboxIndex + 1).padStart(2, "0")} / {String(screenshots.length).padStart(2, "0")}
+                {String(lightboxIndex + 1).padStart(2, "0")} /{" "}
+                {String(screenshots.length).padStart(2, "0")}
               </span>
               <span className="text-zinc-300 font-medium hidden sm:inline">
                 {screenshots[lightboxIndex].badge}
@@ -719,9 +720,7 @@ function BlurImage({
           setIsLoaded(true);
         }}
         className={`${className} transition-all duration-500 ease-out select-none ${
-          isLoaded
-            ? "opacity-100 blur-0 scale-100"
-            : "opacity-30 blur-2xl scale-[1.04]"
+          isLoaded ? "opacity-100 blur-0 scale-100" : "opacity-30 blur-2xl scale-[1.04]"
         }`}
         draggable={false}
       />
@@ -914,9 +913,7 @@ function MobileShowcase({
         <div className="relative rounded-[32px] sm:rounded-[40px] p-2.5 sm:p-3.5 bg-zinc-900 border border-zinc-700/80 shadow-2xl">
           {/* Top Notch / Dynamic Island Bar */}
           <div className="mb-2 flex items-center justify-between px-3 text-[11px] font-mono text-muted-foreground">
-            <span className="text-zinc-400 truncate max-w-[200px]">
-              {activeScreen.badge}
-            </span>
+            <span className="text-zinc-400 truncate max-w-[200px]">{activeScreen.badge}</span>
             <button
               type="button"
               onClick={() => onZoom(activeIndex)}
