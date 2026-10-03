@@ -17,6 +17,7 @@ import {
   Database,
   Radio,
   Server,
+  Users,
 } from "lucide-react";
 
 export const Route = createFileRoute("/work/$projectId")({
@@ -290,6 +291,13 @@ function ProjectDetailPage() {
                 <span className="text-zinc-600">·</span>
                 <ShieldCheck className="h-3.5 w-3.5 text-zinc-400" />
                 <span>Sanitized Under NDA</span>
+              </span>
+            )}
+            {project.role && (
+              <span className="inline-flex items-center gap-1.5 font-mono text-xs text-zinc-400">
+                <span className="text-zinc-600">·</span>
+                <Users className="h-3.5 w-3.5 text-zinc-400" />
+                <span>{project.role}</span>
               </span>
             )}
           </div>

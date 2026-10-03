@@ -22,6 +22,7 @@ export type Project = {
   screenshotMode?: "mobile" | "desktop" | "tablet";
   aspectRatio?: string;
   brandNote?: string;
+  role?: string;
   isNda?: boolean;
   screenshots?: ProjectScreenshot[];
   caseStudy: {
@@ -139,8 +140,9 @@ export const projects: Project[] = [
     featured: true,
     coverImage: "/projects/ula/01-management-dashboard.webp",
     screenshotMode: "desktop",
+    role: "Co-developed with AI Consultant & Senior Developer",
     brandNote:
-      "Strict NDA protection: Client name, company trademark, and surveyor identities sanitized throughout all interface views. Conforms to formal Loss Adjusting Report Specifications (including the 7 September 2026 Provisional Drafts Amendment) producing certified, court- and underwriter-ready Microsoft Word (.docx) and Adobe PDF (.pdf) deliverables.",
+      "Co-developed in technical partnership with an external Senior Developer & AI Consultant. Strict NDA protection: Client name, company trademark, and surveyor identities sanitized throughout all interface views. Conforms to formal Loss Adjusting Report Specifications (including the 7 September 2026 Provisional Drafts Amendment) producing certified, court- and underwriter-ready Microsoft Word (.docx) and Adobe PDF (.pdf) deliverables.",
     screenshots: [
       {
         src: "/projects/ula/01-management-dashboard.webp",
@@ -171,6 +173,7 @@ export const projects: Project[] = [
       outcome:
         "Accelerated claim assessment turnaround from multiple days to minutes with zero arithmetic errors. Established an immutable digital audit trail connecting every quantum figure to exact document citations, backed by 175/175 passing automated tests and automated Microsoft Word (.docx) and Adobe PDF export engines.",
       highlights: [
+        "Co-developed in technical collaboration with an external senior developer & AI consultant, pairing loss adjusting domain specifications with multi-agent streaming architecture",
         "Multi-model LLM architecture: Claude Sonnet 5 (128k output), Gemini 3.7 Flash / Pro Vision, and OpenRouter",
         "Autonomous 4-stage adjuster agent streaming live progress via Server-Sent Events (SSE)",
         "Loss Adjuster Brain codifying institutional memory, cause standards, and adversarial draft audits",
