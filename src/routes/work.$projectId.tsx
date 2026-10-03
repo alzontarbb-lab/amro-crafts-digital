@@ -222,6 +222,17 @@ function ProjectDetailPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightboxIndex, screenshots.length]);
 
+  // Prevent background page scrolling when fullscreen lightbox modal is open
+  useEffect(() => {
+    if (lightboxIndex !== null) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [lightboxIndex]);
+
   const lightboxSwipe = useSwipe({
     onSwipeLeft: () => {
       if (lightboxIndex !== null && screenshots.length > 1) {
@@ -566,7 +577,7 @@ function ProjectDetailPage() {
           role="dialog"
           aria-modal="true"
           aria-label="Screenshot lightbox view"
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex flex-col justify-between p-3 sm:p-6 md:p-8 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex flex-col justify-between p-3 sm:p-6 md:p-8 animate-in fade-in duration-200 touch-none overscroll-contain select-none"
           onClick={() => setLightboxIndex(null)}
         >
           {/* Header */}
@@ -594,7 +605,7 @@ function ProjectDetailPage() {
           {/* Central Showcase Stage with Glass Prev/Next Buttons */}
           <div
             {...lightboxSwipe}
-            className="relative w-full max-w-6xl mx-auto flex-1 flex items-center justify-center my-2 sm:my-4 overflow-hidden select-none"
+            className="relative w-full max-w-6xl mx-auto flex-1 flex items-center justify-center my-2 sm:my-4 overflow-hidden touch-pan-y"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Glass Translucent Prev Button */}
@@ -608,11 +619,11 @@ function ProjectDetailPage() {
               />
             )}
 
-            <div className="relative max-h-[75vh] w-full flex items-center justify-center">
+            <div className="relative max-h-[75vh] max-w-[90vw] flex items-center justify-center">
               <BlurImage
                 src={screenshots[lightboxIndex].src}
                 alt={screenshots[lightboxIndex].alt}
-                className="max-h-[72vh] w-auto max-w-full object-contain rounded-xl shadow-2xl border border-white/10"
+                className="max-h-[72vh] max-w-[88vw] w-auto h-auto object-contain rounded-xl shadow-2xl border border-white/10"
               />
             </div>
 
@@ -669,13 +680,11 @@ function BlurImage({
   src,
   alt,
   className = "",
-  aspectRatio,
   onClick,
 }: {
   src: string;
   alt: string;
   className?: string;
-  aspectRatio?: string;
   onClick?: () => void;
 }) {
   const [isLoaded, setIsLoaded] = useState(() => loadedImagesCache.has(src));
@@ -691,22 +700,17 @@ function BlurImage({
   return (
     <div
       onClick={onClick}
-      style={aspectRatio ? { aspectRatio } : undefined}
       className="relative w-full h-full overflow-hidden flex items-center justify-center bg-black/60"
     >
       {/* Ambient Color Blur Placeholder Backdrop */}
       <div
         aria-hidden="true"
-        className={`absolute inset-0 pointer-events-none transition-opacity duration-700 ease-out flex items-center justify-center ${
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ease-out flex items-center justify-center ${
           isLoaded ? "opacity-0" : "opacity-100"
         }`}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/90 via-zinc-950 to-black" />
-        {/* Soft color pulse placeholder */}
         <div className="w-3/5 h-3/5 rounded-full bg-emerald-500/10 blur-3xl animate-pulse" />
-        <div className="absolute font-mono text-[10px] text-zinc-500 tracking-widest uppercase">
-          Loading preview...
-        </div>
       </div>
 
       {/* Main Image with Progressive Unblur and Fade */}
@@ -719,8 +723,8 @@ function BlurImage({
           loadedImagesCache.add(src);
           setIsLoaded(true);
         }}
-        className={`${className} transition-all duration-500 ease-out select-none ${
-          isLoaded ? "opacity-100 blur-0 scale-100" : "opacity-30 blur-2xl scale-[1.04]"
+        className={`${className} transition-opacity duration-300 ease-out select-none ${
+          isLoaded ? "opacity-100 blur-0" : "opacity-0 blur-lg"
         }`}
         draggable={false}
       />
@@ -829,7 +833,7 @@ function ShowcaseLegend({
 function useSwipe({
   onSwipeLeft,
   onSwipeRight,
-  minSwipeDistance = 40,
+  minSwipeDistance = 45,
 }: {
   onSwipeLeft: () => void;
   onSwipeRight: () => void;
@@ -848,7 +852,8 @@ function useSwipe({
     const diffX = touchStartX.current - e.changedTouches[0].clientX;
     const diffY = touchStartY.current - e.changedTouches[0].clientY;
 
-    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minSwipeDistance) {
+    // Only trigger if horizontal intent is decisive (at least 1.6x vertical movement)
+    if (Math.abs(diffX) > Math.abs(diffY) * 1.6 && Math.abs(diffX) > minSwipeDistance) {
       if (diffX > 0) {
         onSwipeLeft();
       } else {
@@ -927,7 +932,8 @@ function MobileShowcase({
           {/* Interactive Screen Canvas with Glass Buttons & Blur Load */}
           <div
             {...swipeHandlers}
-            className="group relative w-full overflow-hidden rounded-[24px] sm:rounded-[30px] bg-black shadow-inner flex items-center justify-center border border-white/5 cursor-zoom-in"
+            style={{ aspectRatio: "9 / 18.5" }}
+            className="group relative w-full overflow-hidden rounded-[24px] sm:rounded-[30px] bg-black shadow-inner flex items-center justify-center border border-white/5 cursor-zoom-in touch-pan-y select-none"
           >
             {/* Prev Glass Button */}
             {screenshots.length > 1 && (
@@ -944,7 +950,6 @@ function MobileShowcase({
             <BlurImage
               src={activeScreen.src}
               alt={activeScreen.alt}
-              aspectRatio="9 / 18.5"
               onClick={() => onZoom(activeIndex)}
               className="h-full w-full object-cover"
             />
@@ -1043,7 +1048,8 @@ function TabletShowcase({
           {/* Interactive Screen Canvas with Glass Buttons & Blur Load */}
           <div
             {...swipeHandlers}
-            className="group relative w-full overflow-hidden rounded-[16px] sm:rounded-[20px] bg-black shadow-inner flex items-center justify-center border border-white/5 cursor-zoom-in"
+            style={{ aspectRatio: aspectRatio || "881 / 914" }}
+            className="group relative w-full overflow-hidden rounded-[16px] sm:rounded-[20px] bg-black shadow-inner flex items-center justify-center border border-white/5 cursor-zoom-in touch-pan-y select-none"
           >
             {/* Prev Glass Button */}
             {screenshots.length > 1 && (
@@ -1060,7 +1066,6 @@ function TabletShowcase({
             <BlurImage
               src={activeScreen.src}
               alt={activeScreen.alt}
-              aspectRatio={aspectRatio}
               onClick={() => onZoom(activeIndex)}
               className="h-full w-full object-contain"
             />
@@ -1165,7 +1170,8 @@ function DesktopShowcase({
         {/* Active Desktop Screen Canvas with Glass Buttons & Blur Load */}
         <div
           {...swipeHandlers}
-          className="group relative w-full bg-black overflow-hidden flex items-center justify-center cursor-zoom-in"
+          style={{ aspectRatio: aspectRatio || "16 / 9" }}
+          className="group relative w-full bg-black overflow-hidden flex items-center justify-center cursor-zoom-in touch-pan-y select-none"
         >
           {/* Glass Prev Button */}
           {screenshots.length > 1 && (
@@ -1182,7 +1188,6 @@ function DesktopShowcase({
           <BlurImage
             src={activeScreen.src}
             alt={activeScreen.alt}
-            aspectRatio={aspectRatio || "16 / 9"}
             onClick={() => onZoom(activeIndex)}
             className="h-full w-full object-contain"
           />

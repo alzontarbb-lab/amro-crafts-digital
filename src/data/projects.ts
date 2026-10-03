@@ -34,101 +34,6 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "fragrance-storefront",
-    title: "Luxury Fragrance Direct-to-Consumer Storefront",
-    blurb:
-      "A mobile-first direct-to-consumer fragrance boutique purveying 100% authentic perfumes. Crafted with an intentional minimalist black-and-white luxury design that puts verified flacons and olfactory craftsmanship at center stage, backed by tactile touch ergonomics and a direct WhatsApp checkout engine.",
-    tech: [
-      "React",
-      "TypeScript",
-      "Vite",
-      "Tailwind CSS",
-      "Editorial Minimalist UI",
-      "WhatsApp Handoff",
-    ],
-    tag: "Commercial / Web",
-    year: "2026",
-    featured: true,
-    isNda: true,
-    coverImage: "/projects/murjan/01-catalog-storefront.webp",
-    screenshotMode: "mobile",
-    brandNote:
-      "Client trademark sanitized under confidentiality. Styled with a disciplined, high-contrast monochrome (black & white) editorial palette inspired by high-end luxury perfumeries. The deliberate restraint in color strips away visual noise to emphasize verified product authenticity, batch codes, and genuine fragrance formulations.",
-    screenshots: [
-      {
-        src: "/projects/murjan/01-catalog-storefront.webp",
-        alt: "Curated Fragrance Shelves & Floating Bag Bar",
-        badge: "Mobile Storefront",
-      },
-      {
-        src: "/projects/murjan/02-whatsapp-checkout.webp",
-        alt: "WhatsApp Direct Fulfillment Checkout Drawer",
-        badge: "WhatsApp Handoff",
-      },
-    ],
-    caseStudy: {
-      problem:
-        "In the regional fragrance market, counterfeit scents and aggressive discount clones breed skepticism among discerning perfume enthusiasts, while standard e-commerce templates feel loud, cluttered, and cheap-diluting brand credibility. The client needed a digital storefront that conveys uncompromising product authenticity and luxury stature from the very first scroll, while circumventing the high abandonment rates of multi-step credit card gateways.",
-      architecture:
-        "Engineered an intentional, editorial black-and-white design system using React, Vite, and Tailwind CSS. The high-contrast monochrome palette, disciplined typography, and generous negative space emulate prestigious boutique perfumeries-letting authentic flacon photography, olfactory pyramid notes, and batch-code transparency command undivided attention. Integrated mobile-first touch ergonomics: a 64px compact header passing the 500px fold test, CSS snap-scrolling shelves, tactile quick-add buttons, and slide-up bottom sheets. To eliminate checkout friction, the bag drawer serializes order details, delivery specifics, and verified batch items directly into an encoded WhatsApp dispatch URL.",
-      outcome:
-        "Cultivated immediate consumer trust through calm, minimalist elegance. Shoppers browse certified genuine fragrances in an uncluttered luxury environment, completing orders in under 30 seconds via WhatsApp with zero gateway fees and full cash-on-delivery batch inspection.",
-      highlights: [
-        "Disciplined black-and-white editorial aesthetic establishing authentic luxury prestige",
-        "Product authenticity emphasis: verified batch codes, olfactory notes, and genuine flacons",
-        "Direct-to-WhatsApp checkout engine bypassing payment gateway friction entirely",
-        "Strict mobile ergonomics: CSS snap-scrolling shelves, 44px+ touch targets, and fold-test compliance",
-        "Slide-up bottom sheet product details with sticky thumb-friendly action bars",
-        "Dynamic floating order bar with iOS safe-area inset adaptation (pb-safe)",
-        "Client brand name and trademark sanitized throughout interface previews",
-      ],
-    },
-  },
-  {
-    id: "market-dash",
-    title: "On-Demand Hypermarket Delivery Platform",
-    blurb:
-      "A full-stack, on-demand grocery and multi-department ordering platform designed around the client's warm gold and charcoal brand identity. Features real-time catalog search, order dispatch pipelines, and Google Gemini AI product recommendations.",
-    tech: ["React", "Node.js", "Express", "Prisma", "PostgreSQL", "Gemini AI", "Tailwind CSS"],
-    tag: "Commercial / Web",
-    year: "2026",
-    featured: true,
-    coverImage: "/projects/market-dash/01-home-produce.webp",
-    screenshotMode: "mobile",
-    brandNote:
-      "Custom palette tailored to the company's brand identity: deep charcoal backdrop paired with warm gold and amber accents (#D4AF37 / #C5A059), delivering a premium supermarket feel.",
-    screenshots: [
-      { src: "/projects/market-dash/01-home-produce.webp", alt: "Storefront", badge: "Storefront" },
-      { src: "/projects/market-dash/02-meat-seafood.webp", alt: "Storefront", badge: "Storefront" },
-      {
-        src: "/projects/market-dash/03-my-orders.webp",
-        alt: "Orders History",
-        badge: "Orders History",
-      },
-      {
-        src: "/projects/market-dash/04-cart-drawer.webp",
-        alt: "Cart Drawer",
-        badge: "Cart Drawer",
-      },
-      { src: "/projects/market-dash/05-checkout.webp", alt: "Checkout", badge: "Checkout" },
-    ],
-    caseStudy: {
-      problem:
-        "A major commercial supermarket needed a dedicated, brand-first digital ordering and delivery platform to compete directly with third-party aggregator apps (like Toters), without losing margin to high commission fees or diluting its proprietary customer experience.",
-      architecture:
-        "Prototyped intelligent item categorization, fuzzy search heuristics, and AI shopping assistance powered by Google Gemini AI (@google/genai). Built out into a robust full-stack platform using React on the frontend, a high-throughput Node.js/Express REST API, and PostgreSQL orchestrated via Prisma ORM. The interface features a bottom-sheet cart drawer, stateful order tracking, and custom brand styling matching the company's gold and charcoal identity.",
-      outcome:
-        "Delivered a blazing-fast, mobile-first ordering experience with zero dependence on aggregator commission models. Customer checkout steps were reduced to under 45 seconds with instant dispatch notifications.",
-      highlights: [
-        "Gemini AI product recommendations & fuzzy search",
-        "Tailored dark & warm-gold brand identity (#D4AF37 / #C5A059)",
-        "Full-stack architecture: React + Node.js/Express + Prisma + PostgreSQL",
-        "Sub-second sliding cart drawer, multi-address management, and live order tracking",
-        "Localized payment integrations including Cash on Delivery and OMT Pay",
-      ],
-    },
-  },
-  {
     id: "field-dispatch",
     title: "Power Generator Fleet Operations & Field Dispatch Command Center",
     blurb:
@@ -269,6 +174,101 @@ export const projects: Project[] = [
         "Automated evidence file extraction and standardized report drafting",
         "Complete enterprise document management and leave tracking systems",
         "Strict NDA: proprietary branding and logos completely sanitized",
+      ],
+    },
+  },
+  {
+    id: "fragrance-storefront",
+    title: "Luxury Fragrance Direct-to-Consumer Storefront",
+    blurb:
+      "A mobile-first direct-to-consumer fragrance boutique purveying 100% authentic perfumes. Crafted with an intentional minimalist black-and-white luxury design that puts verified flacons and olfactory craftsmanship at center stage, backed by tactile touch ergonomics and a direct WhatsApp checkout engine.",
+    tech: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Editorial Minimalist UI",
+      "WhatsApp Handoff",
+    ],
+    tag: "Commercial / Web",
+    year: "2026",
+    featured: true,
+    isNda: true,
+    coverImage: "/projects/murjan/01-catalog-storefront.webp",
+    screenshotMode: "mobile",
+    brandNote:
+      "Client trademark sanitized under confidentiality. Styled with a disciplined, high-contrast monochrome (black & white) editorial palette inspired by high-end luxury perfumeries. The deliberate restraint in color strips away visual noise to emphasize verified product authenticity, batch codes, and genuine fragrance formulations.",
+    screenshots: [
+      {
+        src: "/projects/murjan/01-catalog-storefront.webp",
+        alt: "Curated Fragrance Shelves & Floating Bag Bar",
+        badge: "Mobile Storefront",
+      },
+      {
+        src: "/projects/murjan/02-whatsapp-checkout.webp",
+        alt: "WhatsApp Direct Fulfillment Checkout Drawer",
+        badge: "WhatsApp Handoff",
+      },
+    ],
+    caseStudy: {
+      problem:
+        "In the regional fragrance market, counterfeit scents and aggressive discount clones breed skepticism among discerning perfume enthusiasts, while standard e-commerce templates feel loud, cluttered, and cheap-diluting brand credibility. The client needed a digital storefront that conveys uncompromising product authenticity and luxury stature from the very first scroll, while circumventing the high abandonment rates of multi-step credit card gateways.",
+      architecture:
+        "Engineered an intentional, editorial black-and-white design system using React, Vite, and Tailwind CSS. The high-contrast monochrome palette, disciplined typography, and generous negative space emulate prestigious boutique perfumeries-letting authentic flacon photography, olfactory pyramid notes, and batch-code transparency command undivided attention. Integrated mobile-first touch ergonomics: a 64px compact header passing the 500px fold test, CSS snap-scrolling shelves, tactile quick-add buttons, and slide-up bottom sheets. To eliminate checkout friction, the bag drawer serializes order details, delivery specifics, and verified batch items directly into an encoded WhatsApp dispatch URL.",
+      outcome:
+        "Cultivated immediate consumer trust through calm, minimalist elegance. Shoppers browse certified genuine fragrances in an uncluttered luxury environment, completing orders in under 30 seconds via WhatsApp with zero gateway fees and full cash-on-delivery batch inspection.",
+      highlights: [
+        "Disciplined black-and-white editorial aesthetic establishing authentic luxury prestige",
+        "Product authenticity emphasis: verified batch codes, olfactory notes, and genuine flacons",
+        "Direct-to-WhatsApp checkout engine bypassing payment gateway friction entirely",
+        "Strict mobile ergonomics: CSS snap-scrolling shelves, 44px+ touch targets, and fold-test compliance",
+        "Slide-up bottom sheet product details with sticky thumb-friendly action bars",
+        "Dynamic floating order bar with iOS safe-area inset adaptation (pb-safe)",
+        "Client brand name and trademark sanitized throughout interface previews",
+      ],
+    },
+  },
+  {
+    id: "market-dash",
+    title: "On-Demand Hypermarket Delivery Platform",
+    blurb:
+      "A full-stack, on-demand grocery and multi-department ordering platform designed around the client's warm gold and charcoal brand identity. Features real-time catalog search, order dispatch pipelines, and Google Gemini AI product recommendations.",
+    tech: ["React", "Node.js", "Express", "Prisma", "PostgreSQL", "Gemini AI", "Tailwind CSS"],
+    tag: "Commercial / Web",
+    year: "2026",
+    featured: true,
+    coverImage: "/projects/market-dash/01-home-produce.webp",
+    screenshotMode: "mobile",
+    brandNote:
+      "Custom palette tailored to the company's brand identity: deep charcoal backdrop paired with warm gold and amber accents (#D4AF37 / #C5A059), delivering a premium supermarket feel.",
+    screenshots: [
+      { src: "/projects/market-dash/01-home-produce.webp", alt: "Storefront", badge: "Storefront" },
+      { src: "/projects/market-dash/02-meat-seafood.webp", alt: "Storefront", badge: "Storefront" },
+      {
+        src: "/projects/market-dash/03-my-orders.webp",
+        alt: "Orders History",
+        badge: "Orders History",
+      },
+      {
+        src: "/projects/market-dash/04-cart-drawer.webp",
+        alt: "Cart Drawer",
+        badge: "Cart Drawer",
+      },
+      { src: "/projects/market-dash/05-checkout.webp", alt: "Checkout", badge: "Checkout" },
+    ],
+    caseStudy: {
+      problem:
+        "A major commercial supermarket needed a dedicated, brand-first digital ordering and delivery platform to compete directly with third-party aggregator apps (like Toters), without losing margin to high commission fees or diluting its proprietary customer experience.",
+      architecture:
+        "Prototyped intelligent item categorization, fuzzy search heuristics, and AI shopping assistance powered by Google Gemini AI (@google/genai). Built out into a robust full-stack platform using React on the frontend, a high-throughput Node.js/Express REST API, and PostgreSQL orchestrated via Prisma ORM. The interface features a bottom-sheet cart drawer, stateful order tracking, and custom brand styling matching the company's gold and charcoal identity.",
+      outcome:
+        "Delivered a blazing-fast, mobile-first ordering experience with zero dependence on aggregator commission models. Customer checkout steps were reduced to under 45 seconds with instant dispatch notifications.",
+      highlights: [
+        "Gemini AI product recommendations & fuzzy search",
+        "Tailored dark & warm-gold brand identity (#D4AF37 / #C5A059)",
+        "Full-stack architecture: React + Node.js/Express + Prisma + PostgreSQL",
+        "Sub-second sliding cart drawer, multi-address management, and live order tracking",
+        "Localized payment integrations including Cash on Delivery and OMT Pay",
       ],
     },
   },
