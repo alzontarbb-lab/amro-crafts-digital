@@ -592,6 +592,26 @@ function ProjectDetailPage() {
               </span>
             </div>
 
+            {/* Desktop Keyboard Cues */}
+            <div className="hidden md:flex items-center gap-2.5 text-[11px] text-zinc-400 font-mono">
+              <span>
+                <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/15 mr-1">
+                  ←
+                </kbd>
+                <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/15">
+                  →
+                </kbd>{" "}
+                Navigate
+              </span>
+              <span className="text-zinc-600">·</span>
+              <span>
+                <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/15">
+                  Esc
+                </kbd>{" "}
+                Close
+              </span>
+            </div>
+
             <button
               type="button"
               onClick={() => setLightboxIndex(null)}
@@ -641,25 +661,43 @@ function ProjectDetailPage() {
 
           {/* Footer Legend */}
           <div
-            className="w-full max-w-2xl mx-auto text-center z-30 pt-1 pb-2"
+            className="w-full max-w-3xl mx-auto text-center z-30 pt-1 pb-2"
             onClick={(e) => e.stopPropagation()}
           >
-            <p className="text-xs sm:text-sm text-zinc-300 font-sans leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-300 font-sans leading-relaxed max-w-xl mx-auto">
               {screenshots[lightboxIndex].alt}
             </p>
+
             {screenshots.length > 1 && (
-              <div className="flex items-center justify-center gap-1.5 pt-3">
-                {screenshots.map((_, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    aria-label={`Jump to slide ${idx + 1}`}
-                    onClick={() => setLightboxIndex(idx)}
-                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                      idx === lightboxIndex ? "w-7 bg-white" : "w-2 bg-white/25 hover:bg-white/50"
-                    }`}
-                  />
-                ))}
+              <div className="mt-3 flex items-center justify-center gap-2 overflow-x-auto no-scrollbar max-w-full px-2 py-1">
+                {screenshots.map((s, idx) => {
+                  const isCurrent = idx === lightboxIndex;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      aria-label={`Jump to ${s.badge}`}
+                      onClick={() => setLightboxIndex(idx)}
+                      className={`group relative shrink-0 rounded overflow-hidden transition-all duration-200 cursor-pointer ${
+                        isCurrent
+                          ? "ring-2 ring-white ring-offset-2 ring-offset-black scale-105 opacity-100"
+                          : "opacity-40 hover:opacity-85 border border-white/20"
+                      }`}
+                      style={{
+                        height: "36px",
+                        width: project.screenshotMode === "mobile" ? "22px" : "48px",
+                      }}
+                      title={s.badge}
+                    >
+                      <img
+                        src={s.src}
+                        alt={s.badge}
+                        className="w-full h-full object-cover object-center"
+                        loading="lazy"
+                      />
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -770,16 +808,20 @@ function ShowcaseLegend({
   total,
   badge,
   caption,
+  screenshots,
+  isMobileRatio = false,
   onSelectIndex,
 }: {
   activeIndex: number;
   total: number;
   badge: string;
   caption?: string;
+  screenshots?: ProjectScreenshot[];
+  isMobileRatio?: boolean;
   onSelectIndex: (idx: number) => void;
 }) {
   return (
-    <div className="border-t border-border/40 bg-card/60 backdrop-blur-md px-4 sm:px-6 py-3.5 sm:py-4">
+    <div className="border-t border-border/40 bg-card/60 backdrop-blur-md px-3.5 sm:px-6 py-3 sm:py-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4">
         {/* Index counter & Badge */}
         <div className="flex items-center gap-2.5 min-w-0">
@@ -822,6 +864,40 @@ function ShowcaseLegend({
         <p className="mt-2 text-xs sm:text-[13px] text-muted-foreground/90 font-sans leading-relaxed">
           {caption}
         </p>
+      )}
+
+      {/* Interactive Micro-Thumbnail Reel for multi-screenshot showcases */}
+      {screenshots && screenshots.length > 1 && (
+        <div className="mt-3 pt-2.5 border-t border-white/5 flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+          {screenshots.map((s, idx) => {
+            const isCurrent = idx === activeIndex;
+            return (
+              <button
+                key={idx}
+                type="button"
+                aria-label={`Switch to screen ${idx + 1}: ${s.badge}`}
+                onClick={() => onSelectIndex(idx)}
+                className={`group/thumb relative shrink-0 rounded-md overflow-hidden transition-all duration-200 cursor-pointer ${
+                  isCurrent
+                    ? "ring-2 ring-white ring-offset-2 ring-offset-zinc-950 scale-[1.04] opacity-100"
+                    : "opacity-45 hover:opacity-90 border border-white/10 hover:border-white/25"
+                }`}
+                style={{
+                  height: isMobileRatio ? "44px" : "36px",
+                  width: isMobileRatio ? "24px" : "58px",
+                }}
+                title={s.badge}
+              >
+                <img
+                  src={s.src}
+                  alt={s.badge}
+                  className="w-full h-full object-cover object-top select-none"
+                  loading="lazy"
+                />
+              </button>
+            );
+          })}
+        </div>
       )}
     </div>
   );
@@ -973,6 +1049,8 @@ function MobileShowcase({
             total={screenshots.length}
             badge={activeScreen.badge}
             caption={activeScreen.alt}
+            screenshots={screenshots}
+            isMobileRatio={true}
             onSelectIndex={(idx) => setActiveIndex(idx)}
           />
         </div>
@@ -1089,6 +1167,8 @@ function TabletShowcase({
             total={screenshots.length}
             badge={activeScreen.badge}
             caption={activeScreen.alt}
+            screenshots={screenshots}
+            isMobileRatio={false}
             onSelectIndex={(idx) => setActiveIndex(idx)}
           />
         </div>
@@ -1211,6 +1291,8 @@ function DesktopShowcase({
           total={screenshots.length}
           badge={activeScreen.badge}
           caption={activeScreen.alt}
+          screenshots={screenshots}
+          isMobileRatio={false}
           onSelectIndex={(idx) => setActiveIndex(idx)}
         />
       </div>
