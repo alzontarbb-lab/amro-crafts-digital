@@ -120,9 +120,9 @@ export const projects: Project[] = [
   },
   {
     id: "ula-claims",
-    title: "Marine & Property Loss Adjusting Claims Intelligence Hub",
+    title: "Multi-Line Loss Adjusting & Claims Intelligence Hub",
     blurb:
-      "An enterprise loss adjusting and forensic insurance audit platform purpose-built for marine cargo, yacht, property, and casualty investigations. Integrates a 4-stage autonomous adjuster agent streaming over SSE, a self-refining Loss Adjuster Brain with historical rubric memory, deterministic quantum arithmetic separation, and client-side DOCX/PDF export engines. All proprietary client trademarks sanitized under NDA.",
+      "An enterprise loss adjusting and forensic insurance audit platform purpose-built for high-stakes multi-line claims—spanning commercial property, industrial casualty, cargo & transit (air, land, sea), fidelity, and complex liability investigations. Integrates a 4-stage autonomous adjuster agent streaming over SSE, a self-refining Loss Adjuster Brain with historical rubric memory, deterministic quantum arithmetic separation, and client-side DOCX/PDF export engines. All proprietary client trademarks sanitized under NDA.",
     tech: [
       "React 18",
       "Node.js 20 (ESM)",
@@ -165,7 +165,7 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       problem:
-        "Professional marine cargo, yacht, property, and casualty loss adjusters face immense friction reviewing complex multi-page evidence dossiers (bills of lading, sea waybills, reefer temperature logs, survey certificates, salvage bids, and repair invoices). Traditional adjusting workflows suffer from manual quantum reconciliation errors, foreign currency conversion disputes, and audit failures caused by AI hallucinations that fabricate claim numbers or invent unverified quantities.",
+        "Professional loss adjusters handling high-stakes multi-line insurance claims—spanning commercial property damage, industrial casualty, transit cargo (air, land, sea), fidelity, and liability disputes—face immense friction reviewing complex heterogeneous evidence dossiers (engineering estimates, survey certificates, bills of lading, salvage bids, repair tenders, and policy conditions). Traditional adjusting workflows suffer from manual quantum reconciliation errors, foreign currency conversion disputes, and audit failures caused by AI hallucinations that fabricate claim numbers or invent unverified quantities.",
       architecture:
         "Engineered as a full-stack enterprise claims intelligence platform with React 18, Vite 6, Node.js 20 ESM Express, and PostgreSQL 18 with connection pooling and Argon2id security:\n\n1. Multi-LLM Provider Architecture: Integrates Anthropic Direct (Claude Sonnet 5 with 128k output tokens), Google Gemini Direct (Gemini 3.7 Flash & 2.5 Pro Vision for damage photos), and OpenRouter with unified token preflight budget guards (AITokenWatch) to prevent cost overruns.\n2. Autonomous Adjuster Agent: A 4-stage pipeline streaming over Server-Sent Events (SSE) that executes: (1) Ingestion & Triangulation, (2) Policy & Coverage Audit, (3) Quantum Reconciliation, and (4) Report Synthesis.\n3. Loss Adjuster Brain: Embeddings and institutional memory learned from past certified reports, codifying cause standards (e.g. reefer defrost failure signatures, yacht mooring line chafing) and conducting adversarial audits against AI drafts before director sign-off.\n4. Zero-Hallucination & Mathematical Separation: Strict architectural separation where LLMs extract structured facts and rates with source document coordinate citations validated via Zod, while the deterministic Node.js engine computes all quantum arithmetic (claim = quantity x rate - depreciation - salvage - deductible).\n5. Provisional Drafts Governance (7 Sept 2026 Amendment): Allows adjusters to redline preliminary drafts in-app while non-blocking evidence is pending, but enforces a strict 5-gate director verification blocker before certified DOCX/PDF export.",
       outcome:
