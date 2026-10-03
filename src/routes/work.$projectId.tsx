@@ -104,7 +104,7 @@ const PROJECT_METRICS: Record<string, OperationalMetric[]> = {
       sub: "PyInstaller standalone + LAN broadcasting",
     },
   ],
-  "ula-claims": [
+  "claims-intelligence": [
     {
       value: "175 / 175",
       label: "Automated Tests Passing",
@@ -286,7 +286,7 @@ function ProjectDetailPage() {
             <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground/80">
               {project.tag}
             </span>
-            {(project.id === "ula-claims" || project.isNda) && (
+            {(project.id === "claims-intelligence" || project.isNda) && (
               <span className="inline-flex items-center gap-1.5 font-mono text-xs text-zinc-400">
                 <span className="text-zinc-600">·</span>
                 <ShieldCheck className="h-3.5 w-3.5 text-zinc-400" />

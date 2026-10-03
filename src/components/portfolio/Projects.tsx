@@ -38,7 +38,7 @@ const BRAND_HOVER: Record<string, { border: string; glow: string; accent: string
     glow: "hover:shadow-[0_0_35px_-8px_rgba(139,92,246,0.14)]",
     accent: "group-hover:text-violet-400",
   },
-  "ula-claims": {
+  "claims-intelligence": {
     border: "hover:border-sky-500/40",
     glow: "hover:shadow-[0_0_35px_-8px_rgba(14,165,233,0.14)]",
     accent: "group-hover:text-sky-400",

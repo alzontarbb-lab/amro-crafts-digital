@@ -123,7 +123,7 @@ export const projects: Project[] = [
     },
   },
   {
-    id: "ula-claims",
+    id: "claims-intelligence",
     title: "Multi-Line Loss Adjusting & Claims Intelligence Hub",
     blurb:
       "An enterprise loss adjusting and forensic insurance audit platform purpose-built for high-stakes multi-line claims—spanning commercial property, industrial casualty, cargo & transit (air, land, sea), fidelity, and complex liability investigations. Integrates a 4-stage autonomous adjuster agent streaming over SSE, a self-refining Loss Adjuster Brain with historical rubric memory, deterministic quantum arithmetic separation, and client-side DOCX/PDF export engines. All proprietary client trademarks sanitized under NDA.",
@@ -141,29 +141,29 @@ export const projects: Project[] = [
     tag: "Enterprise Operations",
     year: "2026",
     featured: true,
-    coverImage: "/projects/ula/01-management-dashboard.webp",
+    coverImage: "/projects/claims-intelligence/01-management-dashboard.webp",
     screenshotMode: "desktop",
     role: "Co-developed with AI Consultant & Junior Developer",
     brandNote:
       "Co-developed in technical partnership with an external Junior Developer & AI Consultant. Strict NDA protection: Client name, company trademark, and surveyor identities sanitized throughout all interface views. Conforms to formal Loss Adjusting Report Specifications (including the 7 September 2026 Provisional Drafts Amendment) producing certified, court- and underwriter-ready Microsoft Word (.docx) and Adobe PDF (.pdf) deliverables.",
     screenshots: [
       {
-        src: "/projects/ula/01-management-dashboard.webp",
+        src: "/projects/claims-intelligence/01-management-dashboard.webp",
         alt: "Management Dashboard — Portfolio Release Control, Director Sign-Off & 5 Verification Gates",
         badge: "Director Release Control",
       },
       {
-        src: "/projects/ula/02-ai-autonomous-agent.webp",
+        src: "/projects/claims-intelligence/02-ai-autonomous-agent.webp",
         alt: "Autonomous Adjuster Agent — 4-Stage Streaming Pipeline (Ingestion, Coverage Audit, Quantum Reconciliation & Draft Synthesis)",
         badge: "Autonomous Adjuster Agent",
       },
       {
-        src: "/projects/ula/03-fact-extraction-billing.webp",
+        src: "/projects/claims-intelligence/03-fact-extraction-billing.webp",
         alt: "Evidence Extraction & Quantum Readiness — Page-Coordinate Grounding & Structured Zod Observations",
         badge: "Evidence & Quantum Audit",
       },
       {
-        src: "/projects/ula/04-annual-leave-control.webp",
+        src: "/projects/claims-intelligence/04-annual-leave-control.webp",
         alt: "Operations Calendar & Staff Scheduling — Team Availability, Surveyor Roster & Automated Email Alerts",
         badge: "Operations & Leave Roster",
       },
@@ -206,18 +206,18 @@ export const projects: Project[] = [
     year: "2026",
     featured: true,
     isNda: true,
-    coverImage: "/projects/murjan/01-catalog-storefront.webp",
+    coverImage: "/projects/fragrance-storefront/01-catalog-storefront.webp",
     screenshotMode: "mobile",
     brandNote:
       "Client trademark sanitized under confidentiality. Styled with a disciplined, high-contrast monochrome (black & white) editorial palette inspired by high-end luxury perfumeries. The deliberate restraint in color strips away visual noise to emphasize verified product authenticity, batch codes, and genuine fragrance formulations.",
     screenshots: [
       {
-        src: "/projects/murjan/01-catalog-storefront.webp",
+        src: "/projects/fragrance-storefront/01-catalog-storefront.webp",
         alt: "Curated Fragrance Shelves & Floating Bag Bar",
         badge: "Mobile Storefront",
       },
       {
-        src: "/projects/murjan/02-whatsapp-checkout.webp",
+        src: "/projects/fragrance-storefront/02-whatsapp-checkout.webp",
         alt: "WhatsApp Direct Fulfillment Checkout Drawer",
         badge: "WhatsApp Handoff",
       },
