@@ -57,12 +57,6 @@ interface OperationalMetric {
 }
 
 const PROJECT_METRICS: Record<string, OperationalMetric[]> = {
-  "field-dispatch": [
-    { value: "111+", label: "SLA Overdues Triaged", sub: "Automated engine breakdown alerts" },
-    { value: "50+", label: "Heavy Gensets Tracked", sub: "Per-unit KVA, serials & ATS switchgear" },
-    { value: "3 Divisions", label: "Workload Balancing", sub: "Mechanical, Electrical & Welders" },
-    { value: "0 Slips", label: "Paperless Target", sub: "Digital GPS-tagged photo work orders" },
-  ],
   "market-dash": [
     { value: "< 45s", label: "Checkout Velocity", sub: "Sub-minute direct mobile dispatch" },
     { value: "0%", label: "Aggregator Fees", sub: "Direct retailer margin retention" },
