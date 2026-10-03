@@ -376,13 +376,13 @@ function ProjectCard({ project }: { project: Project }) {
                   <img
                     src={project.screenshots[0].src}
                     alt={project.screenshots[0].alt}
-                    className="h-full w-auto max-h-[94%] object-contain rounded-lg shadow-2xl border border-white/10 group-hover:-translate-y-1 group-hover:scale-[1.02] transition-all duration-500 ease-out"
+                    className="h-full w-auto max-h-[94%] object-contain rounded-lg shadow-2xl border border-white/10 md:group-hover:-translate-y-1 md:group-hover:scale-[1.02] transition-all duration-500 ease-out"
                     loading="lazy"
                   />
                   <img
                     src={project.screenshots[1].src}
                     alt={project.screenshots[1].alt}
-                    className="h-full w-auto max-h-[94%] object-contain rounded-lg shadow-2xl border border-white/10 group-hover:-translate-y-1 group-hover:scale-[1.02] transition-all duration-500 ease-out delay-75"
+                    className="h-full w-auto max-h-[94%] object-contain rounded-lg shadow-2xl border border-white/10 md:group-hover:-translate-y-1 md:group-hover:scale-[1.02] transition-all duration-500 ease-out delay-75"
                     loading="lazy"
                   />
                 </>
@@ -481,7 +481,7 @@ function ProjectCard({ project }: { project: Project }) {
           <h3 className="font-display text-base sm:text-xl md:text-2xl font-medium mb-1.5 sm:mb-2 text-foreground group-hover:text-foreground transition-colors flex items-center justify-between">
             <span>{project.title}</span>
             <ArrowUpRight
-              className={`w-4 h-4 opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 ml-2 ${brand.accent}`}
+              className={`w-4 h-4 opacity-0 group-hover:opacity-100 transition-all transform md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5 shrink-0 ml-2 ${brand.accent}`}
             />
           </h3>
           <p className="text-muted-foreground text-xs sm:text-sm md:text-base leading-relaxed text-pretty mb-4 sm:mb-6 max-w-xl">
