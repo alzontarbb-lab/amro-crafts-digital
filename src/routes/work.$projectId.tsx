@@ -83,34 +83,46 @@ const PROJECT_METRICS: Record<string, OperationalMetric[]> = {
   ],
   "retail-pos": [
     {
-      value: "USD & LBP",
-      label: "Dual Currency Ledgers",
-      sub: "Real-time parallel shift drawer balance",
+      value: "13 Rules",
+      label: "Continuous Ledger Auditor",
+      sub: "Automated mathematical parity checks",
     },
     {
-      value: "4 Verticals",
-      label: "Adapted Deployments",
-      sub: "Grocery, footwear, menswear & trade",
+      value: "< 15ms",
+      label: "Local Checkout Latency",
+      sub: "Synchronous SQLite WAL serialization",
     },
-    { value: "100%", label: "Offline-First Engine", sub: "FastAPI + SQLite, zero cloud failure" },
-    { value: "1-Click", label: "Shift Reconciliation", sub: "Automated cash discrepancy audit" },
+    {
+      value: "50ms Wedge",
+      label: "Hardware Scanner Intercept",
+      sub: "Sub-5s unknown barcode ingestion",
+    },
+    {
+      value: "100% Offline",
+      label: "Zero SaaS / Zero Cloud",
+      sub: "PyInstaller standalone + LAN broadcasting",
+    },
   ],
   "ula-claims": [
     {
-      value: "Mins vs Days",
-      label: "Turnaround Acceleration",
-      sub: "Multi-model LLM API evidence parsing",
-    },
-    { value: "100%", label: "Digital Audit Trail", sub: "Drag-and-drop Kanban claim pipeline" },
-    {
-      value: "Agent Brain",
-      label: "Adaptive Skill Memory",
-      sub: "Self-refining report quality over time",
+      value: "175 / 175",
+      label: "Automated Tests Passing",
+      sub: "Full backend, provider & workflow suites",
     },
     {
-      value: "Sanitized",
-      label: "Strict NDA Protection",
-      sub: "All proprietary trademarks withheld",
+      value: "128k Tokens",
+      label: "Extended Context Output",
+      sub: "Claude Sonnet 5 & Gemini 3.7 Vision",
+    },
+    {
+      value: "0 Hallucination",
+      label: "Deterministic Math Separation",
+      sub: "Exact coordinate & page-indexed citations",
+    },
+    {
+      value: "4-Stage SSE",
+      label: "Autonomous Agent Stream",
+      sub: "Triangulation, coverage, quantum & drafting",
     },
   ],
   "case-file": [
