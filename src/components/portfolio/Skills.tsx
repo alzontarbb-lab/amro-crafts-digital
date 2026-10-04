@@ -42,13 +42,16 @@ export function Skills() {
         <SectionHeader
           index="03"
           label="Frontier Tooling"
-          title="Stack-agnostic by design. Amplified at the frontier."
-          description="With foundational engineering and frontier AI orchestration, framework boundaries dissolve. Fluency to build, adapt, and ship production systems across any language, framework, or runtime."
+          title="Production foundations, accelerated at the frontier."
         />
 
         {/* Foundation Horizon Datum — 2x2 Grid */}
         <Reveal delay={0.1}>
           <div className="mb-3.5 rounded-xl border border-white/[0.08] bg-[#0c0c0f]/80 p-3 sm:p-4 select-none backdrop-blur-md">
+            <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-white/[0.05] font-mono text-[10px] text-zinc-500 uppercase tracking-wider">
+              <span>Foundation Runtimes</span>
+              <span className="text-zinc-400 font-medium tracking-widest">[ Stack-Agnostic ]</span>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-x-8 sm:gap-y-2.5">
               {foundationStacks.map((group) => (
                 <div
