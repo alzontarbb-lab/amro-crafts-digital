@@ -47,9 +47,23 @@ export function About() {
               </p>
             </Reveal>
             <Reveal delay={0.2}>
-              <div className="pt-2 flex items-center gap-2.5 text-xs sm:text-sm font-mono text-muted-foreground">
-                <span className="w-1.5 h-1.5 rounded-full bg-foreground/60" />
-                Shipping internal systems & taking on freelance engineering work
+              <div className="mt-2 rounded-lg border border-border/80 bg-surface/50 overflow-hidden font-mono text-xs select-none">
+                <div className="px-3.5 py-2.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4 border-b border-border/40">
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-wider shrink-0 font-medium">
+                    Approach
+                  </span>
+                  <span className="text-foreground/90 text-left sm:text-right">
+                    I look for what's wasting people's time and fix it, usually before they ask.
+                  </span>
+                </div>
+                <div className="px-3.5 py-2.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-wider shrink-0 font-medium">
+                    Fluency
+                  </span>
+                  <span className="text-foreground/90 text-left sm:text-right">
+                    I work in whatever stack the project already uses.
+                  </span>
+                </div>
               </div>
             </Reveal>
           </div>
@@ -62,6 +76,7 @@ export function About() {
                   <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                     Engineering Principles
                   </span>
+                  <span className="sr-only"> — </span>
                   <span className="font-mono text-[10px] text-muted-foreground/60">
                     systems.amro.dev
                   </span>
