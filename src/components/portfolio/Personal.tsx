@@ -1,11 +1,11 @@
 import { Reveal } from "./Reveal";
-import pitchImg from "@/assets/amro-pitch.jpg";
-import trophyImg from "@/assets/amro-trophy.jpg";
+import pitchImg from "@/assets/amro-pitch.webp";
+import trophyImg from "@/assets/amro-trophy.webp";
 
 const rows = [
   {
     img: pitchImg,
-    alt: "Amro — on the pitch",
+    alt: "Amro · on the pitch",
     objectPosition: "center top",
     eyebrow: "The game",
     title: "Reading systems.",
@@ -13,11 +13,11 @@ const rows = [
   },
   {
     img: trophyImg,
-    alt: "Amro — street football",
+    alt: "Amro · street football",
     objectPosition: "center 40%",
     eyebrow: "The roots",
     title: "Earned on the street.",
-    copy: "Before any structure, football was a daily language — street, casual, unorganized, real. That foundation never leaves.",
+    copy: "Before any structure, football was a daily language: street, casual, unorganized, real. That foundation never leaves.",
   },
 ];
 
@@ -26,9 +26,12 @@ export function Personal() {
     <section id="personal" className="relative py-12 md:py-28">
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6">
         <Reveal>
-          <span className="font-mono text-[11px] md:text-xs text-muted-foreground uppercase tracking-[0.25em]">
-            — Beyond the screen
-          </span>
+          <div className="flex items-center gap-3 mb-3 md:mb-4">
+            <span className="font-mono text-[11px] md:text-xs text-muted-foreground uppercase tracking-[0.25em]">
+              06 — Beyond the screen
+            </span>
+            <div className="h-px flex-1 max-w-[60px] md:max-w-[80px] bg-border" />
+          </div>
         </Reveal>
 
         <div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
@@ -39,6 +42,8 @@ export function Personal() {
                   <img
                     src={r.img}
                     alt={r.alt}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     style={{
                       objectPosition: r.objectPosition,

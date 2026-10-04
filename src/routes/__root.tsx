@@ -72,7 +72,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Amro — AI-Native Software Engineer" },
+      { title: "Amro · AI-Native Software Engineer" },
       { name: "theme-color", content: "#060607" },
       {
         name: "description",
@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Portfolio of Amro, an AI-native software engineer based in Beirut bridging operations and software. Building production full-stack systems, automation, and internal tools.",
       },
       { name: "author", content: "Amro" },
-      { property: "og:title", content: "Amro — AI-Native Software Engineer" },
+      { property: "og:title", content: "Amro · AI-Native Software Engineer" },
       {
         property: "og:description",
         content:
@@ -90,7 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "Amro" },
       { property: "og:image", content: "https://amro-crafts.lovable.app/og-image.webp" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Amro — AI-Native Software Engineer" },
+      { name: "twitter:title", content: "Amro · AI-Native Software Engineer" },
       {
         name: "twitter:description",
         content: "Full-stack engineer bridging operations and software.",

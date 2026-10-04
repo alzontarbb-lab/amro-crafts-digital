@@ -1,22 +1,23 @@
 import { motion } from "motion/react";
 import { ArrowUpRight, MapPin, BadgeCheck } from "lucide-react";
 import waveWebp from "@/assets/wave-cover.webp";
-import waveLightGif from "@/assets/wave-cover-light.gif";
 import amroAvatar from "@/assets/amro-avatar.webp";
 
 export function Hero() {
   return (
     <section id="top" className="relative">
       <div className="relative h-36 sm:h-48 md:h-64 w-full overflow-hidden bg-surface">
-        <picture>
-          <source srcSet={waveWebp} type="image/webp" />
-          <img
-            src={waveLightGif}
-            alt=""
-            aria-hidden
-            className="absolute inset-0 w-full h-full object-cover opacity-75"
-          />
-        </picture>
+        <img
+          src={waveWebp}
+          alt=""
+          aria-hidden
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          width={1200}
+          height={256}
+          className="absolute inset-0 w-full h-full object-cover opacity-75"
+        />
         <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-background" />
       </div>
 
@@ -31,7 +32,12 @@ export function Hero() {
           >
             <img
               src={amroAvatar}
-              alt="Amro — AI-Native Software Engineer"
+              alt="Amro · AI-Native Software Engineer"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              width={144}
+              height={144}
               draggable={false}
               className="w-full h-full object-cover object-[center_20%] select-none pointer-events-none"
               style={{
