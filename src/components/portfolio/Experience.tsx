@@ -2,10 +2,10 @@ import { Reveal, SectionHeader } from "./Reveal";
 
 const items = [
   {
-    period: "2026 — Present",
-    role: "Freelance Web Developer",
-    org: "Independent",
-    note: "Taking on full-stack web projects for businesses that need real tools, not templates.",
+    period: "2020 — Present",
+    role: "Independent Developer & Digital Services",
+    org: "Self-Employed",
+    note: "Started with general digital services, design, and hands-on IT problem-solving; evolved into building full-stack web applications and production internal tools.",
   },
   {
     period: "2025 — 2026",
