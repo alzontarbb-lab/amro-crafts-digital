@@ -50,7 +50,7 @@ export function Skills() {
           <div className="mb-3.5 rounded-xl border border-white/[0.08] bg-[#0c0c0f]/80 p-3 sm:p-4 select-none backdrop-blur-md">
             <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-white/[0.05] font-mono text-[10px] text-zinc-500 uppercase tracking-wider">
               <span>Foundation Runtimes</span>
-              <span className="text-zinc-400 font-medium tracking-widest">[ Stack-Agnostic ]</span>
+              <span className="text-zinc-600">Core Architecture</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-x-8 sm:gap-y-2.5">
               {foundationStacks.map((group) => (
@@ -121,7 +121,7 @@ export function Skills() {
                 Frontier Tooling
               </span>
               <span className="text-zinc-500 text-[10px] tracking-widest font-mono lowercase select-none">
-                universal stack orchestration · et al.
+                et al.
               </span>
             </div>
 
