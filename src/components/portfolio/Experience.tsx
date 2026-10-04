@@ -140,7 +140,7 @@ export function Experience() {
 const certifications = [
   {
     issuer: "TotalEnergies Marketing Lebanon",
-    badge: "Certified",
+    badge: "Dec 2025",
     title: "Proactive Maintenance & Troubleshooting",
     note: "Heavy equipment diagnostic methodologies, proactive engine maintenance & fleet reliability.",
     icon: (
@@ -155,9 +155,9 @@ const certifications = [
   },
   {
     issuer: "British Council",
-    badge: "Result C · C1",
+    badge: "Result C · Jun 2024",
     title: "Aptis General English Examination",
-    note: "Comprehensive CEFR C1 language proficiency certification across core professional communication domains.",
+    note: "Certified Level C proficiency across reading, writing, speaking, and listening on the Aptis General scale.",
     icon: (
       <svg viewBox="0 0 24 24" className="w-4 h-4" fill="url(#cert-chrome-grad)">
         <circle cx="6.5" cy="6.5" r="4" />
