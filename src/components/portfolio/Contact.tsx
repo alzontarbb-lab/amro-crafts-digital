@@ -78,15 +78,26 @@ export function Contact() {
               </p>
 
               <div className="space-y-3 font-mono text-xs sm:text-sm">
-                <a
-                  href="mailto:amrokfarajallah@gmail.com"
-                  className="flex items-center gap-2.5 text-foreground hover:text-foreground transition-colors group"
-                >
-                  <span className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center group-hover:border-foreground shrink-0">
-                    <Mail className="w-3.5 h-3.5" />
-                  </span>
-                  amrokfarajallah@gmail.com
-                </a>
+                <div>
+                  <a
+                    href="mailto:amrokfarajallah@gmail.com"
+                    className="flex items-center gap-2.5 text-foreground hover:text-foreground transition-colors group"
+                  >
+                    <span className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center group-hover:border-foreground shrink-0">
+                      <Mail className="w-3.5 h-3.5" />
+                    </span>
+                    amrokfarajallah@gmail.com
+                  </a>
+                  <div className="pl-[42px] pt-1">
+                    <a
+                      href="/Amro-CV.pdf"
+                      download="Amro-CV.pdf"
+                      className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+                    >
+                      Download CV
+                    </a>
+                  </div>
+                </div>
                 <a
                   href="https://linkedin.com/in/amr0kf/"
                   target="_blank"
