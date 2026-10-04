@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Reveal, SectionHeader } from "./Reveal";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 const groups = [
   {
@@ -39,38 +40,50 @@ const groups = [
 ];
 
 export function Skills() {
+  const [spotlightPos, setSpotlightPos] = useState({ x: 0, y: 0, opacity: 0 });
+  const [showDrawer, setShowDrawer] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setSpotlightPos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      opacity: 1,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setSpotlightPos((prev) => ({ ...prev, opacity: 0 }));
+  };
+
   return (
-    <section id="skills" className="relative py-12 md:py-28 bg-surface/30">
+    <section id="skills" className="relative py-12 md:py-24 bg-surface/30">
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6">
         <SectionHeader index="03" label="Capabilities" title="The stack behind the systems." />
 
-        {/* Compact, mobile-first grid layout — eliminates vertical dead space */}
+        {/* Compact, mobile-first architectural grid — quiet non-reactive micro-pills */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
           {groups.map((g, gi) => (
             <Reveal key={g.label} delay={gi * 0.05}>
-              <div className="group rounded-xl border border-border/70 bg-card/60 p-4 md:p-5 hover:border-foreground/30 transition-colors">
+              <div className="rounded-xl border border-white/[0.08] bg-[#0e0e12]/60 p-4 md:p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="font-mono text-[10px] text-muted-foreground/70 tracking-wider">
                     {g.index}
                   </span>
-                  <div className="h-2 w-px bg-border" />
+                  <div className="h-2 w-px bg-white/10" />
                   <h3 className="font-display text-sm md:text-base font-medium text-foreground tracking-tight">
                     {g.label}
                   </h3>
                 </div>
 
-                <div className="flex flex-wrap gap-1.5 md:gap-2">
-                  {g.items.map((it, i) => (
-                    <motion.span
+                <div className="flex flex-wrap gap-1.5">
+                  {g.items.map((it) => (
+                    <span
                       key={it}
-                      initial={{ opacity: 0, y: 4 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.02, duration: 0.3 }}
-                      className="px-2.5 py-1 rounded-md border border-border/80 bg-background/80 text-xs font-mono text-foreground/80 hover:text-foreground hover:border-foreground/40 transition-colors cursor-default"
+                      className="px-2 py-0.5 rounded-[4px] border border-white/[0.08] bg-white/[0.03] text-[11px] font-mono text-zinc-400 select-none cursor-default"
                     >
                       {it}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
               </div>
@@ -78,9 +91,27 @@ export function Skills() {
           ))}
         </div>
 
-        {/* Frontier & Agentic Tooling — Minimalist Grey Chrome Strip */}
+        {/* Frontier Press Wall (VIP Event Backboard with Stage Spotlight) */}
         <Reveal delay={0.25}>
-          <div className="mt-4 sm:mt-5 p-3.5 sm:p-4 rounded-xl border border-border/70 bg-card/40">
+          <div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="mt-4 sm:mt-5 rounded-2xl border border-white/10 bg-[#0c0c0f] overflow-hidden relative shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_20px_40px_-15px_rgba(0,0,0,0.5)]"
+          >
+            {/* Dynamic Camera Flash / Stage Spotlight Beam */}
+            <div
+              className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full transition-opacity duration-300 z-[2]"
+              style={{
+                left: `${spotlightPos.x}px`,
+                top: `${spotlightPos.y}px`,
+                width: "420px",
+                height: "420px",
+                background:
+                  "radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 45%, transparent 70%)",
+                opacity: spotlightPos.opacity,
+              }}
+            />
+
             {/* Specular Grey Chrome Gradient Definition */}
             <svg
               className="absolute w-0 h-0 pointer-events-none"
@@ -98,28 +129,141 @@ export function Skills() {
               </defs>
             </svg>
 
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
-              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground/70">
-                Frontier &amp; Engineering Tooling
-              </span>
+            {/* Backboard Header Telemetry */}
+            <div className="flex items-center justify-between px-4 py-2.5 sm:px-5 sm:py-3 border-b border-white/[0.06] bg-white/[0.02] font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground/70 relative z-[3]">
+              <div className="flex items-center gap-2 text-foreground/90 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+                <span>Frontier Engineering Backboard · 18 Active Accelerators</span>
+              </div>
+              <div className="hidden sm:block text-muted-foreground/60 text-[10px]">
+                Curated Frontier Core // 45+ Production Ecosystem
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-2.5">
+            {/* Monolithic Seamed Grid — Zero Button Boxes */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 relative z-[3]">
               {frontierTools.map((t) => (
                 <div
                   key={t.name}
-                  className="group flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-lg border border-border/60 bg-background/60 hover:border-zinc-400/40 hover:bg-background/90 transition-all cursor-default"
+                  className="relative flex items-center justify-center gap-2.5 px-3 py-3.5 sm:py-4 border-r border-b border-white/[0.05] group transition-colors cursor-default"
                 >
-                  <div className="w-4 h-4 shrink-0 transition-transform group-hover:scale-110 group-hover:brightness-125">
+                  {/* Architectural Corner Crosshair */}
+                  <span className="absolute -bottom-2 -right-1 font-mono text-[8px] text-white/15 select-none pointer-events-none z-10">
+                    +
+                  </span>
+                  <div className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:scale-110">
                     {t.icon}
                   </div>
-                  <span className="font-mono text-xs text-foreground/80 group-hover:text-foreground transition-colors font-medium truncate">
+                  <span className="font-mono text-xs text-zinc-400 group-hover:text-zinc-100 transition-colors font-medium truncate">
                     {t.name}
                   </span>
                 </div>
               ))}
             </div>
+
+            {/* Architectural Footer Sub-Strip Signaling Stack Depth */}
+            <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-5 border-t border-white/[0.06] bg-black/40 font-mono text-[10px] sm:text-[11px] relative z-[3]">
+              <div className="flex items-center gap-2">
+                <span className="text-foreground/90 font-semibold tracking-wider uppercase text-[10px]">
+                  + Extended Ecosystem
+                </span>
+                <span className="px-1.5 py-0.5 rounded-full bg-white/[0.08] border border-white/[0.12] text-[9px] text-emerald-400">
+                  28+ Tools
+                </span>
+              </div>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground/60 text-[10px] sm:text-[11px]">
+                <span>Redis</span>
+                <span className="text-white/20">·</span>
+                <span>Linux / Bash</span>
+                <span className="text-white/20">·</span>
+                <span>Prisma ORM</span>
+                <span className="text-white/20">·</span>
+                <span>Tailwind CSS</span>
+                <span className="text-white/20">·</span>
+                <span>Bun</span>
+                <span className="text-white/20">·</span>
+                <span>Next.js</span>
+                <span className="text-white/20">·</span>
+                <span>Postman</span>
+                <span className="text-white/20">·</span>
+                <span>Neon DB</span>
+                <span className="text-white/20">·</span>
+                <span>LangChain</span>
+                <span className="text-white/20">·</span>
+                <span>Figma</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowDrawer((v) => !v)}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-white/15 bg-white/[0.03] hover:bg-white/[0.08] text-foreground/80 hover:text-white transition-all text-[10px] cursor-pointer"
+              >
+                {showDrawer ? "− Close Inventory" : "+ Architecture Inventory"}
+              </button>
+            </div>
+
+            {/* Collapsible Architecture Inventory Drawer */}
+            <AnimatePresence>
+              {showDrawer && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden border-t border-white/[0.06] bg-black/60 relative z-[3]"
+                >
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-4 sm:p-5">
+                    <div>
+                      <h4 className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/80 mb-2.5">
+                        Languages &amp; Runtimes
+                      </h4>
+                      <ul className="space-y-1.5 font-mono text-[11px] text-zinc-400">
+                        <li>TypeScript &amp; JavaScript</li>
+                        <li>Python 3.12+ (FastAPI / Scripts)</li>
+                        <li>PHP 8.2+ / Modern Laravel</li>
+                        <li>Node.js / Bun Runtime</li>
+                        <li>Bash / POSIX Shell Scripting</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/80 mb-2.5">
+                        Data &amp; Storage Engines
+                      </h4>
+                      <ul className="space-y-1.5 font-mono text-[11px] text-zinc-400">
+                        <li>SQLite / libSQL / Turso Cloud</li>
+                        <li>PostgreSQL (Supabase RLS)</li>
+                        <li>MySQL &amp; MariaDB</li>
+                        <li>Redis In-Memory Caching</li>
+                        <li>Prisma ORM &amp; Drizzle</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/80 mb-2.5">
+                        AI &amp; Model Systems
+                      </h4>
+                      <ul className="space-y-1.5 font-mono text-[11px] text-zinc-400">
+                        <li>Claude 3.7 / Anthropic API</li>
+                        <li>OpenAI Codex / GPT-4o / O3-Mini</li>
+                        <li>LangChain / Vector Embeddings</li>
+                        <li>Hugging Face Open Weights</li>
+                        <li>Ollama Local Inference Workflows</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/80 mb-2.5">
+                        Cloud &amp; Production Ops
+                      </h4>
+                      <ul className="space-y-1.5 font-mono text-[11px] text-zinc-400">
+                        <li>Cloudflare Workers / Pages / DNS</li>
+                        <li>Docker Containerization</li>
+                        <li>Vercel Edge Platform</li>
+                        <li>GitHub Actions CI/CD</li>
+                        <li>Linux VPS &amp; Nginx Reverse Proxy</li>
+                      </ul>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </Reveal>
       </div>
