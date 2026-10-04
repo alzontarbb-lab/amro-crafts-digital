@@ -1,40 +1,22 @@
 import { useState } from "react";
 import { Reveal, SectionHeader } from "./Reveal";
 
-const groups = [
+const foundationStacks = [
   {
-    index: "01",
-    label: "Core Web Applications",
-    items: ["React", "TypeScript", "Tailwind CSS", "Vite", "State Architecture"],
+    category: "Web",
+    items: ["TypeScript", "React", "Tailwind CSS"],
   },
   {
-    index: "02",
-    label: "Backend & Databases",
-    items: [
-      "PHP / Laravel",
-      "Python",
-      "SQLite",
-      "Supabase",
-      "PostgreSQL (RLS)",
-      "MySQL",
-      "REST APIs",
-    ],
+    category: "Backend",
+    items: ["Java", "C#", "PHP / Laravel", "Python"],
   },
   {
-    index: "03",
-    label: "Automation & AI Pipelines",
-    items: [
-      "Python Scripts",
-      "LLM Integration",
-      "Automated Reporting",
-      "Scheduled Cron",
-      "Email Triggers",
-    ],
+    category: "Data",
+    items: ["SQLite", "PostgreSQL (RLS)", "Supabase"],
   },
   {
-    index: "04",
-    label: "Systems & Security",
-    items: ["Row-Level Security", "OAuth 2.0 Sign-In", "Offline-First POS", "Role-Based Access"],
+    category: "Systems",
+    items: ["Offline-First", "REST APIs", "OAuth 2.0"],
   },
 ];
 
@@ -63,35 +45,35 @@ export function Skills() {
           title="Production foundations, accelerated at the frontier."
         />
 
-        {/* Compact, mobile-first architectural grid — quiet non-reactive micro-pills */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-          {groups.map((g, gi) => (
-            <Reveal key={g.label} delay={gi * 0.05}>
-              <div className="rounded-xl border border-white/[0.08] bg-[#0e0e12]/60 p-4 md:p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="font-mono text-[10px] text-muted-foreground/70 tracking-wider">
-                    {g.index}
+        {/* Foundation Horizon Datum — 4 Disciplines (Design 01) */}
+        <Reveal delay={0.1}>
+          <div className="mb-3.5 rounded-xl border border-white/[0.08] bg-[#0c0c0f]/80 p-2.5 sm:p-3 select-none backdrop-blur-md">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+              {foundationStacks.map((group) => (
+                <div
+                  key={group.category}
+                  className="flex items-center gap-1.5 flex-wrap font-mono text-[11px]"
+                >
+                  <span className="text-zinc-500 font-medium text-[10px] uppercase tracking-wider shrink-0 select-none">
+                    {group.category} /
                   </span>
-                  <div className="h-2 w-px bg-white/10" />
-                  <h3 className="font-display text-sm md:text-base font-medium text-foreground tracking-tight">
-                    {g.label}
-                  </h3>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {g.items.map((it) => (
+                  {group.items.map((item) => (
                     <span
-                      key={it}
-                      className="px-2 py-0.5 rounded-[4px] border border-white/[0.08] bg-white/[0.03] text-[11px] font-mono text-zinc-400 select-none cursor-default"
+                      key={item}
+                      className={`px-2 py-0.5 rounded-[4px] border text-[11px] font-mono select-none cursor-default transition-colors ${
+                        item === "SQLite"
+                          ? "border-white/20 bg-white/[0.08] text-white"
+                          : "border-white/[0.07] bg-white/[0.025] text-zinc-300"
+                      }`}
                     >
-                      {it}
+                      {item}
                     </span>
                   ))}
                 </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
 
         {/* Frontier Press Wall (VIP Event Backboard with Stage Spotlight) */}
         <Reveal delay={0.25}>
