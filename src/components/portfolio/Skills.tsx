@@ -1,78 +1,154 @@
 import { Reveal, SectionHeader } from "./Reveal";
 import { motion } from "motion/react";
+import { Layers, Database, Cpu, ShieldCheck } from "lucide-react";
 
-const groups = [
+interface SkillGroup {
+  index: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  description: string;
+  items: string[];
+}
+
+const groups: SkillGroup[] = [
   {
     index: "01",
     label: "Core Web Applications",
-    items: ["React", "TypeScript", "Tailwind CSS", "Vite", "State Architecture"],
+    icon: Layers,
+    description:
+      "High-performance reactive interfaces, modular design systems, and deterministic client state.",
+    items: [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Vite",
+      "State Architecture",
+      "Component Systems",
+    ],
   },
   {
     index: "02",
     label: "Backend & Databases",
-    items: ["PHP / Laravel", "Python", "Supabase", "PostgreSQL (RLS)", "MySQL", "REST APIs"],
+    icon: Database,
+    description:
+      "Relational schema modeling, ACID transactions, edge replication, and low-latency RESTful APIs.",
+    items: [
+      "PHP / Laravel",
+      "Python",
+      "SQLite",
+      "PostgreSQL (RLS)",
+      "Supabase",
+      "MySQL",
+      "REST APIs",
+    ],
   },
   {
     index: "03",
     label: "Automation & AI Pipelines",
+    icon: Cpu,
+    description:
+      "Autonomous agentic tool loops, automated data reporting, scheduled batch cron, and LLM integrations.",
     items: [
       "Python Scripts",
       "LLM Integration",
       "Automated Reporting",
       "Scheduled Cron",
       "Email Triggers",
+      "Data Pipelines",
     ],
   },
   {
     index: "04",
     label: "Systems & Security",
-    items: ["Row-Level Security", "OAuth 2.0 Sign-In", "Offline-First POS", "Role-Based Access"],
+    icon: ShieldCheck,
+    description:
+      "Granular tenant isolation, cryptographic auth workflows, air-gapped sync, and strict RBAC enforcement.",
+    items: [
+      "Row-Level Security",
+      "OAuth 2.0 Auth",
+      "Offline-First POS",
+      "Role-Based Access",
+      "Audit Trails",
+    ],
   },
 ];
 
 export function Skills() {
   return (
-    <section id="skills" className="relative py-12 md:py-28 bg-surface/30">
+    <section id="skills" className="relative py-14 md:py-28 bg-surface/30">
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6">
         <SectionHeader index="03" label="Capabilities" title="The stack behind the systems." />
 
-        {/* Compact, mobile-first grid layout — eliminates vertical dead space */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-          {groups.map((g, gi) => (
-            <Reveal key={g.label} delay={gi * 0.05}>
-              <div className="group rounded-xl border border-border/70 bg-card/60 p-4 md:p-5 hover:border-foreground/30 transition-colors">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="font-mono text-[10px] text-muted-foreground/70 tracking-wider">
-                    {g.index}
-                  </span>
-                  <div className="h-2 w-px bg-border" />
-                  <h3 className="font-display text-sm md:text-base font-medium text-foreground tracking-tight">
-                    {g.label}
-                  </h3>
-                </div>
+        {/* Elevated Bento Grid — Architectural Hierarchy & Tactile Finish */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5">
+          {groups.map((g, gi) => {
+            const Icon = g.icon;
+            return (
+              <Reveal key={g.label} delay={gi * 0.05}>
+                <div className="group relative h-full flex flex-col justify-between overflow-hidden rounded-2xl border border-border/70 bg-card/50 p-5 sm:p-6 backdrop-blur-sm transition-all duration-300 hover:border-zinc-400/40 hover:bg-card/75 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
+                  {/* Subtle Top Specular Edge Sheen */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-400/20 to-transparent group-hover:via-zinc-300/40 transition-opacity"
+                  />
+                  {/* Ambient Corner Accent */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -bottom-10 -right-10 w-36 h-36 rounded-full bg-zinc-500/5 blur-2xl group-hover:bg-zinc-400/10 transition-colors"
+                  />
 
-                <div className="flex flex-wrap gap-1.5 md:gap-2">
-                  {g.items.map((it, i) => (
-                    <motion.span
-                      key={it}
-                      initial={{ opacity: 0, y: 4 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.02, duration: 0.3 }}
-                      className="px-2.5 py-1 rounded-md border border-border/80 bg-background/80 text-xs font-mono text-foreground/80 hover:text-foreground hover:border-foreground/40 transition-colors cursor-default"
-                    >
-                      {it}
-                    </motion.span>
-                  ))}
+                  <div>
+                    {/* Header: Micro Index & Icon & Title */}
+                    <div className="flex items-center gap-3 mb-2.5">
+                      <div className="p-2 rounded-xl border border-border/80 bg-background/80 text-muted-foreground group-hover:text-foreground group-hover:border-zinc-400/40 group-hover:bg-background transition-all shadow-xs">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">
+                          Pillar {g.index}
+                        </span>
+                        <h3 className="font-display text-base sm:text-lg font-semibold text-foreground tracking-tight leading-tight">
+                          {g.label}
+                        </h3>
+                      </div>
+                    </div>
+
+                    {/* Architectural Thesis */}
+                    <p className="text-xs sm:text-[13px] text-muted-foreground/80 leading-relaxed mb-4">
+                      {g.description}
+                    </p>
+                  </div>
+
+                  {/* Tech Stack Chips */}
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-3 border-t border-border/40">
+                    {g.items.map((it, i) => (
+                      <motion.span
+                        key={it}
+                        initial={{ opacity: 0, y: 3 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.02, duration: 0.25 }}
+                        className="inline-flex items-center px-2.5 py-1 rounded-lg border border-border/75 bg-background/70 font-mono text-xs text-foreground/85 hover:text-foreground hover:border-zinc-400/50 hover:bg-background transition-all duration-150 cursor-default shadow-xs"
+                      >
+                        {it}
+                      </motion.span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
 
-        {/* Frontier & Agentic Tooling — Minimalist Grey Chrome Strip */}
+        {/* Frontier & Agentic Tooling — Specular Grey Chrome Strip */}
         <Reveal delay={0.25}>
-          <div className="mt-4 sm:mt-5 p-3.5 sm:p-4 rounded-xl border border-border/70 bg-card/40">
+          <div className="mt-4 sm:mt-5 p-4 sm:p-5 rounded-2xl border border-border/70 bg-card/40 relative overflow-hidden backdrop-blur-sm">
+            {/* Top Specular Sheen */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-400/25 to-transparent"
+            />
+
             {/* Specular Grey Chrome Gradient Definition */}
             <svg
               className="absolute w-0 h-0 pointer-events-none"
@@ -90,10 +166,15 @@ export function Skills() {
               </defs>
             </svg>
 
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
-              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground/70">
-                Frontier &amp; Engineering Tooling
+            <div className="flex items-center justify-between gap-2 mb-3.5">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-zinc-300" />
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground/80 font-medium">
+                  Frontier &amp; Engineering Tooling
+                </span>
+              </div>
+              <span className="font-mono text-[10px] text-muted-foreground/50 tracking-wider hidden sm:inline-block">
+                12 Specialized Tools
               </span>
             </div>
 
@@ -101,7 +182,7 @@ export function Skills() {
               {frontierTools.map((t) => (
                 <div
                   key={t.name}
-                  className="group flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-lg border border-border/60 bg-background/60 hover:border-zinc-400/40 hover:bg-background/90 transition-all cursor-default"
+                  className="group flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl border border-border/60 bg-background/60 hover:border-zinc-400/40 hover:bg-background/90 transition-all cursor-default shadow-xs"
                 >
                   <div className="w-4 h-4 shrink-0 transition-transform group-hover:scale-110 group-hover:brightness-125">
                     {t.icon}
