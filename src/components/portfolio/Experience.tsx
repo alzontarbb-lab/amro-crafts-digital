@@ -12,7 +12,7 @@ const items = [
     period: "2025 — 2026",
     role: "Aftersales Administrator",
     org: "Khonaysser Group",
-    note: "Ran the aftersales operation end-to-end, then built internal tools on the side that replaced manual workflows and got adopted across the team.",
+    note: "Managed aftersales operations across 400+ ERP accounts (100–200+ monthly quotations, 200+ yearly contracts) and coordinated ~10 technician teams. Built four internal tools adopted org-wide.",
   },
   {
     period: "2021 — 2024",
