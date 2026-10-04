@@ -45,30 +45,32 @@ export function Skills() {
           title="Production foundations, accelerated at the frontier."
         />
 
-        {/* Foundation Horizon Datum — 4 Disciplines (Design 01) */}
+        {/* Foundation Horizon Datum — 2x2 Grid */}
         <Reveal delay={0.1}>
-          <div className="mb-3.5 rounded-xl border border-white/[0.08] bg-[#0c0c0f]/80 p-2.5 sm:p-3 select-none backdrop-blur-md">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+          <div className="mb-3.5 rounded-xl border border-white/[0.08] bg-[#0c0c0f]/80 p-3 sm:p-4 select-none backdrop-blur-md">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-x-8 sm:gap-y-2.5">
               {foundationStacks.map((group) => (
                 <div
                   key={group.category}
-                  className="flex items-center gap-1.5 flex-wrap font-mono text-[11px]"
+                  className="flex items-center gap-2 flex-wrap font-mono text-[11px]"
                 >
-                  <span className="text-zinc-500 font-medium text-[10px] uppercase tracking-wider shrink-0 select-none">
+                  <span className="text-zinc-500 font-medium text-[10px] uppercase tracking-wider shrink-0 select-none min-w-[65px]">
                     {group.category} /
                   </span>
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className={`px-2 py-0.5 rounded-[4px] border text-[11px] font-mono select-none cursor-default transition-colors ${
-                        item === "SQLite"
-                          ? "border-white/20 bg-white/[0.08] text-white"
-                          : "border-white/[0.07] bg-white/[0.025] text-zinc-300"
-                      }`}
-                    >
-                      {item}
-                    </span>
-                  ))}
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    {group.items.map((item) => (
+                      <span
+                        key={item}
+                        className={`px-2.5 py-0.5 rounded-[4px] border text-[11px] font-mono select-none cursor-default transition-colors ${
+                          item === "SQLite"
+                            ? "border-white/25 bg-white/[0.08] text-white font-medium"
+                            : "border-white/[0.07] bg-white/[0.025] text-zinc-300"
+                        }`}
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>

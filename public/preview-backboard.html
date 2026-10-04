@@ -311,19 +311,23 @@
        DESIGN 01: THE ARCHITECTURAL HORIZON DATUM (Option 2 Pure)
        ------------------------------------------------------------------------- */
     .horizon-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.65rem 1rem;
-      background: rgba(255, 255, 255, 0.02);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem 2rem;
+      padding: 0.85rem 1.25rem;
+      background: rgba(12, 12, 15, 0.8);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 0.75rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      flex-wrap: wrap;
       user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .horizon-bar {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     .horizon-group {
