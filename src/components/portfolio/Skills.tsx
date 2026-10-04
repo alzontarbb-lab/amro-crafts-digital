@@ -94,7 +94,7 @@ export function Skills() {
           <div
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="mt-4 sm:mt-5 rounded-2xl border border-white/10 bg-[#0c0c0f] overflow-hidden relative shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_20px_40px_-15px_rgba(0,0,0,0.5)]"
+            className="mt-4 sm:mt-5 rounded-2xl border border-white/10 bg-[#0c0c0f] overflow-hidden relative shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_20px_40px_-15px_rgba(0,0,0,0.5)] select-none"
           >
             {/* Dynamic Camera Flash / Stage Spotlight Beam */}
             <div
@@ -128,28 +128,30 @@ export function Skills() {
             </svg>
 
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-2.5 sm:px-5 sm:py-3 border-b border-white/[0.06] bg-white/[0.015] font-mono text-[11px] relative z-[3]">
-              <span className="text-zinc-300 font-medium tracking-wide">Frontier Tooling</span>
+            <div className="flex items-center justify-between px-4 py-2.5 sm:px-5 sm:py-3 border-b border-white/[0.06] bg-white/[0.015] font-mono text-[11px] relative z-[3] select-none">
+              <span className="text-zinc-300 font-medium tracking-wide select-none">
+                Frontier Tooling
+              </span>
               <span className="text-zinc-500 text-[10px] tracking-widest font-mono lowercase select-none">
                 et al.
               </span>
             </div>
 
             {/* Monolithic Seamed Grid — Zero Button Boxes */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 relative z-[3]">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 relative z-[3] select-none">
               {frontierTools.map((t) => (
                 <div
                   key={t.name}
-                  className="relative flex items-center justify-center gap-2.5 px-3 py-3.5 sm:py-4 border-r border-b border-white/[0.05] group transition-colors cursor-default"
+                  className="relative flex items-center justify-center gap-2.5 px-3 py-3.5 sm:py-4 border-r border-b border-white/[0.05] group transition-colors cursor-default select-none"
                 >
                   {/* Architectural Corner Crosshair */}
                   <span className="absolute -bottom-2 -right-1 font-mono text-[8px] text-white/15 select-none pointer-events-none z-10">
                     +
                   </span>
-                  <div className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:scale-110">
+                  <div className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:scale-110 pointer-events-none select-none">
                     {t.icon}
                   </div>
-                  <span className="font-mono text-xs text-zinc-400 group-hover:text-zinc-100 transition-colors font-medium truncate">
+                  <span className="font-mono text-xs text-zinc-400 group-hover:text-zinc-100 transition-colors font-medium truncate select-none pointer-events-none">
                     {t.name}
                   </span>
                 </div>
