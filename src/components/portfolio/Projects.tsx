@@ -484,9 +484,18 @@ function ProjectCard({ project }: { project: Project }) {
               className={`w-4 h-4 opacity-0 group-hover:opacity-100 transition-all transform md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5 shrink-0 ml-2 ${brand.accent}`}
             />
           </h3>
-          <p className="text-muted-foreground text-xs sm:text-sm md:text-base leading-relaxed text-pretty mb-4 sm:mb-6 max-w-xl">
+          <p className="text-muted-foreground text-xs sm:text-sm md:text-base leading-relaxed text-pretty mb-3 sm:mb-4 max-w-xl">
             {project.blurb}
           </p>
+
+          {project.outcomeChip && (
+            <div className="mb-4 sm:mb-5">
+              <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-white/[0.025] border border-white/[0.07] text-[11px] sm:text-xs font-mono text-zinc-300 select-none">
+                <span className="text-zinc-500 font-medium">→</span>
+                <span>{project.outcomeChip}</span>
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Footer — Clean Minimal Monospace, Without Badges */}

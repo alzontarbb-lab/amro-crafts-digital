@@ -106,9 +106,9 @@ const PROJECT_METRICS: Record<string, OperationalMetric[]> = {
   ],
   "claims-intelligence": [
     {
-      value: "175 / 175",
+      value: "Full Suite",
       label: "Automated Tests Passing",
-      sub: "Full backend, provider & workflow suites",
+      sub: "Backend, provider & workflow verification",
     },
     {
       value: "128k Tokens",
@@ -123,7 +123,7 @@ const PROJECT_METRICS: Record<string, OperationalMetric[]> = {
     {
       value: "4-Stage SSE",
       label: "Autonomous Agent Stream",
-      sub: "Triangulation, coverage, quantum & drafting",
+      sub: "Ingestion, audit, calculation & report synthesis",
     },
   ],
   "case-file": [

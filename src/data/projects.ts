@@ -24,6 +24,7 @@ export type Project = {
   brandNote?: string;
   role?: string;
   isNda?: boolean;
+  outcomeChip?: string;
   screenshots?: ProjectScreenshot[];
   caseStudy: {
     problem: string;
@@ -52,6 +53,7 @@ export const projects: Project[] = [
     tag: "Enterprise Operations",
     year: "2026",
     featured: true,
+    outcomeChip: "Built to replace paper dispatching & unmapped phone calls",
     coverImage: "/projects/field-dispatch/01-live-command-dashboard.webp",
     screenshotMode: "desktop",
     brandNote:
@@ -124,9 +126,9 @@ export const projects: Project[] = [
   },
   {
     id: "claims-intelligence",
-    title: "Multi-Line Loss Adjusting & Claims Intelligence Hub",
+    title: "Enterprise Claims & Document Review Portal",
     blurb:
-      "An enterprise loss adjusting and forensic insurance audit platform purpose-built for high-stakes multi-line claims—spanning commercial property, industrial casualty, cargo & transit (air, land, sea), fidelity, and complex liability investigations. Integrates a 4-stage autonomous adjuster agent streaming over SSE, a self-refining Loss Adjuster Brain with historical rubric memory, deterministic quantum arithmetic separation, and client-side DOCX/PDF export engines. All proprietary client trademarks sanitized under NDA.",
+      "A full-stack enterprise claims and multi-source document review platform built for complex, high-stakes claim evaluations. Integrates a 4-stage autonomous analysis agent streaming over SSE, institutional rubric evaluation, deterministic calculation verification, and client-side DOCX/PDF export engines. All proprietary client trademarks sanitized under NDA.",
     tech: [
       "React 18",
       "Node.js 20 (ESM)",
@@ -134,18 +136,19 @@ export const projects: Project[] = [
       "Claude Sonnet 5",
       "Gemini 3.7 Flash",
       "Multi-Agent SSE",
-      "Loss Adjuster Brain",
+      "Domain Rubric Engine",
       "Zod Validation",
       "Client-Side DOCX/PDF",
     ],
     tag: "Enterprise Operations",
     year: "2026",
     featured: true,
+    outcomeChip: "Every calculation is checked and reproducible",
     coverImage: "/projects/claims-intelligence/01-management-dashboard.webp",
     screenshotMode: "desktop",
     role: "Co-developed with AI Consultant & Junior Developer",
     brandNote:
-      "Co-developed in technical partnership with an external Junior Developer & AI Consultant. Strict NDA protection: Client name, company trademark, and surveyor identities sanitized throughout all interface views. Conforms to formal Loss Adjusting Report Specifications (including the 7 September 2026 Provisional Drafts Amendment) producing certified, court- and underwriter-ready Microsoft Word (.docx) and Adobe PDF (.pdf) deliverables.",
+      "Co-developed in technical partnership with an external Junior Developer & AI Consultant. Strict NDA protection: Client name, organization identity, and evaluator details sanitized throughout all interface views. Produces certified, audit-ready Microsoft Word (.docx) and Adobe PDF (.pdf) deliverables.",
     screenshots: [
       {
         src: "/projects/claims-intelligence/01-management-dashboard.webp",
@@ -154,38 +157,38 @@ export const projects: Project[] = [
       },
       {
         src: "/projects/claims-intelligence/02-ai-autonomous-agent.webp",
-        alt: "Autonomous Adjuster Agent — 4-Stage Streaming Pipeline (Ingestion, Coverage Audit, Quantum Reconciliation & Draft Synthesis)",
-        badge: "Autonomous Adjuster Agent",
+        alt: "Autonomous Analysis Agent — 4-Stage Streaming Pipeline (Ingestion, Standards Audit, Calculation Verification & Draft Synthesis)",
+        badge: "Autonomous Analysis Agent",
       },
       {
         src: "/projects/claims-intelligence/03-fact-extraction-billing.webp",
-        alt: "Evidence Extraction & Quantum Readiness — Page-Coordinate Grounding & Structured Zod Observations",
-        badge: "Evidence & Quantum Audit",
+        alt: "Evidence Extraction & Calculation Audit — Page-Coordinate Grounding & Structured Zod Observations",
+        badge: "Evidence & Calculation Audit",
       },
       {
         src: "/projects/claims-intelligence/04-annual-leave-control.webp",
-        alt: "Operations Calendar & Staff Scheduling — Team Availability, Surveyor Roster & Automated Email Alerts",
+        alt: "Operations Calendar & Staff Scheduling — Team Availability, Evaluator Roster & Automated Alerts",
         badge: "Operations & Leave Roster",
       },
     ],
     caseStudy: {
       problem:
-        "Professional loss adjusters handling high-stakes multi-line insurance claims—spanning commercial property damage, industrial casualty, transit cargo (air, land, sea), fidelity, and liability disputes—face immense friction reviewing complex heterogeneous evidence dossiers (engineering estimates, survey certificates, bills of lading, salvage bids, repair tenders, and policy conditions). Traditional adjusting workflows suffer from manual quantum reconciliation errors, foreign currency conversion disputes, and audit failures caused by AI hallucinations that fabricate claim numbers or invent unverified quantities.",
+        "Enterprise teams reviewing complex multi-document dossiers face immense manual friction cross-referencing technical estimates, invoices, specifications, and incident reports. Traditional review workflows suffer from manual calculation errors, foreign currency conversion disputes, and audit risks from AI tools that hallucinate unverified figures.",
       architecture:
-        "Engineered as a full-stack enterprise claims intelligence platform with React 18, Vite 6, Node.js 20 ESM Express, and PostgreSQL 18 with connection pooling and Argon2id security:\n\n1. Multi-LLM Provider Architecture: Integrates Anthropic Direct (Claude Sonnet 5 with 128k output tokens), Google Gemini Direct (Gemini 3.7 Flash & 2.5 Pro Vision for damage photos), and OpenRouter with unified token preflight budget guards (AITokenWatch) to prevent cost overruns.\n2. Autonomous Adjuster Agent: A 4-stage pipeline streaming over Server-Sent Events (SSE) that executes: (1) Ingestion & Triangulation, (2) Policy & Coverage Audit, (3) Quantum Reconciliation, and (4) Report Synthesis.\n3. Loss Adjuster Brain: Embeddings and institutional memory learned from past certified reports, codifying cause standards (e.g. reefer defrost failure signatures, yacht mooring line chafing) and conducting adversarial audits against AI drafts before director sign-off.\n4. Zero-Hallucination & Mathematical Separation: Strict architectural separation where LLMs extract structured facts and rates with source document coordinate citations validated via Zod, while the deterministic Node.js engine computes all quantum arithmetic (claim = quantity x rate - depreciation - salvage - deductible).\n5. Provisional Drafts Governance (7 Sept 2026 Amendment): Allows adjusters to redline preliminary drafts in-app while non-blocking evidence is pending, but enforces a strict 5-gate director verification blocker before certified DOCX/PDF export.",
+        "Engineered as a full-stack enterprise document intelligence platform with React 18, Vite 6, Node.js 20 ESM Express, and PostgreSQL 18 with connection pooling and Argon2id security:\n\n1. Multi-LLM Provider Architecture: Integrates Anthropic Direct (Claude Sonnet 5 with 128k output tokens), Google Gemini Direct (Gemini 3.7 Flash & 2.5 Pro Vision), and OpenRouter with unified token preflight budget guards (AITokenWatch) to prevent cost overruns.\n2. Autonomous Analysis Agent: A 4-stage pipeline streaming over Server-Sent Events (SSE) that executes: (1) Ingestion & Triangulation, (2) Standards Audit, (3) Calculation Verification, and (4) Report Synthesis.\n3. Institutional Rubric Engine: Embeddings and historical rubric memory codifying domain standards and conducting adversarial audits against AI drafts before director sign-off.\n4. Zero-Hallucination & Mathematical Separation: Strict architectural separation where LLMs extract structured facts and rates with source document coordinate citations validated via Zod, while the deterministic Node.js engine computes all calculations.\n5. Provisional Drafts Governance: Allows evaluators to redline preliminary drafts in-app while non-blocking evidence is pending, but enforces a strict 5-gate director verification blocker before certified DOCX/PDF export.",
       outcome:
-        "Accelerated claim assessment turnaround from multiple days to minutes with zero arithmetic errors. Established an immutable digital audit trail connecting every quantum figure to exact document citations, backed by 175/175 passing automated tests and automated Microsoft Word (.docx) and Adobe PDF export engines.",
+        "Every calculation is checked and reproducible. Established an immutable digital audit trail connecting figures directly to source document citations, backed by automated test suites and automated Microsoft Word (.docx) and Adobe PDF export engines.",
       highlights: [
-        "Co-developed in technical collaboration with an external junior developer & AI consultant, pairing loss adjusting domain specifications with multi-agent streaming architecture",
+        "Co-developed in technical collaboration with an external junior developer & AI consultant, pairing enterprise domain specifications with multi-agent streaming architecture",
         "Multi-model LLM architecture: Claude Sonnet 5 (128k output), Gemini 3.7 Flash / Pro Vision, and OpenRouter",
-        "Autonomous 4-stage adjuster agent streaming live progress via Server-Sent Events (SSE)",
-        "Loss Adjuster Brain codifying institutional memory, cause standards, and adversarial draft audits",
+        "Autonomous 4-stage analysis agent streaming live progress via Server-Sent Events (SSE)",
+        "Institutional Rubric Engine codifying domain standards and adversarial draft audits",
         "Deterministic mathematical separation: zero-hallucination source coordinate citations validated with Zod",
-        "Client-side export engines generating certified underwriter-ready DOCX (docx.js) and high-res PDF (pdf-lib)",
-        "Provisional Drafts Gate (7 Sept 2026 Amendment) blocking final issuance until all 5 director gates clear",
+        "Client-side export engines generating certified audit-ready DOCX (docx.js) and high-res PDF (pdf-lib)",
+        "Provisional Drafts Gate blocking final issuance until all 5 director gates clear",
         "AITokenWatch preflight budget guard preventing unexpected model API spend overruns",
-        "Enterprise PostgreSQL 18 architecture, Argon2id password security, strict RBAC, and 175/175 passing automated tests",
-        "Strict NDA: all client names, underwriter logos, and surveyor identities sanitized throughout",
+        "Enterprise PostgreSQL 18 architecture, Argon2id security, strict RBAC, and automated test suite",
+        "Strict NDA: all client names, organization logos, and evaluator identities sanitized throughout",
       ],
     },
   },
@@ -206,6 +209,7 @@ export const projects: Project[] = [
     year: "2026",
     featured: true,
     isNda: true,
+    outcomeChip: "Orders go straight to the owner's WhatsApp. No commission.",
     coverImage: "/projects/fragrance-storefront/01-catalog-storefront.webp",
     screenshotMode: "mobile",
     brandNote:
@@ -249,6 +253,7 @@ export const projects: Project[] = [
     tag: "Commercial / Web",
     year: "2026",
     featured: true,
+    outcomeChip: "Direct customer ordering without third-party aggregator commissions",
     coverImage: "/projects/market-dash/01-home-produce.webp",
     screenshotMode: "mobile",
     brandNote:
@@ -294,6 +299,7 @@ export const projects: Project[] = [
     year: "2026",
     featured: true,
     isNda: true,
+    outcomeChip: "Permanent self-hosted archive. Full bilingual Arabic RTL and English LTR layout",
     coverImage: "/projects/case-file/02-home.webp",
     screenshotMode: "desktop",
     brandNote:
@@ -345,6 +351,7 @@ export const projects: Project[] = [
     tag: "Commercial POS",
     year: "2026",
     featured: true,
+    outcomeChip: "Works offline and syncs when connection returns. Dual-currency USD/LBP.",
     coverImage: "/projects/retail-pos/01-store-dashboard.webp",
     screenshotMode: "desktop",
     brandNote:
@@ -425,6 +432,7 @@ export const projects: Project[] = [
     tag: "Commercial / Web",
     year: "2026",
     featured: true,
+    outcomeChip: "100% offline client-side generation. Zero server or subscription.",
     coverImage: "/projects/invoice-maker/01-dashboard.webp",
     screenshotMode: "desktop",
     screenshots: [
@@ -465,6 +473,7 @@ export const projects: Project[] = [
     tag: "Internal / Production",
     year: "2026",
     featured: true,
+    outcomeChip: "Adopted across aftersales depot. Replaced paper slips with tablet sign-off.",
     coverImage: "/projects/parts-intake/01-intake-form.webp",
     screenshotMode: "tablet",
     aspectRatio: "881/914",
@@ -519,6 +528,7 @@ export const projects: Project[] = [
     ],
     tag: "Internal / Production",
     year: "2026",
+    outcomeChip: "Centralized SLA registry with automated OCR invoice ingestion.",
     brandNote:
       "Internal enterprise tool — production interface and sensitive client contract records are withheld under internal data protection.",
     caseStudy: {
@@ -546,6 +556,7 @@ export const projects: Project[] = [
     tech: ["Python", "Pandas", "Cron Pipelines", "Reporting"],
     tag: "Automation / Data",
     year: "2025",
+    outcomeChip: "Scheduled cron pipelines. Saves ~10 hours/week of manual entry.",
     caseStudy: {
       problem:
         "Operations staff were losing 10+ hours every week to repetitive manual work: opening raw data exports, copying figures between spreadsheets, recalculating metrics by hand, and typing up the same email updates day after day.",
