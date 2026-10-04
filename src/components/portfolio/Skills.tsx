@@ -44,13 +44,12 @@ export function Skills() {
           label="Frontier Tooling"
           title={
             <>
-              Production foundations,{" "}
-              <span className="sm:inline-block sm:whitespace-nowrap">
+              Production foundations,<br className="hidden sm:inline" />{" "}
+              <span className="inline-block sm:whitespace-nowrap">
                 accelerated at the frontier.
               </span>
             </>
           }
-          titleClassName="max-w-none text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] xl:text-[3.25rem] lg:whitespace-nowrap leading-tight"
         />
 
         {/* Foundation Horizon Datum — 2x2 Grid */}
