@@ -72,28 +72,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Amro — Software Developer & Automation Engineer" },
+      { title: "Amro — AI-Native Software Engineer" },
       { name: "theme-color", content: "#060607" },
       {
         name: "description",
         content:
-          "Portfolio of Amro, a software developer based in Beirut bridging operations and software. Building production full-stack systems, automation, and internal tools.",
+          "Portfolio of Amro, an AI-native software engineer based in Beirut bridging operations and software. Building production full-stack systems, automation, and internal tools.",
       },
       { name: "author", content: "Amro" },
-      { property: "og:title", content: "Amro — Software Developer & Automation Engineer" },
+      { property: "og:title", content: "Amro — AI-Native Software Engineer" },
       {
         property: "og:description",
         content:
-          "Full-stack developer bridging operations and software. React, PHP, Python, AI automation.",
+          "Full-stack engineer bridging operations and software. React, TypeScript, Python, AI systems, and internal operations.",
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Amro" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Amro — Software Developer & Automation Engineer" },
+      { property: "og:image", content: "https://amro-crafts.lovable.app/og-image.webp" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Amro — AI-Native Software Engineer" },
       {
         name: "twitter:description",
-        content: "Full-stack developer bridging operations and software.",
+        content: "Full-stack engineer bridging operations and software.",
       },
+      { name: "twitter:image", content: "https://amro-crafts.lovable.app/og-image.webp" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },

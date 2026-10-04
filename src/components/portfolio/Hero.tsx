@@ -31,7 +31,7 @@ export function Hero() {
           >
             <img
               src={amroAvatar}
-              alt="Amro — Software Developer & Automation Engineer"
+              alt="Amro — AI-Native Software Engineer"
               draggable={false}
               className="w-full h-full object-cover object-[center_20%] select-none pointer-events-none"
               style={{
@@ -81,11 +81,15 @@ export function Hero() {
           </div>
 
           <p className="font-mono text-sm text-muted-foreground">
-            @amr0kf · Software Developer &amp; Automation Engineer
+            @amr0kf · AI-Native Software Engineer
           </p>
 
-          <p className="max-w-xl text-muted-foreground text-pretty leading-relaxed">
-            Bridging operations and software — building the systems that make business actually run.
+          <p className="text-base sm:text-lg text-foreground font-medium text-pretty leading-snug">
+            Code-switching between stacks the way Beirut switches between languages.
+          </p>
+
+          <p className="max-w-xl text-muted-foreground text-pretty leading-relaxed text-sm sm:text-base">
+            Bridging operations and software, building full-stack systems and automating internal operations.
           </p>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
