@@ -16,13 +16,15 @@ export function SectionHeader({
   index,
   label,
   title,
+  description,
 }: {
   index: string;
   label: string;
   title: string;
+  description?: string;
 }) {
   return (
-    <div className="mb-8 md:mb-16">
+    <div className="mb-8 md:mb-14">
       <Reveal>
         <div className="flex items-center gap-3 mb-3 md:mb-4">
           <span className="font-mono text-[11px] md:text-xs text-muted-foreground uppercase tracking-[0.25em]">
@@ -35,6 +37,11 @@ export function SectionHeader({
         <h2 className="font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-balance max-w-3xl">
           {title}
         </h2>
+        {description && (
+          <p className="mt-3 md:mt-4 text-sm md:text-base text-muted-foreground/80 max-w-2xl font-normal leading-relaxed text-pretty">
+            {description}
+          </p>
+        )}
       </Reveal>
     </div>
   );

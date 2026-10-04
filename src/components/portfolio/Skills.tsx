@@ -42,7 +42,8 @@ export function Skills() {
         <SectionHeader
           index="03"
           label="Frontier Tooling"
-          title="Production foundations, accelerated at the frontier."
+          title="Stack-agnostic by design. Amplified at the frontier."
+          description="With foundational engineering and frontier AI orchestration, framework boundaries dissolve. Fluency to build, adapt, and ship production systems across any language, framework, or runtime."
         />
 
         {/* Foundation Horizon Datum — 2x2 Grid */}
@@ -61,11 +62,7 @@ export function Skills() {
                     {group.items.map((item) => (
                       <span
                         key={item}
-                        className={`px-2.5 py-0.5 rounded-[4px] border text-[11px] font-mono select-none cursor-default transition-colors ${
-                          item === "SQLite"
-                            ? "border-white/25 bg-white/[0.08] text-white font-medium"
-                            : "border-white/[0.07] bg-white/[0.025] text-zinc-300"
-                        }`}
+                        className="px-2.5 py-0.5 rounded-[4px] border border-white/[0.07] bg-white/[0.025] text-zinc-300 text-[11px] font-mono select-none cursor-default"
                       >
                         {item}
                       </span>
@@ -121,7 +118,7 @@ export function Skills() {
                 Frontier Tooling
               </span>
               <span className="text-zinc-500 text-[10px] tracking-widest font-mono lowercase select-none">
-                et al.
+                universal stack orchestration · et al.
               </span>
             </div>
 
