@@ -57,7 +57,11 @@ export function Skills() {
   return (
     <section id="skills" className="relative py-12 md:py-24 bg-surface/30">
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6">
-        <SectionHeader index="03" label="Capabilities" title="The stack behind the systems." />
+        <SectionHeader
+          index="03"
+          label="Frontier Tooling"
+          title="Production foundations, accelerated at the frontier."
+        />
 
         {/* Compact, mobile-first architectural grid — quiet non-reactive micro-pills */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">

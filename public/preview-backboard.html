@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Frontier Press Wall & Backboard Concepts — Preview</title>
+  <title>Section 03 Frontier Tooling & Stacks Exploration</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -31,12 +31,11 @@
       color: var(--foreground);
       font-family: var(--font-sans);
       min-height: 100vh;
-      padding: 2rem 1.25rem 5rem;
+      padding: 2.5rem 1.25rem 6rem;
       line-height: 1.5;
       overflow-x: hidden;
     }
 
-    /* Ambient noise background */
     body::before {
       content: "";
       position: fixed;
@@ -47,49 +46,47 @@
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
 
-    /* Header Nav Bar */
+    /* Section Header Simulation */
     header {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
       padding-bottom: 2rem;
       border-bottom: 1px solid var(--border);
     }
 
-    .badge-pill {
+    .section-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.35rem 0.85rem;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-strong);
+      gap: 0.6rem;
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: var(--muted);
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
-    .badge-pill .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
+    .section-badge .idx {
+      color: #71717a;
+    }
+
+    .section-badge .divider {
+      width: 1px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.2);
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 2.25rem;
       font-weight: 700;
       letter-spacing: -0.03em;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -98,8 +95,8 @@
     p.subtitle {
       color: var(--muted);
       font-size: 0.95rem;
-      max-width: 650px;
-      margin: 0 auto;
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
     }
 
     /* Switcher Tabs */
@@ -107,7 +104,6 @@
       display: flex;
       justify-content: center;
       gap: 0.5rem;
-      margin-top: 1.5rem;
       flex-wrap: wrap;
     }
 
@@ -118,7 +114,7 @@
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -137,7 +133,7 @@
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
 
-    /* Sections */
+    /* Concept Container */
     .concept-card {
       margin-bottom: 4rem;
       background: rgba(14, 14, 18, 0.6);
@@ -153,7 +149,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
       gap: 1rem;
       flex-wrap: wrap;
     }
@@ -182,20 +178,8 @@
       letter-spacing: 0.05em;
     }
 
-    /* SPECULAR CHROME GRADIENT DEFINITION */
-    .chrome-icon {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      fill: url(#preview-chrome-grad);
-      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
-      transition: transform 0.25s ease, filter 0.25s ease;
-    }
-
-    /* -------------------------------------------------------------------------
-       CONCEPT 1: VIP RED-CARPET STEP-AND-REPEAT (Monolithic Slab + Spotlight)
-       ------------------------------------------------------------------------- */
-    .backboard-c1 {
+    /* Monolithic Obsidian Press Slab */
+    .obsidian-slab {
       position: relative;
       background: #0c0c0f;
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -206,13 +190,12 @@
       -webkit-user-select: none;
     }
 
-    /* Dynamic cursor spotlight layer */
     .spotlight-beam {
       position: absolute;
       top: 0;
       left: 0;
-      width: 380px;
-      height: 380px;
+      width: 420px;
+      height: 420px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 45%, transparent 70%);
       pointer-events: none;
@@ -222,44 +205,36 @@
       z-index: 2;
     }
 
-    .backboard-c1:hover .spotlight-beam {
+    .obsidian-slab:hover .spotlight-beam {
       opacity: 1;
     }
 
-    .backboard-c1-header {
+    .slab-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.75rem 1.25rem;
+      padding: 0.7rem 1.25rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(255, 255, 255, 0.015);
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted-dark);
+      font-size: 0.7rem;
       position: relative;
       z-index: 3;
     }
 
-    .backboard-c1-header .live-status {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .slab-header .title {
       color: #e4e4e7;
+      font-weight: 500;
+      letter-spacing: 0.04em;
     }
 
-    .backboard-c1-header .live-status::before {
-      content: "";
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #e4e4e7;
-      box-shadow: 0 0 8px #ffffff;
+    .slab-header .etal {
+      color: #71717a;
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
     }
 
-    /* The Seamed Wall Grid */
-    .backboard-c1-grid {
+    .slab-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       position: relative;
@@ -267,18 +242,18 @@
     }
 
     @media (min-width: 640px) {
-      .backboard-c1-grid {
+      .slab-grid {
         grid-template-columns: repeat(3, 1fr);
       }
     }
 
     @media (min-width: 1024px) {
-      .backboard-c1-grid {
+      .slab-grid {
         grid-template-columns: repeat(6, 1fr);
       }
     }
 
-    .backboard-c1-cell {
+    .slab-cell {
       position: relative;
       display: flex;
       align-items: center;
@@ -291,8 +266,7 @@
       cursor: default;
     }
 
-    /* Corner crosshairs like architectural press board */
-    .backboard-c1-cell::after {
+    .slab-cell::after {
       content: "+";
       position: absolute;
       bottom: -7px;
@@ -304,7 +278,7 @@
       z-index: 4;
     }
 
-    .backboard-c1-cell span {
+    .slab-cell span {
       font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 500;
@@ -312,307 +286,197 @@
       letter-spacing: 0.03em;
       white-space: nowrap;
       transition: color 0.2s ease;
+      pointer-events: none;
     }
 
-    .backboard-c1-cell:hover span {
+    .slab-cell:hover span {
       color: #ffffff;
     }
 
-    .backboard-c1-cell:hover .chrome-icon {
-      transform: scale(1.1);
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    .chrome-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      fill: url(#chrome-grad);
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+      transition: transform 0.2s ease;
+      pointer-events: none;
     }
 
-    /* Backboard Architectural Footer Sub-Strip */
-    .backboard-c1-footer {
+    .slab-cell:hover .chrome-icon {
+      transform: scale(1.1);
+    }
+
+    /* -------------------------------------------------------------------------
+       DESIGN 01: THE ARCHITECTURAL HORIZON DATUM (Option 2 Pure)
+       ------------------------------------------------------------------------- */
+    .horizon-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.65rem 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      flex-wrap: wrap;
+      user-select: none;
+    }
+
+    .horizon-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .horizon-label {
+      color: #71717a;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .horizon-tag {
+      padding: 0.15rem 0.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0.3rem;
+      color: #d4d4d8;
+      font-size: 0.68rem;
+    }
+
+    .horizon-tag.accent {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* -------------------------------------------------------------------------
+       DESIGN 02: THE INTEGRATED UPPER DECK (One Single Monolith)
+       ------------------------------------------------------------------------- */
+    .deck-top-tier {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
       padding: 0.75rem 1.25rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      background: rgba(10, 10, 14, 0.7);
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       font-family: var(--font-mono);
       font-size: 0.7rem;
-      color: var(--muted);
-      position: relative;
-      z-index: 3;
       flex-wrap: wrap;
     }
 
-    .backboard-footer-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      color: #e4e4e7;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-    }
-
-    .backboard-footer-label .badge-count {
-      padding: 0.1rem 0.4rem;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      font-size: 0.65rem;
-      color: #10b981;
-    }
-
-    .backboard-footer-items {
+    .deck-tier-title {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      color: #a1a1aa;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .deck-tier-items {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
       flex-wrap: wrap;
-      color: #71717a;
+    }
+
+    .deck-pill {
+      padding: 0.12rem 0.45rem;
+      border-radius: 0.25rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e4e4e7;
       font-size: 0.68rem;
     }
 
-    .backboard-footer-items span {
-      transition: color 0.2s ease;
+    /* -------------------------------------------------------------------------
+       DESIGN 03: THE DUAL MONOSPACE SPEC RAILS (Teenage Engineering Vibe)
+       ------------------------------------------------------------------------- */
+    .dual-rail {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      font-family: var(--font-mono);
     }
 
-    .backboard-footer-items span:hover {
-      color: #f4f4f5;
+    @media (min-width: 768px) {
+      .dual-rail {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .rail-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 0.85rem;
+      background: rgba(14, 14, 18, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 0.5rem;
+      font-size: 0.68rem;
+    }
+
+    .rail-box .label {
+      color: #71717a;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .rail-box .tokens {
+      color: #d4d4d8;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
     }
 
     /* -------------------------------------------------------------------------
-       CONCEPT 2: TITANIUM LASER-ETCHED WALL (Brushed Metal + Monogram Tiles)
+       DESIGN 04: THE COMPACT 3-PILLAR HORIZONTAL LEDGER
        ------------------------------------------------------------------------- */
-    .backboard-c2 {
-      position: relative;
-      background: linear-gradient(145deg, #121215 0%, #0a0a0c 100%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05), 0 15px 35px rgba(0, 0, 0, 0.6);
-      overflow: hidden;
-    }
-
-    .backboard-c2::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 8px);
-      pointer-events: none;
-    }
-
-    .backboard-c2-grid {
+    .ledger-row {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.65rem;
-      position: relative;
-      z-index: 2;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
     }
 
-    @media (min-width: 640px) {
-      .backboard-c2-grid {
+    @media (min-width: 768px) {
+      .ledger-row {
         grid-template-columns: repeat(3, 1fr);
       }
     }
 
-    @media (min-width: 1024px) {
-      .backboard-c2-grid {
-        grid-template-columns: repeat(6, 1fr);
-      }
-    }
-
-    .backboard-c2-cell {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1.25rem 0.5rem;
-      background: rgba(22, 22, 26, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 0.65rem;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      transition: all 0.25s ease;
-      text-align: center;
-      cursor: default;
-    }
-
-    .backboard-c2-cell:hover {
-      background: rgba(35, 35, 42, 0.5);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    }
-
-    .backboard-c2-cell .chrome-icon {
-      width: 22px;
-      height: 22px;
-      margin-bottom: 0.45rem;
-    }
-
-    .backboard-c2-cell span {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    /* -------------------------------------------------------------------------
-       CONCEPT 3: CONTINUOUS MARQUEE / RED CARPET RUNWAY (Dynamic Infinite Flow)
-       ------------------------------------------------------------------------- */
-    .backboard-c3 {
-      position: relative;
-      background: #09090b;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 1rem;
-      padding: 1.75rem 0;
-      overflow: hidden;
-    }
-
-    .backboard-c3::before, .backboard-c3::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 80px;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    .backboard-c3::before {
-      left: 0;
-      background: linear-gradient(90deg, #09090b, transparent);
-    }
-
-    .backboard-c3::after {
-      right: 0;
-      background: linear-gradient(270deg, #09090b, transparent);
-    }
-
-    .marquee-row {
-      display: flex;
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-      width: max-content;
-      animation: marqueeSlide 35s linear infinite;
-    }
-
-    .marquee-row.reverse {
-      animation: marqueeSlideReverse 35s linear infinite;
-    }
-
-    .marquee-item {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 0.65rem 1.25rem;
-      background: rgba(255, 255, 255, 0.03);
+    .ledger-col {
+      padding: 0.65rem 0.85rem;
+      background: rgba(18, 18, 22, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 0.5rem;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: #e4e4e7;
-      white-space: nowrap;
     }
 
-    @keyframes marqueeSlide {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    .ledger-col .col-idx {
+      font-size: 0.62rem;
+      color: #71717a;
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
-    @keyframes marqueeSlideReverse {
-      0% { transform: translateX(-50%); }
-      100% { transform: translateX(0); }
-    }
-
-    /* -------------------------------------------------------------------------
-       COMPACT CAPABILITIES PILLARS PREVIEW
-       ------------------------------------------------------------------------- */
-    .pillars-preview {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    @media (min-width: 640px) {
-      .pillars-preview {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .pillar-card {
-      background: rgba(18, 18, 22, 0.6);
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      padding: 0.85rem 1rem;
-    }
-
-    .pillar-card-header {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--foreground);
-    }
-
-    .pillar-card-header .idx {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--muted-dark);
-    }
-
-    .pillar-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-    }
-
-    .pillar-tag {
-      font-family: var(--font-mono);
+    .ledger-col .col-tokens {
       font-size: 0.68rem;
-      padding: 0.15rem 0.45rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 0.3rem;
-      color: var(--muted);
-    }
-
-    /* Interactive Feedback Banner */
-    .vote-panel {
-      position: sticky;
-      bottom: 1.5rem;
-      background: rgba(18, 18, 22, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(16px);
-      padding: 1rem 1.5rem;
-      border-radius: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 700px;
-      margin: 3rem auto 0;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      z-index: 100;
-    }
-
-    .vote-panel p {
-      font-size: 0.85rem;
       color: #e4e4e7;
-    }
-
-    .vote-panel .btn-select {
-      background: #ffffff;
-      color: #09090b;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .vote-panel .btn-select:hover {
-      background: #d4d4d8;
-      transform: scale(1.03);
+      line-height: 1.4;
     }
   </style>
 </head>
@@ -621,7 +485,7 @@
   <!-- Specular Grey Chrome Gradient Definition -->
   <svg class="absolute w-0 h-0 pointer-events-none" style="position: absolute; width: 0; height: 0;" aria-hidden="true" focusable="false">
     <defs>
-      <linearGradient id="preview-chrome-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <linearGradient id="chrome-grad" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stop-color="#FFFFFF" />
         <stop offset="30%" stop-color="#E4E4E7" />
         <stop offset="60%" stop-color="#A1A1AA" />
@@ -633,133 +497,182 @@
 
   <div class="container">
     <header>
-      <div class="badge-pill">
-        <span class="dot"></span> Design Direction Exploration · Section 3
+      <div class="section-badge">
+        <span class="idx">03</span>
+        <span class="divider"></span>
+        <span>Frontier Tooling</span>
       </div>
-      <h1>Frontier Press Wall & Backboard Lab</h1>
+      <h1>Production foundations, accelerated at the frontier.</h1>
       <p class="subtitle">
-        Moving away from clickable "app store button" cards into a monolithic luxury event backdrop. Explore the 3 distinct backboard concepts below with interactive lighting.
+        Replacing the 4 bulky cards with Option 2: keeping the foundational stack (TypeScript, Python, Laravel, SQLite, Postgres) in a sleek, architectural format paired with the frontier board.
       </p>
 
       <div class="tab-bar">
-        <button class="tab-btn active" onclick="scrollToConcept('c1')">01 · VIP Press Wall (Spotlight)</button>
-        <button class="tab-btn" onclick="scrollToConcept('c2')">02 · Titanium Monogram Wall</button>
-        <button class="tab-btn" onclick="scrollToConcept('c3')">03 · Infinite Flow Runway</button>
+        <button class="tab-btn active" onclick="scrollToConcept('v1')">Design 01 · Horizon Datum (Option 2 Pure)</button>
+        <button class="tab-btn" onclick="scrollToConcept('v2')">Design 02 · Integrated Monolith Deck</button>
+        <button class="tab-btn" onclick="scrollToConcept('v3')">Design 03 · Dual Monospace Spec Rails</button>
+        <button class="tab-btn" onclick="scrollToConcept('v4')">Design 04 · Compact 3-Pillar Ledger</button>
       </div>
     </header>
 
-    <!-- Capabilities Compact Preview (Keeps vertical height tight) -->
-    <div style="margin-bottom: 2rem;">
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
-        <span style="font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);">
-          Core Stack Architecture (Compact & Fast)
-        </span>
-        <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #10b981;">✓ SQLite Included</span>
+    <!-- =======================================================================
+         DESIGN 01: THE ARCHITECTURAL HORIZON DATUM (Option 2 Pure)
+         ======================================================================= -->
+    <div id="v1" class="concept-card">
+      <div class="concept-header">
+        <div class="concept-title-group">
+          <h2>Design 01 · The Architectural Horizon Datum (Option 2 Pure)</h2>
+          <p>A single hairline datum bar directly anchored above the obsidian slab. Categorizes Core Code, Data, and Architecture in ~38px height. Zero card bloat.</p>
+        </div>
+        <span class="concept-tag">Lowest Height · High Precision</span>
       </div>
-      <div class="pillars-preview">
-        <div class="pillar-card">
-          <div class="pillar-card-header"><span class="idx">01</span> Core Web Applications</div>
-          <div class="pillar-tags">
-            <span class="pillar-tag">React</span><span class="pillar-tag">TypeScript</span><span class="pillar-tag">Tailwind CSS</span><span class="pillar-tag">Vite</span><span class="pillar-tag">State Architecture</span>
-          </div>
+
+      <!-- The Horizon Bar -->
+      <div class="horizon-bar">
+        <div class="horizon-group">
+          <span class="horizon-label">Code /</span>
+          <span class="horizon-tag">TypeScript</span>
+          <span class="horizon-tag">Python</span>
+          <span class="horizon-tag">PHP / Laravel</span>
+          <span class="horizon-tag">React</span>
         </div>
-        <div class="pillar-card">
-          <div class="pillar-card-header"><span class="idx">02</span> Backend & Databases</div>
-          <div class="pillar-tags">
-            <span class="pillar-tag">PHP / Laravel</span><span class="pillar-tag">Python</span><span class="pillar-tag" style="border-color: rgba(255,255,255,0.25); color: #fff;">SQLite</span><span class="pillar-tag">Supabase</span><span class="pillar-tag">PostgreSQL (RLS)</span><span class="pillar-tag">MySQL</span><span class="pillar-tag">REST APIs</span>
-          </div>
+        <div class="horizon-group">
+          <span class="horizon-label">Data /</span>
+          <span class="horizon-tag accent">SQLite</span>
+          <span class="horizon-tag">PostgreSQL (RLS)</span>
+          <span class="horizon-tag">Supabase</span>
         </div>
-        <div class="pillar-card">
-          <div class="pillar-card-header"><span class="idx">03</span> Automation & AI Pipelines</div>
-          <div class="pillar-tags">
-            <span class="pillar-tag">Python Scripts</span><span class="pillar-tag">LLM Integration</span><span class="pillar-tag">Automated Reporting</span><span class="pillar-tag">Scheduled Cron</span><span class="pillar-tag">Email Triggers</span>
-          </div>
+        <div class="horizon-group">
+          <span class="horizon-label">Systems /</span>
+          <span class="horizon-tag">REST APIs</span>
+          <span class="horizon-tag">Offline-First POS</span>
         </div>
-        <div class="pillar-card">
-          <div class="pillar-card-header"><span class="idx">04</span> Systems & Security</div>
-          <div class="pillar-tags">
-            <span class="pillar-tag">Row-Level Security</span><span class="pillar-tag">OAuth 2.0 Auth</span><span class="pillar-tag">Offline-First POS</span><span class="pillar-tag">Role-Based Access</span>
-          </div>
+      </div>
+
+      <!-- The Slab -->
+      <div class="obsidian-slab" id="slab1">
+        <div class="spotlight-beam" id="beam1"></div>
+        <div class="slab-header">
+          <span class="title">Frontier Tooling</span>
+          <span class="etal">et al.</span>
         </div>
+        <div class="slab-grid" id="grid1"></div>
       </div>
     </div>
 
     <!-- =======================================================================
-         CONCEPT 1: VIP RED-CARPET STEP-AND-REPEAT (The User's Exact Idea)
+         DESIGN 02: THE INTEGRATED MONOLITH DECK
          ======================================================================= -->
-    <div id="c1" class="concept-card">
+    <div id="v2" class="concept-card">
       <div class="concept-header">
         <div class="concept-title-group">
-          <h2>Concept 01 · The VIP Red-Carpet Press Wall</h2>
-          <p>A monolithic obsidian slab. Move your mouse across it—a smooth camera flash / stage spotlight illuminates the metallic chrome marks as you sweep over them. No button borders.</p>
+          <h2>Design 02 · The Integrated Monolith Deck</h2>
+          <p>No separate box above the slab. The foundation stack is integrated into the top tier of the slab itself, separated by a hairline seam. Feels like one continuous physical flight-deck.</p>
         </div>
-        <span class="concept-tag">Interactive Spotlight · 6 × 3 Matrix</span>
+        <span class="concept-tag">100% Unified Slab · Zero Disconnection</span>
       </div>
 
-      <div class="backboard-c1" id="spotlightBoard">
-        <!-- The Spotlight Beam -->
-        <div class="spotlight-beam" id="spotlightBeam"></div>
+      <div class="obsidian-slab" id="slab2">
+        <div class="spotlight-beam" id="beam2"></div>
 
-        <div class="backboard-c1-header">
-          <span style="font-weight: 500; color: #e4e4e7;">Frontier Tooling</span>
-          <span style="color: #71717a; letter-spacing: 0.12em; text-transform: lowercase;">et al.</span>
+        <!-- Upper Foundation Tier Inside the Slab -->
+        <div class="deck-top-tier">
+          <div class="deck-tier-title">
+            <span>Foundational Architecture //</span>
+          </div>
+          <div class="deck-tier-items">
+            <span class="deck-pill">TypeScript</span>
+            <span class="deck-pill">Python</span>
+            <span class="deck-pill">PHP / Laravel</span>
+            <span class="deck-pill" style="border-color: rgba(255,255,255,0.25); color: #fff;">SQLite</span>
+            <span class="deck-pill">PostgreSQL (RLS)</span>
+            <span class="deck-pill">Supabase</span>
+            <span class="deck-pill">REST APIs</span>
+            <span class="deck-pill">Offline POS</span>
+          </div>
         </div>
 
-        <div class="backboard-c1-grid" id="gridContainer1">
-          <!-- Injected via JS for clean markup -->
+        <div class="slab-header">
+          <span class="title">Frontier Tooling</span>
+          <span class="etal">et al.</span>
         </div>
+        <div class="slab-grid" id="grid2"></div>
       </div>
     </div>
 
     <!-- =======================================================================
-         CONCEPT 2: TITANIUM LASER-ETCHED WALL
+         DESIGN 03: DUAL MONOSPACE SPEC RAILS
          ======================================================================= -->
-    <div id="c2" class="concept-card">
+    <div id="v3" class="concept-card">
       <div class="concept-header">
         <div class="concept-title-group">
-          <h2>Concept 02 · The Anodized Titanium Brand Plate</h2>
-          <p>Tactile, laser-stamped monogram tiles with micro-beveled borders and brushed aluminum texture. Built like physical hardware plaques at an engineering symposium.</p>
+          <h2>Design 03 · Dual Monospace Spec Rails (Hardware Packaging Style)</h2>
+          <p>Two hairline monospace telemetry rails floating directly over the slab. Inspired by Braun & Teenage Engineering audio hardware labelling.</p>
         </div>
-        <span class="concept-tag">Tactile Keycap Plates · Micro-Chamfer</span>
+        <span class="concept-tag">Minimalist Telemetry · Balanced</span>
       </div>
 
-      <div class="backboard-c2">
-        <div class="backboard-c2-grid" id="gridContainer2">
-          <!-- Injected via JS -->
+      <div class="dual-rail">
+        <div class="rail-box">
+          <span class="label">Runtimes & Code /</span>
+          <span class="tokens">TypeScript · Python · PHP / Laravel · React</span>
         </div>
+        <div class="rail-box">
+          <span class="label">Storage & Systems /</span>
+          <span class="tokens">SQLite · PostgreSQL (RLS) · Supabase · APIs</span>
+        </div>
+      </div>
+
+      <div class="obsidian-slab" id="slab3">
+        <div class="spotlight-beam" id="beam3"></div>
+        <div class="slab-header">
+          <span class="title">Frontier Tooling</span>
+          <span class="etal">et al.</span>
+        </div>
+        <div class="slab-grid" id="grid3"></div>
       </div>
     </div>
 
     <!-- =======================================================================
-         CONCEPT 3: INFINITE FLOW RUNWAY
+         DESIGN 04: COMPACT 3-PILLAR LEDGER
          ======================================================================= -->
-    <div id="c3" class="concept-card">
+    <div id="v4" class="concept-card">
       <div class="concept-header">
         <div class="concept-title-group">
-          <h2>Concept 03 · The Infinite Red-Carpet Runway</h2>
-          <p>Continuous bi-directional streams of glowing chrome emblems gliding seamlessly. Zero vertical space taken, high motion velocity.</p>
+          <h2>Design 04 · Compact 3-Pillar Ledger</h2>
+          <p>Three clean horizontal micro-columns directly above the slab, grouping Code, Database, and Architecture into quiet one-line badges.</p>
         </div>
-        <span class="concept-tag">Kinetic Marquee · Zero Scroll Bloat</span>
+        <span class="concept-tag">Symmetrical 3-Column · Structured</span>
       </div>
 
-      <div class="backboard-c3">
-        <div class="marquee-row" id="marqueeRow1"></div>
-        <div class="marquee-row reverse" id="marqueeRow2"></div>
+      <div class="ledger-row">
+        <div class="ledger-col">
+          <div class="col-idx">01 Code Runtimes</div>
+          <div class="col-tokens">TypeScript · Python · PHP / Laravel · React</div>
+        </div>
+        <div class="ledger-col">
+          <div class="col-idx">02 Data Engines</div>
+          <div class="col-tokens">SQLite · PostgreSQL (RLS) · Supabase · MySQL</div>
+        </div>
+        <div class="ledger-col">
+          <div class="col-idx">03 Systems & Sec</div>
+          <div class="col-tokens">REST APIs · Row-Level Security · Offline POS</div>
+        </div>
+      </div>
+
+      <div class="obsidian-slab" id="slab4">
+        <div class="spotlight-beam" id="beam4"></div>
+        <div class="slab-header">
+          <span class="title">Frontier Tooling</span>
+          <span class="etal">et al.</span>
+        </div>
+        <div class="slab-grid" id="grid4"></div>
       </div>
     </div>
 
-    <!-- Bottom Sticky Selection Box -->
-    <div class="vote-panel">
-      <div>
-        <p><strong>Ready to bring this into your live portfolio?</strong></p>
-        <span style="font-size: 0.75rem; color: var(--muted);">Click your favorite concept above and let me know which one you'd like applied!</span>
-      </div>
-      <button class="btn-select" onclick="alert('Great choice! Tell me in chat which concept (01, 02, or 03) you prefer, and I will immediately implement and push it!')">Select Direction</button>
-    </div>
   </div>
 
   <script>
-    // 18 Authentic Tools
     const tools = [
       { name: "Claude Code", svg: '<svg viewBox="0 0 24 24" class="chrome-icon"><path d="m4.714 15.956 4.718-2.648.079-.23-.079-.128h-.23l-.79-.049-2.695-.073-2.338-.097-2.264-.121-.571-.122-.534-.704.054-.352.48-.322.686.06 1.518.104 2.277.158 1.651.097 2.447.255h.388l.055-.158-.134-.097-.103-.097-2.531-1.782-2.55-1.688-1.336-.971-.722-.492-.365-.461-.158-1.008.656-.723.88.061.225.06.892.687 1.907 1.475 2.49 1.834.363.303.146-.103.018-.073-.164-.273-1.354-2.447-1.445-2.49-.643-1.031-.17-.62a3.46 3.46 0 0 1-.104-.728L6.287.133 6.7 0l.995.134.42.364.619 1.415 1.001 2.228 1.555 3.03.455.898.243.832.091.255h.158v-.146l.128-1.706.236-2.094.231-2.696.079-.759.376-.91.747-.492.583.28.48.685-.067.443-.285 1.852-.559 2.902-.364 1.943h.212l.243-.243.984-1.305 1.651-2.064.729-.82.85-.905.546-.43h1.032l.759 1.129-.34 1.165-1.062 1.348-.88 1.142-1.263 1.7-.79 1.36.073.109.188-.018 2.854-.607 1.542-.28 1.84-.315.831.388.092.395-.328.807-1.967.486-2.307.461-3.437.814-.042.03.048.061 1.549.146.661.036h1.621l3.018.225.789.522.474.638-.079.485-1.214.62-1.64-.39-3.824-.91-1.312-.328h-.182v.11l1.093 1.068 2.003 1.809 2.508 2.331.127.577-.321.455-.34-.048-2.204-1.658-.85-.747-1.925-1.621h-.128v.17l.444.65 2.343 3.521.122 1.08-.17.353-.608.212-.667-.121-1.373-1.925-1.503-2.046-1.141-1.943-.14.079-.674 7.255-.315.37-.729.28-.607-.462-.322-.746.322-1.476.388-1.924.316-1.53.285-1.9.17-.632-.012-.042-.14.018-1.433 1.967-2.179 2.945-1.725 1.846-.412.164-.717-.37.067-.662.401-.589 2.386-3.036 1.439-1.882.929-1.086-.006-.158h-.055l-6.338 4.116-1.13.146-.485-.455.06-.747.231-.243 1.906-1.311Z"/></svg>' },
       { name: "OpenAI Codex", svg: '<svg viewBox="0 0 24 24" class="chrome-icon"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.98 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.08 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.493zm-9.66-4.65a4.471 4.471 0 0 1-.534-3.013l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.842-3.369v2.332a.08.08 0 0 1-.033.064l-4.83 2.79a4.5 4.5 0 0 1-6.15-1.648zm-1.12-9.61a4.476 4.476 0 0 1 2.342-1.972V11.8a.78.78 0 0 0 .388.677l5.83 3.37-2.02 1.168a.078.078 0 0 1-.073 0l-4.83-2.79A4.504 4.504 0 0 1 2.48 8.17zm16.597 3.855l-5.833-3.37 2.019-1.168a.078.078 0 0 1 .073 0l4.83 2.79a4.499 4.499 0 0 1-.676 8.105v-5.68a.79.79 0 0 0-.413-.677zm2.01-3.023l-.141-.085-4.779-2.76a.776.776 0 0 0-.785 0L9.54 9.527V7.195a.08.08 0 0 1 .033-.064l4.83-2.79a4.5 4.5 0 0 1 6.677 4.56zM10.74 1.57a4.499 4.499 0 0 1 4.494 4.493v5.679a.79.79 0 0 0 .413.677l5.833 3.37-2.019 1.168a.078.078 0 0 1-.073 0l-4.83-2.79a4.504 4.504 0 0 1-3.818-12.597zm-.437 6.442l3.35 1.934a.08.08 0 0 1 0 .138l-3.35 1.934a.08.08 0 0 1-.12-.069V8.08a.08.08 0 0 1 .12-.068z"/></svg>' },
@@ -781,57 +694,36 @@
       { name: "ElevenLabs", svg: '<svg viewBox="0 0 24 24" class="chrome-icon"><rect x="7" y="3.5" width="3.5" height="17" rx="1.75"/><rect x="13.5" y="3.5" width="3.5" height="17" rx="1.75"/></svg>' }
     ];
 
-    // Populate Concept 1 (VIP Press Wall)
-    const grid1 = document.getElementById("gridContainer1");
-    grid1.innerHTML = tools.map(t => `
-      <div class="backboard-c1-cell">
+    const makeGridHTML = () => tools.map(t => `
+      <div class="slab-cell">
         ${t.svg}
         <span>${t.name}</span>
       </div>
     `).join("");
 
-    // Populate Concept 2 (Titanium Wall)
-    const grid2 = document.getElementById("gridContainer2");
-    grid2.innerHTML = tools.map(t => `
-      <div class="backboard-c2-cell">
-        ${t.svg}
-        <span>${t.name}</span>
-      </div>
-    `).join("");
+    // Populate all 4 grids
+    document.getElementById("grid1").innerHTML = makeGridHTML();
+    document.getElementById("grid2").innerHTML = makeGridHTML();
+    document.getElementById("grid3").innerHTML = makeGridHTML();
+    document.getElementById("grid4").innerHTML = makeGridHTML();
 
-    // Populate Concept 3 (Runway Marquee)
-    const row1 = document.getElementById("marqueeRow1");
-    const row2 = document.getElementById("marqueeRow2");
-    const half = Math.ceil(tools.length / 2);
-    const set1 = tools.slice(0, half);
-    const set2 = tools.slice(half);
-
-    const makeMarqueeHTML = (items) => {
-      const double = [...items, ...items, ...items];
-      return double.map(t => `
-        <div class="marquee-item">
-          ${t.svg}
-          <span>${t.name}</span>
-        </div>
-      `).join("");
+    // Spotlight tracking setup
+    const setupSpotlight = (slabId, beamId) => {
+      const slab = document.getElementById(slabId);
+      const beam = document.getElementById(beamId);
+      slab.addEventListener("mousemove", (e) => {
+        const rect = slab.getBoundingClientRect();
+        beam.style.left = `${e.clientX - rect.left}px`;
+        beam.style.top = `${e.clientY - rect.top}px`;
+      });
     };
 
-    row1.innerHTML = makeMarqueeHTML(set1);
-    row2.innerHTML = makeMarqueeHTML(set2);
+    setupSpotlight("slab1", "beam1");
+    setupSpotlight("slab2", "beam2");
+    setupSpotlight("slab3", "beam3");
+    setupSpotlight("slab4", "beam4");
 
-    // Interactive Spotlight Logic for Concept 1
-    const board = document.getElementById("spotlightBoard");
-    const beam = document.getElementById("spotlightBeam");
-
-    board.addEventListener("mousemove", (e) => {
-      const rect = board.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      beam.style.left = `${x}px`;
-      beam.style.top = `${y}px`;
-    });
-
-    // Smooth Scroll Helper
+    // Scroll helper
     function scrollToConcept(id) {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'center' });
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
