@@ -127,15 +127,12 @@ export function Skills() {
               </defs>
             </svg>
 
-            {/* Backboard Header Telemetry */}
-            <div className="flex items-center justify-between px-4 py-2.5 sm:px-5 sm:py-3 border-b border-white/[0.06] bg-white/[0.02] font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground/70 relative z-[3]">
-              <div className="flex items-center gap-2 text-foreground/90 font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-                <span>Frontier Engineering Backboard</span>
-              </div>
-              <div className="text-zinc-500 text-[10px] tracking-widest font-mono lowercase">
-                18 pinned // &amp; etc.
-              </div>
+            {/* Header */}
+            <div className="flex items-center justify-between px-4 py-2.5 sm:px-5 sm:py-3 border-b border-white/[0.06] bg-white/[0.015] font-mono text-[11px] relative z-[3]">
+              <span className="text-zinc-300 font-medium tracking-wide">Frontier Tooling</span>
+              <span className="text-zinc-500 text-[10px] tracking-widest font-mono lowercase select-none">
+                et al.
+              </span>
             </div>
 
             {/* Monolithic Seamed Grid — Zero Button Boxes */}
@@ -157,14 +154,6 @@ export function Skills() {
                   </span>
                 </div>
               ))}
-            </div>
-
-            {/* Subliminal Architectural Footer Ribbon */}
-            <div className="flex items-center justify-between px-4 py-2 sm:px-5 border-t border-white/[0.04] bg-white/[0.01] font-mono text-[10px] text-zinc-600 relative z-[3] select-none">
-              <span className="tracking-wider uppercase text-[9px] text-zinc-600">
-                Frontier Workspace Matrix
-              </span>
-              <span className="tracking-widest text-zinc-500 font-mono">[ + ET AL. ]</span>
             </div>
           </div>
         </Reveal>
