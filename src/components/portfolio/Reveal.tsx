@@ -17,11 +17,13 @@ export function SectionHeader({
   label,
   title,
   description,
+  titleClassName,
 }: {
   index: string;
   label: string;
-  title: string;
+  title: ReactNode;
   description?: string;
+  titleClassName?: string;
 }) {
   return (
     <div className="mb-8 md:mb-14">
@@ -34,7 +36,11 @@ export function SectionHeader({
         </div>
       </Reveal>
       <Reveal delay={0.1}>
-        <h2 className="font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-balance max-w-3xl">
+        <h2
+          className={`font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-semibold tracking-tight ${
+            titleClassName ? titleClassName : "text-balance max-w-3xl"
+          }`}
+        >
           {title}
         </h2>
         {description && (
