@@ -209,7 +209,7 @@ export const projects: Project[] = [
     year: "2026",
     featured: true,
     isNda: true,
-    outcomeChip: "Orders go straight to the owner's WhatsApp. No commission.",
+    outcomeChip: "Orders confirm via customer WhatsApp for cash on delivery. No commission.",
     coverImage: "/projects/fragrance-storefront/01-catalog-storefront.webp",
     screenshotMode: "mobile",
     brandNote:

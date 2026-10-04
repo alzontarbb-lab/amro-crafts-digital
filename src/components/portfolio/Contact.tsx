@@ -72,15 +72,10 @@ export function Contact() {
         <div className="grid md:grid-cols-[1fr_1.2fr] gap-6 md:gap-14">
           <Reveal>
             <div className="space-y-6">
-              <div className="space-y-3">
-                <p className="text-base sm:text-lg text-pretty text-muted-foreground max-w-md leading-relaxed">
-                  Whether it's a system that needs building, a workflow that needs automating, or an
-                  idea you want to put into production, I'm listening.
-                </p>
-                <p className="text-sm font-mono text-muted-foreground/90">
-                  Don't see your stack above? Tell me what it is.
-                </p>
-              </div>
+              <p className="text-base sm:text-lg text-pretty text-muted-foreground max-w-md leading-relaxed">
+                Whether it's a system that needs building, a workflow that needs automating, or an
+                idea you want to put into production, I'm listening.
+              </p>
 
               <div className="space-y-3 font-mono text-xs sm:text-sm">
                 <a

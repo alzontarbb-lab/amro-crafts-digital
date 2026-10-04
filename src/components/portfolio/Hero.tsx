@@ -84,12 +84,8 @@ export function Hero() {
             @amr0kf · AI-Native Software Engineer
           </p>
 
-          <p className="text-base sm:text-lg text-foreground font-medium text-pretty leading-snug">
-            Code-switching between stacks the way Beirut switches between languages.
-          </p>
-
-          <p className="max-w-xl text-muted-foreground text-pretty leading-relaxed text-sm sm:text-base">
-            Bridging operations and software, building full-stack systems and automating internal operations.
+          <p className="max-w-xl text-muted-foreground text-pretty leading-relaxed">
+            Bridging operations and software, building the systems that make business actually run.
           </p>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
