@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Reveal, SectionHeader } from "./Reveal";
-import { motion, AnimatePresence } from "motion/react";
 
 const groups = [
   {
@@ -41,7 +40,6 @@ const groups = [
 
 export function Skills() {
   const [spotlightPos, setSpotlightPos] = useState({ x: 0, y: 0, opacity: 0 });
-  const [showDrawer, setShowDrawer] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -133,10 +131,10 @@ export function Skills() {
             <div className="flex items-center justify-between px-4 py-2.5 sm:px-5 sm:py-3 border-b border-white/[0.06] bg-white/[0.02] font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground/70 relative z-[3]">
               <div className="flex items-center gap-2 text-foreground/90 font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-                <span>Frontier Engineering Backboard · 18 Active Accelerators</span>
+                <span>Frontier Engineering Backboard</span>
               </div>
-              <div className="hidden sm:block text-muted-foreground/60 text-[10px]">
-                Curated Frontier Core // 45+ Production Ecosystem
+              <div className="text-zinc-500 text-[10px] tracking-widest font-mono lowercase">
+                18 pinned // &amp; etc.
               </div>
             </div>
 
@@ -161,109 +159,13 @@ export function Skills() {
               ))}
             </div>
 
-            {/* Architectural Footer Sub-Strip Signaling Stack Depth */}
-            <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-5 border-t border-white/[0.06] bg-black/40 font-mono text-[10px] sm:text-[11px] relative z-[3]">
-              <div className="flex items-center gap-2">
-                <span className="text-foreground/90 font-semibold tracking-wider uppercase text-[10px]">
-                  + Extended Ecosystem
-                </span>
-                <span className="px-1.5 py-0.5 rounded-full bg-white/[0.08] border border-white/[0.12] text-[9px] text-emerald-400">
-                  28+ Tools
-                </span>
-              </div>
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground/60 text-[10px] sm:text-[11px]">
-                <span>Redis</span>
-                <span className="text-white/20">·</span>
-                <span>Linux / Bash</span>
-                <span className="text-white/20">·</span>
-                <span>Prisma ORM</span>
-                <span className="text-white/20">·</span>
-                <span>Tailwind CSS</span>
-                <span className="text-white/20">·</span>
-                <span>Bun</span>
-                <span className="text-white/20">·</span>
-                <span>Next.js</span>
-                <span className="text-white/20">·</span>
-                <span>Postman</span>
-                <span className="text-white/20">·</span>
-                <span>Neon DB</span>
-                <span className="text-white/20">·</span>
-                <span>LangChain</span>
-                <span className="text-white/20">·</span>
-                <span>Figma</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowDrawer((v) => !v)}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-white/15 bg-white/[0.03] hover:bg-white/[0.08] text-foreground/80 hover:text-white transition-all text-[10px] cursor-pointer"
-              >
-                {showDrawer ? "− Close Inventory" : "+ Architecture Inventory"}
-              </button>
+            {/* Subliminal Architectural Footer Ribbon */}
+            <div className="flex items-center justify-between px-4 py-2 sm:px-5 border-t border-white/[0.04] bg-white/[0.01] font-mono text-[10px] text-zinc-600 relative z-[3] select-none">
+              <span className="tracking-wider uppercase text-[9px] text-zinc-600">
+                Frontier Workspace Matrix
+              </span>
+              <span className="tracking-widest text-zinc-500 font-mono">[ + ET AL. ]</span>
             </div>
-
-            {/* Collapsible Architecture Inventory Drawer */}
-            <AnimatePresence>
-              {showDrawer && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="overflow-hidden border-t border-white/[0.06] bg-black/60 relative z-[3]"
-                >
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-4 sm:p-5">
-                    <div>
-                      <h4 className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/80 mb-2.5">
-                        Languages &amp; Runtimes
-                      </h4>
-                      <ul className="space-y-1.5 font-mono text-[11px] text-zinc-400">
-                        <li>TypeScript &amp; JavaScript</li>
-                        <li>Python 3.12+ (FastAPI / Scripts)</li>
-                        <li>PHP 8.2+ / Modern Laravel</li>
-                        <li>Node.js / Bun Runtime</li>
-                        <li>Bash / POSIX Shell Scripting</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/80 mb-2.5">
-                        Data &amp; Storage Engines
-                      </h4>
-                      <ul className="space-y-1.5 font-mono text-[11px] text-zinc-400">
-                        <li>SQLite / libSQL / Turso Cloud</li>
-                        <li>PostgreSQL (Supabase RLS)</li>
-                        <li>MySQL &amp; MariaDB</li>
-                        <li>Redis In-Memory Caching</li>
-                        <li>Prisma ORM &amp; Drizzle</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/80 mb-2.5">
-                        AI &amp; Model Systems
-                      </h4>
-                      <ul className="space-y-1.5 font-mono text-[11px] text-zinc-400">
-                        <li>Claude 3.7 / Anthropic API</li>
-                        <li>OpenAI Codex / GPT-4o / O3-Mini</li>
-                        <li>LangChain / Vector Embeddings</li>
-                        <li>Hugging Face Open Weights</li>
-                        <li>Ollama Local Inference Workflows</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/80 mb-2.5">
-                        Cloud &amp; Production Ops
-                      </h4>
-                      <ul className="space-y-1.5 font-mono text-[11px] text-zinc-400">
-                        <li>Cloudflare Workers / Pages / DNS</li>
-                        <li>Docker Containerization</li>
-                        <li>Vercel Edge Platform</li>
-                        <li>GitHub Actions CI/CD</li>
-                        <li>Linux VPS &amp; Nginx Reverse Proxy</li>
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
         </Reveal>
       </div>

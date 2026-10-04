@@ -374,85 +374,6 @@
       color: #f4f4f5;
     }
 
-    .btn-expand-stack {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #e4e4e7;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 0.35rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: all 0.2s ease;
-    }
-
-    .btn-expand-stack:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.3);
-      color: #ffffff;
-    }
-
-    /* Extended Drawer */
-    .extended-stack-drawer {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.3s ease;
-      background: rgba(8, 8, 11, 0.95);
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      position: relative;
-      z-index: 3;
-      padding: 0 1.25rem;
-    }
-
-    .extended-stack-drawer.open {
-      max-height: 250px;
-      opacity: 1;
-      padding: 1.25rem;
-    }
-
-    .extended-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .extended-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    .extended-col h4 {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .extended-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-
-    .extended-col li {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: #71717a;
-      transition: color 0.15s ease;
-    }
-
-    .extended-col li:hover {
-      color: #e4e4e7;
-    }
-
     /* -------------------------------------------------------------------------
        CONCEPT 2: TITANIUM LASER-ETCHED WALL (Brushed Metal + Monogram Tiles)
        ------------------------------------------------------------------------- */
@@ -778,72 +699,18 @@
         <div class="spotlight-beam" id="spotlightBeam"></div>
 
         <div class="backboard-c1-header">
-          <div class="live-status">Frontier Engineering Backboard · 18 Active Accelerators</div>
-          <div>Curated Frontier Core // 45+ Production Ecosystem</div>
+          <div class="live-status">Frontier Engineering Backboard</div>
+          <div style="color: #71717a; letter-spacing: 0.12em; text-transform: lowercase;">18 pinned // &amp; etc.</div>
         </div>
 
         <div class="backboard-c1-grid" id="gridContainer1">
           <!-- Injected via JS for clean markup -->
         </div>
 
-        <!-- Architectural Sub-Strip Signaling Depth (Option A) -->
-        <div class="backboard-c1-footer">
-          <div class="backboard-footer-label">
-            <span>+ EXTENDED ECOSYSTEM</span>
-            <span class="badge-count">28+ Tools</span>
-          </div>
-          <div class="backboard-footer-items">
-            <span>Redis</span>·<span>Linux / Bash</span>·<span>Prisma ORM</span>·<span>Tailwind CSS</span>·<span>Bun</span>·<span>Next.js</span>·<span>Postman</span>·<span>Neon DB</span>·<span>LangChain</span>·<span>Figma</span>
-          </div>
-          <button class="btn-expand-stack" onclick="toggleExtendedDrawer()">
-            <span id="drawerToggleText">+ View Architecture Inventory</span>
-          </button>
-        </div>
-
-        <!-- Collapsible Architecture Inventory Drawer (Option B) -->
-        <div class="extended-stack-drawer" id="extendedDrawer">
-          <div class="extended-grid">
-            <div class="extended-col">
-              <h4>Languages & Runtimes</h4>
-              <ul>
-                <li>TypeScript & JavaScript (ESNext)</li>
-                <li>Python 3.12+ / FastAPI / Scripts</li>
-                <li>PHP 8.2+ / Modern Laravel</li>
-                <li>Node.js / Bun Runtime</li>
-                <li>Bash / POSIX Shell Scripting</li>
-              </ul>
-            </div>
-            <div class="extended-col">
-              <h4>Data & Storage Engines</h4>
-              <ul>
-                <li>SQLite / libSQL / Turso Cloud</li>
-                <li>PostgreSQL (Supabase RLS)</li>
-                <li>MySQL & MariaDB</li>
-                <li>Redis In-Memory Caching</li>
-                <li>Prisma ORM & Drizzle</li>
-              </ul>
-            </div>
-            <div class="extended-col">
-              <h4>AI & Model Systems</h4>
-              <ul>
-                <li>Claude 3.7 / Anthropic API</li>
-                <li>OpenAI Codex / GPT-4o / O3-Mini</li>
-                <li>LangChain / Vector Embeddings</li>
-                <li>Hugging Face Open Weights</li>
-                <li>Ollama Local Inference Workflows</li>
-              </ul>
-            </div>
-            <div class="extended-col">
-              <h4>Cloud & Production Ops</h4>
-              <ul>
-                <li>Cloudflare Workers / Pages / DNS</li>
-                <li>Docker Containerization</li>
-                <li>Vercel Edge Platform</li>
-                <li>GitHub Actions CI/CD</li>
-                <li>Linux VPS & Nginx Reverse Proxy</li>
-              </ul>
-            </div>
-          </div>
+        <!-- Subliminal Architectural Footer Ribbon -->
+        <div class="backboard-c1-footer" style="padding: 0.5rem 1.25rem; font-size: 0.65rem; color: #71717a;">
+          <span style="letter-spacing: 0.1em; text-transform: uppercase;">Frontier Workspace Matrix</span>
+          <span style="letter-spacing: 0.15em; color: #a1a1aa; font-weight: 500;">[ + ET AL. ]</span>
         </div>
       </div>
     </div>
@@ -967,19 +834,6 @@
       beam.style.left = `${x}px`;
       beam.style.top = `${y}px`;
     });
-
-    // Toggle Extended Inventory Drawer
-    function toggleExtendedDrawer() {
-      const drawer = document.getElementById("extendedDrawer");
-      const label = document.getElementById("drawerToggleText");
-      if (drawer.classList.contains("open")) {
-        drawer.classList.remove("open");
-        label.innerText = "+ View Architecture Inventory";
-      } else {
-        drawer.classList.add("open");
-        label.innerText = "- Close Inventory";
-      }
-    }
 
     // Smooth Scroll Helper
     function scrollToConcept(id) {
