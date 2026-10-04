@@ -1,43 +1,21 @@
 import { Reveal, SectionHeader } from "./Reveal";
 import { motion } from "motion/react";
-import { Layers, Database, Cpu, ShieldCheck } from "lucide-react";
 
-interface SkillGroup {
-  index: string;
-  label: string;
-  icon: React.ComponentType<{ className?: string }>;
-  description: string;
-  items: string[];
-}
-
-const groups: SkillGroup[] = [
+const groups = [
   {
     index: "01",
     label: "Core Web Applications",
-    icon: Layers,
-    description:
-      "High-performance reactive interfaces, modular design systems, and deterministic client state.",
-    items: [
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "Vite",
-      "State Architecture",
-      "Component Systems",
-    ],
+    items: ["React", "TypeScript", "Tailwind CSS", "Vite", "State Architecture"],
   },
   {
     index: "02",
     label: "Backend & Databases",
-    icon: Database,
-    description:
-      "Relational schema modeling, ACID transactions, edge replication, and low-latency RESTful APIs.",
     items: [
       "PHP / Laravel",
       "Python",
       "SQLite",
-      "PostgreSQL (RLS)",
       "Supabase",
+      "PostgreSQL (RLS)",
       "MySQL",
       "REST APIs",
     ],
@@ -45,110 +23,64 @@ const groups: SkillGroup[] = [
   {
     index: "03",
     label: "Automation & AI Pipelines",
-    icon: Cpu,
-    description:
-      "Autonomous agentic tool loops, automated data reporting, scheduled batch cron, and LLM integrations.",
     items: [
       "Python Scripts",
       "LLM Integration",
       "Automated Reporting",
       "Scheduled Cron",
       "Email Triggers",
-      "Data Pipelines",
     ],
   },
   {
     index: "04",
     label: "Systems & Security",
-    icon: ShieldCheck,
-    description:
-      "Granular tenant isolation, cryptographic auth workflows, air-gapped sync, and strict RBAC enforcement.",
-    items: [
-      "Row-Level Security",
-      "OAuth 2.0 Auth",
-      "Offline-First POS",
-      "Role-Based Access",
-      "Audit Trails",
-    ],
+    items: ["Row-Level Security", "OAuth 2.0 Sign-In", "Offline-First POS", "Role-Based Access"],
   },
 ];
 
 export function Skills() {
   return (
-    <section id="skills" className="relative py-14 md:py-28 bg-surface/30">
+    <section id="skills" className="relative py-12 md:py-28 bg-surface/30">
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6">
         <SectionHeader index="03" label="Capabilities" title="The stack behind the systems." />
 
-        {/* Elevated Bento Grid — Architectural Hierarchy & Tactile Finish */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5">
-          {groups.map((g, gi) => {
-            const Icon = g.icon;
-            return (
-              <Reveal key={g.label} delay={gi * 0.05}>
-                <div className="group relative h-full flex flex-col justify-between overflow-hidden rounded-2xl border border-border/70 bg-card/50 p-5 sm:p-6 backdrop-blur-sm transition-all duration-300 hover:border-zinc-400/40 hover:bg-card/75 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
-                  {/* Subtle Top Specular Edge Sheen */}
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-400/20 to-transparent group-hover:via-zinc-300/40 transition-opacity"
-                  />
-                  {/* Ambient Corner Accent */}
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute -bottom-10 -right-10 w-36 h-36 rounded-full bg-zinc-500/5 blur-2xl group-hover:bg-zinc-400/10 transition-colors"
-                  />
-
-                  <div>
-                    {/* Header: Micro Index & Icon & Title */}
-                    <div className="flex items-center gap-3 mb-2.5">
-                      <div className="p-2 rounded-xl border border-border/80 bg-background/80 text-muted-foreground group-hover:text-foreground group-hover:border-zinc-400/40 group-hover:bg-background transition-all shadow-xs">
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">
-                          Pillar {g.index}
-                        </span>
-                        <h3 className="font-display text-base sm:text-lg font-semibold text-foreground tracking-tight leading-tight">
-                          {g.label}
-                        </h3>
-                      </div>
-                    </div>
-
-                    {/* Architectural Thesis */}
-                    <p className="text-xs sm:text-[13px] text-muted-foreground/80 leading-relaxed mb-4">
-                      {g.description}
-                    </p>
-                  </div>
-
-                  {/* Tech Stack Chips */}
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-3 border-t border-border/40">
-                    {g.items.map((it, i) => (
-                      <motion.span
-                        key={it}
-                        initial={{ opacity: 0, y: 3 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.02, duration: 0.25 }}
-                        className="inline-flex items-center px-2.5 py-1 rounded-lg border border-border/75 bg-background/70 font-mono text-xs text-foreground/85 hover:text-foreground hover:border-zinc-400/50 hover:bg-background transition-all duration-150 cursor-default shadow-xs"
-                      >
-                        {it}
-                      </motion.span>
-                    ))}
-                  </div>
+        {/* Compact, mobile-first grid layout — eliminates vertical dead space */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+          {groups.map((g, gi) => (
+            <Reveal key={g.label} delay={gi * 0.05}>
+              <div className="group rounded-xl border border-border/70 bg-card/60 p-4 md:p-5 hover:border-foreground/30 transition-colors">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-mono text-[10px] text-muted-foreground/70 tracking-wider">
+                    {g.index}
+                  </span>
+                  <div className="h-2 w-px bg-border" />
+                  <h3 className="font-display text-sm md:text-base font-medium text-foreground tracking-tight">
+                    {g.label}
+                  </h3>
                 </div>
-              </Reveal>
-            );
-          })}
+
+                <div className="flex flex-wrap gap-1.5 md:gap-2">
+                  {g.items.map((it, i) => (
+                    <motion.span
+                      key={it}
+                      initial={{ opacity: 0, y: 4 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.02, duration: 0.3 }}
+                      className="px-2.5 py-1 rounded-md border border-border/80 bg-background/80 text-xs font-mono text-foreground/80 hover:text-foreground hover:border-foreground/40 transition-colors cursor-default"
+                    >
+                      {it}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
 
-        {/* Frontier & Agentic Tooling — Specular Grey Chrome Strip */}
+        {/* Frontier & Agentic Tooling — Minimalist Grey Chrome Strip */}
         <Reveal delay={0.25}>
-          <div className="mt-4 sm:mt-5 p-4 sm:p-5 rounded-2xl border border-border/70 bg-card/40 relative overflow-hidden backdrop-blur-sm">
-            {/* Top Specular Sheen */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-400/25 to-transparent"
-            />
-
+          <div className="mt-4 sm:mt-5 p-3.5 sm:p-4 rounded-xl border border-border/70 bg-card/40">
             {/* Specular Grey Chrome Gradient Definition */}
             <svg
               className="absolute w-0 h-0 pointer-events-none"
@@ -166,15 +98,10 @@ export function Skills() {
               </defs>
             </svg>
 
-            <div className="flex items-center justify-between gap-2 mb-3.5">
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-300" />
-                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground/80 font-medium">
-                  Frontier &amp; Engineering Tooling
-                </span>
-              </div>
-              <span className="font-mono text-[10px] text-muted-foreground/50 tracking-wider hidden sm:inline-block">
-                12 Specialized Tools
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
+              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-muted-foreground/70">
+                Frontier &amp; Engineering Tooling
               </span>
             </div>
 
@@ -182,7 +109,7 @@ export function Skills() {
               {frontierTools.map((t) => (
                 <div
                   key={t.name}
-                  className="group flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl border border-border/60 bg-background/60 hover:border-zinc-400/40 hover:bg-background/90 transition-all cursor-default shadow-xs"
+                  className="group flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-lg border border-border/60 bg-background/60 hover:border-zinc-400/40 hover:bg-background/90 transition-all cursor-default"
                 >
                   <div className="w-4 h-4 shrink-0 transition-transform group-hover:scale-110 group-hover:brightness-125">
                     {t.icon}
@@ -291,20 +218,10 @@ const frontierTools = [
   {
     name: "Higgsfield",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none">
-        <rect
-          x="2.5"
-          y="2.5"
-          width="19"
-          height="19"
-          rx="5"
-          stroke="url(#chrome-grad)"
-          strokeWidth="1.6"
-        />
+      <svg viewBox="0 0 24 24" className="w-4 h-4" fill="url(#chrome-grad)">
         <path
-          fill="url(#chrome-grad)"
           fillRule="evenodd"
-          d="M9.83 5.57 L10.81 5.72 L11.49 6.22 L11.82 6.98 L11.82 7.81 L11.49 8.68 L11.06 9.26 L10.34 9.98 L8.71 11.17 L8.06 11.89 L7.96 12.58 L8.1 12.97 L8.32 13.19 L8.82 13.37 L9.62 13.01 L10.27 12.36 L11.82 10.3 L12.83 9.22 L13.59 8.68 L14.45 8.39 L15.61 8.5 L16.4 8.97 L16.84 9.44 L17.27 10.19 L17.56 11.06 L17.67 11.86 L18.79 11.89 L18.79 13.48 L17.67 13.52 L17.49 14.96 L16.91 16.55 L16.04 17.67 L15.07 18.25 L14.13 18.39 L13.44 18.25 L12.97 17.99 L12.32 17.27 L12.14 16.87 L12.04 16.12 L12.22 15.29 L12.61 14.45 L13.16 13.7 L13.84 13.01 L14.85 12.32 L16.33 11.86 L16.3 11.35 L16.08 10.84 L15.72 10.45 L15.39 10.27 L15.0 10.16 L14.31 10.19 L13.34 10.74 L12.32 11.82 L10.66 14.06 L10.01 14.71 L9.36 15.14 L8.75 15.32 L8.17 15.32 L7.67 15.18 L7.13 14.89 L6.44 14.02 L6.22 13.34 L6.19 12.69 L6.3 12.11 L6.55 11.57 L7.34 10.59 L9.47 8.97 L10.05 8.39 L10.3 7.99 L10.38 7.49 L10.05 7.02 L9.87 6.95 L9.47 7.02 L9.0 7.31 L7.63 8.64 L6.98 9.0 L6.3 9.18 L5.65 9.15 L5.18 8.97 L5.18 7.49 L5.83 7.63 L6.51 7.52 L7.16 7.13 L8.53 5.97 L9.22 5.68 L9.83 5.57 Z M16.22 13.48 L16.01 14.82 L15.47 15.97 L14.96 16.51 L14.56 16.73 L14.24 16.77 L13.91 16.62 L13.7 16.37 L13.66 15.86 L14.13 14.89 L15.0 14.02 L15.65 13.66 L16.22 13.48 Z"
+          d="M9.0 3.05 L10.36 3.26 L11.32 3.96 L11.77 5.02 L11.77 6.18 L11.32 7.39 L10.71 8.19 L9.71 9.2 L7.44 10.87 L6.53 11.87 L6.38 12.83 L6.58 13.39 L6.88 13.69 L7.59 13.94 L8.7 13.44 L9.61 12.53 L11.77 9.66 L13.18 8.14 L14.24 7.39 L15.45 6.99 L17.06 7.14 L18.17 7.79 L18.78 8.45 L19.38 9.51 L19.79 10.71 L19.94 11.82 L21.5 11.87 L21.5 14.09 L19.94 14.14 L19.69 16.16 L18.88 18.38 L17.67 19.94 L16.31 20.74 L15.0 20.95 L14.04 20.74 L13.39 20.39 L12.48 19.38 L12.23 18.83 L12.08 17.77 L12.33 16.61 L12.88 15.45 L13.64 14.39 L14.6 13.44 L16.01 12.48 L18.07 11.82 L18.02 11.12 L17.72 10.41 L17.22 9.86 L16.76 9.61 L16.21 9.45 L15.25 9.51 L13.89 10.26 L12.48 11.77 L10.16 14.9 L9.25 15.81 L8.35 16.41 L7.49 16.66 L6.68 16.66 L5.98 16.46 L5.22 16.06 L4.26 14.85 L3.96 13.89 L3.91 12.98 L4.06 12.18 L4.42 11.42 L5.52 10.06 L8.5 7.79 L9.3 6.99 L9.66 6.43 L9.76 5.73 L9.3 5.07 L9.05 4.97 L8.5 5.07 L7.84 5.47 L5.93 7.34 L5.02 7.84 L4.06 8.09 L3.16 8.04 L2.5 7.79 L2.5 5.73 L3.41 5.93 L4.36 5.78 L5.27 5.22 L7.19 3.61 L8.14 3.21 L9.0 3.05 Z M17.92 14.09 L17.62 15.96 L16.86 17.57 L16.16 18.32 L15.6 18.63 L15.15 18.68 L14.7 18.48 L14.39 18.12 L14.34 17.42 L15.0 16.06 L16.21 14.85 L17.12 14.34 L17.92 14.09 Z"
         />
       </svg>
     ),
